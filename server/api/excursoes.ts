@@ -23,7 +23,7 @@ export default defineEventHandler(async (event) => {
         lugar: body.lugar,
         preco: Number(body.preco),
         vagas: Number(body.vagas),
-        guiaId: body.guiaId ? Number(body.guiaId) : null, // SALVA O GUIA
+        guiaId: body.guiaId ? Number(body.guiaId) : null, 
       },
     });
   }

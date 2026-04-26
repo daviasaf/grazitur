@@ -12,5 +12,5 @@ onMounted(() => {
     setInterval(() => {
       $fetch('/api/ping').catch(() => {})
     }, 10 * 60 * 1000) 
-})
+}})
 </script>
