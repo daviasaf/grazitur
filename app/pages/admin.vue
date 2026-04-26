@@ -199,7 +199,7 @@
                                     </button>
                                     <button class="btn btn-primary flex-fill rounded-3 py-2 fw-bold small"
                                         @click="abrirVincular(u)">
-                                        Add Viagem
+                                        Adicionar em Viagem
                                     </button>
                                     <button class="btn btn-outline-danger px-3 rounded-3 py-2 fw-bold"
                                         @click="pedirConfirmacao('user', u.id, 'Excluir Passageiro', 'Deseja excluir permanentemente este passageiro?')"
