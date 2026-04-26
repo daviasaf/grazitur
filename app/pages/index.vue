@@ -13,15 +13,12 @@
                         <h3 class="text-success fw-bold mb-3">✔ Cadastro Realizado!</h3>
                         <p class="text-muted mb-4">Seus dados foram salvos com segurança.</p>
                         <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
-                            <button class="btn btn-outline-secondary px-4 py-2 fw-bold"
-                                @click="finalizar">Finalizar</button>
-                            <button class="btn btn-primary px-4 py-2 fw-bold" @click="cadastrarFamiliar">Cadastrar
-                                Familiar ou Amigo</button>
+                            <button class="btn btn-primary px-5 py-2 fw-bold" @click="novoCadastro">Fazer Novo
+                                Cadastro</button>
                         </div>
                     </div>
 
                     <div v-else class="card border-0 shadow-lg p-4 p-md-5">
-
                         <div v-if="erroForm" class="alert alert-danger small fw-bold">{{ erroForm }}</div>
 
                         <div class="row g-3">
@@ -64,17 +61,6 @@
                                 <input v-model="formUser.endereco" type="text" class="form-control bg-light">
                             </div>
 
-                            <div class="col-12 mt-4">
-                                <div class="p-3 bg-primary bg-opacity-10 border border-primary rounded">
-                                    <label class="form-label small text-primary fw-bold mb-1">Este cadastro é de um
-                                        familiar/amigo?</label>
-                                    <input v-model="formUser.cpfFamiliar" type="text" class="form-control"
-                                        placeholder="Se sim, digite o seu CPF para registrar como parente no sistema">
-                                    <small class="text-muted mt-1 d-block">Deixe em branco se este for o seu próprio
-                                        cadastro.</small>
-                                </div>
-                            </div>
-
                             <div class="col-12 mt-4 text-end">
                                 <button class="btn btn-primary fw-bold px-5 py-2 w-100" @click="enviarCadastro"
                                     :disabled="carregando">
@@ -93,11 +79,10 @@
 <script setup>
 import { ref } from 'vue'
 
-const formUser = ref({ nome: '', cpf: '', rg: '', orgaoExpeditor: '', nascimento: '', celular: '', cidade: '', endereco: '', cpfFamiliar: '' })
+const formUser = ref({ nome: '', cpf: '', rg: '', orgaoExpeditor: '', nascimento: '', celular: '', cidade: '', endereco: '' })
 const erroForm = ref('')
 const cadastroSucesso = ref(false)
 const carregando = ref(false)
-const ultimoCpfCadastrado = ref('')
 
 const enviarCadastro = async () => {
     erroForm.value = ''
@@ -117,9 +102,6 @@ const enviarCadastro = async () => {
         const payload = { ...formUser.value, nascimento: dataFormatada }
 
         await $fetch('/api/users', { method: 'POST', body: payload })
-
-        // Salva o CPF que acabou de ser registrado para caso ele queira atrelar um parente
-        ultimoCpfCadastrado.value = formUser.value.cpf
         cadastroSucesso.value = true
 
     } catch (e) {
@@ -129,14 +111,8 @@ const enviarCadastro = async () => {
     }
 }
 
-const cadastrarFamiliar = () => {
-    // Limpa o formulário, mas preenche o CPF do familiar automaticamente com o CPF do titular
-    formUser.value = { nome: '', cpf: '', rg: '', orgaoExpeditor: '', nascimento: '', celular: '', cidade: '', endereco: '', cpfFamiliar: ultimoCpfCadastrado.value }
-    cadastroSucesso.value = false
-}
-
-const finalizar = () => {
-    formUser.value = { nome: '', cpf: '', rg: '', orgaoExpeditor: '', nascimento: '', celular: '', cidade: '', endereco: '', cpfFamiliar: '' }
+const novoCadastro = () => {
+    formUser.value = { nome: '', cpf: '', rg: '', orgaoExpeditor: '', nascimento: '', celular: '', cidade: '', endereco: '' }
     cadastroSucesso.value = false
 }
 </script>

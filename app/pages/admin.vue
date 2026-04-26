@@ -15,9 +15,12 @@
 
                 <div class="d-flex justify-content-between align-items-center mb-5">
                     <h1 class="fw-bold text-primary">Painel de Excursões</h1>
-                    <button class="btn btn-success shadow-sm px-4 py-2" @click="abrirModalExcursao()">
-                        Criar Nova Excursão
-                    </button>
+                    <div>
+                        <button class="btn btn-outline-danger shadow-sm px-4 py-2 me-2 fw-bold"
+                            @click="fazerLogout">Sair do Painel</button>
+                        <button class="btn btn-success shadow-sm px-4 py-2 fw-bold" @click="abrirModalExcursao()">+ Nova
+                            Excursão</button>
+                    </div>
                 </div>
 
                 <div class="mb-5">
@@ -286,7 +289,7 @@
                     <div class="modal-content border-0 shadow-lg">
 
                         <div class="modal-header bg-primary text-white py-3">
-                            <h5 class="modal-title fw-bold">{{ formUser.id ? 'Editar Cadastro de Passageiro' : 'NovoCadastro de Passageiro' }}</h5>
+                            <h5 class="modal-title fw-bold">{{ formUser.id ? 'Editar Cadastro de Passageiro' : 'Novo Cadastro de Passageiro' }}</h5>
                             <button class="btn-close btn-close-white" @click="modalUser = false"></button>
                         </div>
 
@@ -385,8 +388,8 @@
                                         <div v-for="u in usuariosParaParenteFiltrados" :key="u.id"
                                             class="list-group-item py-2 px-3 small d-flex justify-content-between align-items-center border-0 border-bottom"
                                             :class="{ 'bg-light': u.jaAdicionado }">
-                                            <span class="fw-bold text-dark" :class="{ 'text-success': u.jaAdicionado }">{{
-                                                u.nome }}</span>
+                                            <span class="fw-bold text-dark"
+                                                :class="{ 'text-success': u.jaAdicionado }">{{ u.nome }}</span>
                                             <button class="btn btn-sm fw-bold"
                                                 :class="u.jaAdicionado ? 'btn-success' : 'btn-outline-primary'"
                                                 :disabled="u.jaAdicionado" @click="adicionarParenteNoForm(u)">
@@ -435,27 +438,40 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 
-// ==========================================
-// LOGIN ADMIN
-// ==========================================
 const logado = ref(false)
 const senha = ref('')
 const erroLogin = ref('')
+
+// NOVA FUNÇÃO: Checa se já está logado ao carregar a página
+onMounted(() => {
+    if (import.meta.client && localStorage.getItem('graziTurAdmin') === 'true') {
+        logado.value = true
+        carregar()
+    }
+})
 
 const fazerLogin = async () => {
     erroLogin.value = ''
     try {
         await $fetch('/api/auth', { method: 'POST', body: { password: senha.value } })
         logado.value = true
-        carregar() // Carrega os dados só se a senha estiver certa!
+        // NOVA FUNÇÃO: Salva a memória do login
+        if (import.meta.client) localStorage.setItem('graziTurAdmin', 'true')
+        carregar()
     } catch (e) {
         erroLogin.value = e.data?.message || 'Senha incorreta ou erro no servidor.'
     }
 }
 
-// ==========================================
-// ESTADOS DA APLICAÇÃO (PAINEL)
-// ==========================================
+// NOVA FUNÇÃO: Para deslogar e apagar a memória
+const fazerLogout = () => {
+    logado.value = false
+    senha.value = ''
+    if (import.meta.client) localStorage.removeItem('graziTurAdmin')
+    usuarios.value = []
+    excursoes.value = []
+}
+
 const usuarios = ref([])
 const excursoes = ref([])
 const buscaUser = ref('')
@@ -477,12 +493,11 @@ const formUser = ref({
 })
 const buscaParenteModal = ref('')
 
-// ==========================================
-// CARREGAMENTO DE DADOS
-// ==========================================
+// NOVA FUNÇÃO: Adicionado a hora "?t=" na URL para FORÇAR o Render a dar os dados novos (Quebrador de Cache)
 const carregar = async () => {
-    usuarios.value = await $fetch('/api/users')
-    excursoes.value = await $fetch('/api/excursoes?includeUsers=true')
+    const timestamp = new Date().getTime()
+    usuarios.value = await $fetch(`/api/users?t=${timestamp}`)
+    excursoes.value = await $fetch(`/api/excursoes?includeUsers=true&t=${timestamp}`)
 }
 
 const usuariosFiltrados = computed(() => {
@@ -497,9 +512,6 @@ const guiasDisponiveis = computed(() => {
     return usuarios.value.filter(u => u.isGuia)
 })
 
-// ==========================================
-// EXCURSÕES
-// ==========================================
 const abrirModalExcursao = () => {
     formEx.value = { id: null, nome: '', lugar: '', preco: '', vagas: '', guiaId: null }
     modalCriarExcursao.value = true
@@ -537,9 +549,6 @@ const prepararEdicaoEx = (ex) => {
     modalCriarExcursao.value = true
 }
 
-// ==========================================
-// GERENCIAMENTO DE PASSAGEIROS E GUIAS
-// ==========================================
 const prepararNovoUser = () => {
     formUser.value = { id: null, nome: '', cpf: '', rg: '', orgaoExpeditor: '', nascimento: '', celular: '', cidade: '', endereco: '', idade: '', isGuia: false, parentesSelecionados: [] }
     buscaParenteModal.value = ''
@@ -609,9 +618,6 @@ const removerParenteDoForm = (index) => {
     formUser.value.parentesSelecionados.splice(index, 1)
 }
 
-// ==========================================
-// VINCULAÇÃO E PARENTES (Excursão)
-// ==========================================
 const parentesDoUsuarioSelecionado = computed(() => {
     if (!userParaVincular.value) return []
     const lista = [...(userParaVincular.value.parentes || []), ...(userParaVincular.value.parentesDe || [])]
@@ -652,9 +658,6 @@ const removerUserDaEx = async (userId, excursaoId) => {
     exSelecionada.value = excursoes.value.find(e => e.id === excursaoId)
 }
 
-// ==========================================
-// GERAÇÃO DE PDF
-// ==========================================
 const baixarListaPDF = async (excursao) => {
     if (!import.meta.client) return;
 
@@ -715,9 +718,6 @@ const baixarListaPDF = async (excursao) => {
         alert("Ocorreu um erro na biblioteca de PDF.")
     }
 }
-
-// Quando a página carrega, ela não vai baixar os dados do banco até o login ser feito!
-// O onMounted foi removido para não gastar chamadas ao banco atoa.
 </script>
 
 <style scoped>
