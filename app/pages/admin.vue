@@ -56,7 +56,9 @@
                             <div class="card h-100 shadow-sm border-0 btn-card bg-white rounded-4"
                                 @click="abrirGerenciarExcursao(ex)">
                                 <div class="card-body p-4 d-flex flex-column">
-                                    <h5 class="card-title text-primary fw-bold fs-5 mb-2">{{ ex.nome }}</h5>
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <h5 class="card-title text-primary fw-bold fs-5 mb-0">{{ ex.nome }}</h5>
+                                    </div>
                                     <p class="card-text text-muted small mb-4"><svg xmlns="http://www.w3.org/2000/svg"
                                             width="12" height="12" fill="currentColor" class="me-1" viewBox="0 0 16 16">
                                             <path
@@ -457,18 +459,18 @@
                             <button class="btn-close btn-close-white" @click="modalGerenciarEx = false"></button>
                         </div>
                         <div class="modal-body p-3 p-md-4 bg-white">
-                            <div v-if="exSelecionada.valores && exSelecionada.valores.length > 0" class="mb-4">
-                                <h6 class="small fw-bold text-secondary text-uppercase mb-2 text-center text-md-start">
-                                    Opções de Pagamento Ativas</h6>
-                                <div class="d-flex flex-wrap gap-2 justify-content-center justify-content-md-start">
+                            <div v-if="exSelecionada.valores && exSelecionada.valores.length > 0"
+                                class="mb-4 p-3 bg-light rounded-3 border border-light text-center text-sm-start">
+                                <h6 class="small fw-bold text-secondary text-uppercase mb-2">Opções de Pagamento</h6>
+                                <div class="d-flex flex-wrap gap-2 justify-content-center justify-content-sm-start">
                                     <span v-for="(v, i) in exSelecionada.valores" :key="i"
-                                        class="badge bg-success bg-opacity-10 text-success border border-success px-3 py-2 fs-6 rounded-pill">
+                                        class="badge bg-success text-white px-3 py-2 fs-6 rounded-pill shadow-sm">
                                         {{ v.vezes }}x de R$ {{ v.valor }}
                                     </span>
                                 </div>
                             </div>
                             <div
-                                class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4 p-3 bg-light rounded-3 shadow-sm border gap-3">
+                                class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4 p-3 bg-white rounded-3 shadow-sm border gap-3">
                                 <span class="small fw-bold text-secondary text-center w-100 text-md-start">{{
                                     exSelecionada.usuarios.length }} / {{ exSelecionada.vagas }} vagas ocupadas</span>
                                 <div class="d-flex flex-column flex-sm-row gap-2 w-100 w-md-auto">
@@ -478,7 +480,7 @@
                                         :disabled="exSelecionada.usuarios.length === 0 || !exSelecionada.guiaId">Baixar
                                         PDF</button>
                                     <button
-                                        class="btn btn-outline-success fw-bold flex-fill rounded-3 px-4 py-2 text-nowrap bg-white"
+                                        class="btn btn-outline-success fw-bold flex-fill rounded-3 px-4 py-2 text-nowrap"
                                         @click="baixarListaExcel(exSelecionada)"
                                         :disabled="exSelecionada.usuarios.length === 0 || !exSelecionada.guiaId">Baixar
                                         Excel</button>
@@ -491,12 +493,9 @@
                                 <table class="table table-hover align-middle mb-0">
                                     <thead class="table-light text-muted small text-uppercase">
                                         <tr>
-                                            <th class="ps-4 py-3 border-0 text-start w-50" style="font-size: 0.75rem;">
-                                                Nome</th>
-                                            <th class="py-3 border-0 text-center w-25" style="font-size: 0.75rem;">CPF
-                                            </th>
-                                            <th class="pe-4 py-3 border-0 text-end w-25" style="font-size: 0.75rem;">
-                                                Ação</th>
+                                            <th class="ps-4 py-3 border-0 text-start" style="width: 45%;">Nome</th>
+                                            <th class="py-3 border-0 text-center" style="width: 35%;">CPF</th>
+                                            <th class="pe-4 py-3 border-0 text-end" style="width: 20%;">Ação</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -505,14 +504,16 @@
                                             <td class="text-muted small py-3 text-center">{{ p.cpf || '-' }}</td>
                                             <td class="pe-4 py-3 text-end">
                                                 <button class="btn btn-sm btn-light text-danger rounded-3 px-3 fw-bold"
-                                                    @click="removerUserDaEx(p.id, exSelecionada.id)"><svg
-                                                        xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                    @click="removerUserDaEx(p.id, exSelecionada.id)"
+                                                    title="Remover da Viagem">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                                         fill="currentColor" viewBox="0 0 16 16">
                                                         <path
                                                             d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
                                                         <path fill-rule="evenodd"
                                                             d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
-                                                    </svg></button>
+                                                    </svg>
+                                                </button>
                                             </td>
                                         </tr>
                                         <tr v-if="exSelecionada.usuarios.length === 0">
@@ -524,7 +525,7 @@
                             </div>
                         </div>
                         <div class="modal-footer p-4 bg-light border-top rounded-bottom-4">
-                            <button class="btn btn-outline-primary fw-bold w-100 py-3 rounded-3 bg-white"
+                            <button class="btn btn-outline-primary fw-bold w-100 py-3 rounded-3"
                                 @click="prepararEdicaoEx(exSelecionada)">Editar Dados da Viagem</button>
                         </div>
                     </div>
@@ -560,7 +561,7 @@
                                     class="alert alert-success py-3 mb-4 fw-bold text-center border-0 rounded-3 shadow-sm">
                                     ✔ Adicionado!</div>
                                 <div v-if="parentesDoUsuarioSelecionado.length > 0">
-                                    <h6 class="fw-bold mb-3 text-secondary">Adicionar parentes?</h6>
+                                    <h6 class="fw-bold mb-3 text-secondary">Adicionar parentes também?</h6>
                                     <div class="d-flex flex-column gap-2">
                                         <div v-for="parente in parentesDoUsuarioSelecionado" :key="parente.id"
                                             class="p-3 bg-white rounded-3 shadow-sm border d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-3"
@@ -590,10 +591,8 @@
         </div>
     </div>
 </template>
-
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-
 const toasts = ref([])
 const showToast = (message, type = 'success') => {
     const id = Date.now() + Math.random()
@@ -601,7 +600,6 @@ const showToast = (message, type = 'success') => {
     setTimeout(() => { toasts.value = toasts.value.filter(t => t.id !== id) }, 4000)
 }
 const removerToast = (id) => { toasts.value = toasts.value.filter(t => t.id !== id) }
-
 const modalConfirm = ref(false)
 const confirmType = ref('')
 const confirmId = ref(null)
@@ -613,7 +611,6 @@ const pedirConfirmacao = (tipo, id, titulo, texto) => {
 const executarConfirmacao = async () => {
     modalConfirm.value = false; if (confirmType.value === 'excursao') { await confirmarDelecaoExcursao(confirmId.value) } else if (confirmType.value === 'user') { await confirmarDelecaoUser(confirmId.value) }
 }
-
 const logado = ref(false)
 const senha = ref('')
 const erroLogin = ref('')
@@ -631,7 +628,6 @@ const fazerLogout = () => {
     logado.value = false; senha.value = ''; if (import.meta.client) localStorage.removeItem('graziTurAdmin')
     usuarios.value = []; excursoes.value = []
 }
-
 const usuarios = ref([])
 const excursoes = ref([])
 const buscaUser = ref('')
@@ -649,16 +645,14 @@ const formUser = ref({ id: null, nome: '', email: '', cpf: '', orgaoExpeditor: '
 const buscaParenteModal = ref('')
 const novoValor = ref('')
 const novasVezes = ref('')
-
 const adicionarValorExcursao = () => {
     if (novoValor.value && novasVezes.value) {
         if (!formEx.value.valores) formEx.value.valores = []
-        formEx.value.valores.push({ valor: parseFloat(novoValor.value), vezes: parseInt(novasVezes.value) })
+        formEx.value.valores = [...formEx.value.valores, { valor: parseFloat(novoValor.value), vezes: parseInt(novasVezes.value) }]
         novoValor.value = ''; novasVezes.value = ''
     }
 }
-const removerValorExcursao = (index) => { formEx.value.valores.splice(index, 1) }
-
+const removerValorExcursao = (index) => { formEx.value.valores = formEx.value.valores.filter((_, i) => i !== index) }
 const formatarData = (event) => {
     let v = event.target.value.replace(/\D/g, '')
     if (v.length >= 5) { v = v.replace(/(\d{2})(\d{2})(\d{1,4})/, '$1/$2/$3') }
@@ -681,7 +675,6 @@ const validarCPF = (cpf) => {
     if (resto !== parseInt(cpf.substring(10, 11))) return false
     return true
 }
-
 const carregar = async () => {
     const timestamp = new Date().getTime()
     usuarios.value = await $fetch(`/api/users?t=${timestamp}`)
@@ -691,40 +684,36 @@ const carregar = async () => {
         if (ex.valores) { try { val = typeof ex.valores === 'string' ? JSON.parse(ex.valores) : ex.valores } catch (e) { } }
         return { ...ex, valores: Array.isArray(val) ? val : [] }
     })
+    if (exSelecionada.value) {
+        const atualizada = excursoes.value.find(e => e.id === exSelecionada.value.id)
+        if (atualizada) exSelecionada.value = atualizada
+    }
 }
-
 const usuariosFiltrados = computed(() => {
     if (!buscaUser.value) return usuarios.value
     return usuarios.value.filter(u => u.nome.toLowerCase().includes(buscaUser.value.toLowerCase()) || (u.cpf && u.cpf.includes(buscaUser.value)))
 })
 const guiasDisponiveis = computed(() => usuarios.value.filter(u => u.isGuia))
-
 const abrirModalExcursao = () => { formEx.value = { id: null, nome: '', lugar: '', vagas: '', guiaId: null, valores: [] }; modalCriarExcursao.value = true }
-
 const salvarExcursao = async () => {
     const method = formEx.value.id ? 'PUT' : 'POST'; const url = formEx.value.id ? `/api/excursoes/${formEx.value.id}` : '/api/excursoes'
     const payload = { ...formEx.value, valores: JSON.stringify(formEx.value.valores || []) }
-    try { await $fetch(url, { method, body: payload }); showToast('Sucesso!', 'success'); fecharExcursao(); carregar() } catch (e) { showToast('Erro!', 'danger') }
+    try { await $fetch(url, { method, body: payload }); showToast('Sucesso!', 'success'); fecharExcursao(); await carregar() } catch (e) { showToast('Erro!', 'danger') }
 }
-
 const confirmarDelecaoExcursao = async (id) => {
-    try { await $fetch(`/api/excursoes/${id}`, { method: 'DELETE' }); showToast('Apagado!', 'success'); fecharExcursao(); carregar() } catch (e) { showToast('Erro!', 'danger') }
+    try { await $fetch(`/api/excursoes/${id}`, { method: 'DELETE' }); showToast('Apagado!', 'success'); fecharExcursao(); await carregar() } catch (e) { showToast('Erro!', 'danger') }
 }
-
 const abrirGerenciarExcursao = (ex) => { exSelecionada.value = excursoes.value.find(e => e.id === ex.id); modalGerenciarEx.value = true }
 const fecharExcursao = () => { modalCriarExcursao.value = false; modalGerenciarEx.value = false }
 const prepararEdicaoEx = (ex) => { formEx.value = { ...ex, valores: ex.valores ? [...ex.valores] : [] }; modalGerenciarEx.value = false; modalCriarExcursao.value = true }
-
 const prepararNovoUser = () => {
     ignorarRegras.value = false; formUser.value = { id: null, nome: '', email: '', cpf: '', orgaoExpeditor: '', nascimento: '', celular: '', cidade: '', endereco: '', idade: '', isGuia: false, parentesSelecionados: [] }; buscaParenteModal.value = ''; modalUser.value = true
 }
-
 const prepararEdicaoUser = (u) => {
     ignorarRegras.value = false
     const listaBruta = [...(u.parentes || []), ...(u.parentesDe || [])]; const listaParentes = [...new Map(listaBruta.map(item => [item.id, item])).values()]
     formUser.value = { id: u.id, nome: u.nome, email: u.email, cpf: u.cpf, orgaoExpeditor: u.orgaoExpeditor, nascimento: u.nascimento, celular: u.celular, idade: u.idade, cidade: u.cidade, endereco: u.endereco, isGuia: u.isGuia, parentesSelecionados: listaParentes }; buscaParenteModal.value = ''; modalUser.value = true
 }
-
 const salvarUser = async () => {
     if (!ignorarRegras.value) {
         const campos = ['nome', 'email', 'cpf', 'nascimento', 'orgaoExpeditor', 'celular', 'cidade', 'endereco']
@@ -735,44 +724,36 @@ const salvarUser = async () => {
     }
     const payload = { ...formUser.value, parentesIds: formUser.value.parentesSelecionados.map(p => p.id) }
     const method = formUser.value.id ? 'PUT' : 'POST'; const url = formUser.value.id ? `/api/users/${formUser.value.id}` : '/api/users'
-    try { await $fetch(url, { method, body: payload }); showToast('Salvo!', 'success'); modalUser.value = false; carregar() } catch (e) { showToast('Erro!', 'danger') }
+    try { await $fetch(url, { method, body: payload }); showToast('Salvo!', 'success'); modalUser.value = false; await carregar() } catch (e) { showToast('Erro!', 'danger') }
 }
-
 const confirmarDelecaoUser = async (id) => {
-    try { await $fetch(`/api/users/${id}`, { method: 'DELETE' }); showToast('Removido!', 'success'); carregar() } catch (e) { showToast('Erro!', 'danger') }
+    try { await $fetch(`/api/users/${id}`, { method: 'DELETE' }); showToast('Removido!', 'success'); await carregar() } catch (e) { showToast('Erro!', 'danger') }
 }
-
 const usuariosParaParenteFiltrados = computed(() => {
     if (!buscaParenteModal.value) return []
     return usuarios.value.filter(u => u.id !== formUser.value.id && u.nome.toLowerCase().includes(buscaParenteModal.value.toLowerCase())).map(u => ({ ...u, jaAdicionado: formUser.value.parentesSelecionados.some(p => p.id === u.id) })).slice(0, 5)
 })
 const adicionarParenteNoForm = (user) => { if (!formUser.value.parentesSelecionados.some(p => p.id === user.id)) { formUser.value.parentesSelecionados = [...formUser.value.parentesSelecionados, user]; } }
 const removerParenteDoForm = (index) => { formUser.value.parentesSelecionados.splice(index, 1) }
-
 const parentesDoUsuarioSelecionado = computed(() => {
     if (!userParaVincular.value) return []
     const listaBruta = [...(userParaVincular.value.parentes || []), ...(userParaVincular.value.parentesDe || [])]; const listaUnica = [...new Map(listaBruta.map(item => [item.id, item])).values()]
     return listaUnica.map(p => ({ ...p, adicionado: false }))
 })
-
 const abrirVincular = (u) => { userParaVincular.value = u; excursaoVinculada.value = null; parentesAdicionadosNaSessao.value = []; modalVincular.value = true }
 const fecharModalVincular = () => { modalVincular.value = false; excursaoVinculada.value = null; carregar() }
-
 const vincularMainUser = async (userId, excursao) => {
     if (excursao.guiaId === userId) { showToast('Guia da viagem!', 'warning'); return }
-    try { await $fetch('/api/vincular', { method: 'POST', body: { userId, excursaoId: excursao.id } }); excursaoVinculada.value = excursao; showToast('Adicionado!', 'success') } catch (e) { showToast('Erro!', 'danger') }
+    try { await $fetch('/api/vincular', { method: 'POST', body: { userId, excursaoId: excursao.id } }); excursaoVinculada.value = excursao; showToast('Adicionado!', 'success'); await carregar() } catch (e) { showToast('Erro!', 'danger') }
 }
-
 const vincularParente = async (parente, excursaoId) => {
     if (parentesAdicionadosNaSessao.value.includes(parente.id)) return
     if (excursaoVinculada.value && excursaoVinculada.value.guiaId === parente.id) { showToast('É o Guia!', 'warning'); return }
-    try { await $fetch('/api/vincular', { method: 'POST', body: { userId: parente.id, excursaoId } }); parentesAdicionadosNaSessao.value.push(parente.id); showToast('Adicionado!', 'success') } catch (e) { showToast('Erro!', 'danger') }
+    try { await $fetch('/api/vincular', { method: 'POST', body: { userId: parente.id, excursaoId } }); parentesAdicionadosNaSessao.value.push(parente.id); showToast('Adicionado!', 'success'); await carregar() } catch (e) { showToast('Erro!', 'danger') }
 }
-
 const removerUserDaEx = async (userId, excursaoId) => {
-    try { await $fetch('/api/desvincular', { method: 'POST', body: { userId, excursaoId } }); await carregar(); exSelecionada.value = excursoes.value.find(e => e.id === excursaoId); showToast('Removido!', 'success') } catch (e) { showToast('Erro!', 'danger') }
+    try { await $fetch('/api/desvincular', { method: 'POST', body: { userId, excursaoId } }); await carregar(); showToast('Removido!', 'success') } catch (e) { showToast('Erro!', 'danger') }
 }
-
 const baixarListaPDF = async (excursao) => {
     if (!import.meta.client) return;
     try {
@@ -792,7 +773,6 @@ const baixarListaPDF = async (excursao) => {
         doc.save(`Lista_${excursao.nome.replace(/\s+/g, '_')}.pdf`); showToast('Sucesso!', 'success')
     } catch (error) { showToast('Erro no PDF!', 'danger') }
 }
-
 const baixarListaExcel = (excursao) => {
     let listaCompleta = [...excursao.usuarios]
     if (excursao.guia) {
@@ -809,7 +789,6 @@ const baixarListaExcel = (excursao) => {
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' }); const link = document.createElement("a"); const url = URL.createObjectURL(blob); link.setAttribute("href", url); link.setAttribute("download", `Lista_${excursao.nome.replace(/\s+/g, '_')}.csv`); link.style.visibility = 'hidden'; document.body.appendChild(link); link.click(); document.body.removeChild(link); showToast('Planilha gerada!', 'success')
 }
 </script>
-
 <style scoped>
 .btn-card {
     transition: transform 0.2s ease;
