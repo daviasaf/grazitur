@@ -13,7 +13,6 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 404, message: "Excursão não encontrada." });
   }
 
-  // 2. Verifica se a excursão já está lotada
   if (excursao._count.usuarios >= excursao.vagas) {
     throw createError({
       statusCode: 400,
