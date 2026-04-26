@@ -15,6 +15,7 @@ export default defineEventHandler(async (event) => {
       where: { id },
       data: {
         nome: body.nome,
+        email: body.email,
         cpf: body.cpf,
         rg: body.rg,
         orgaoExpeditor: body.orgaoExpeditor,

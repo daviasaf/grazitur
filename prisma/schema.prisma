@@ -11,6 +11,7 @@ datasource db {
 model User {
   id              Int      @id @default(autoincrement())
   nome            String
+  email           String?  
   cpf             String   @unique
   rg              String?
   orgaoExpeditor  String?
