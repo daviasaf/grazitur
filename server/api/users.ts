@@ -14,11 +14,9 @@ export default defineEventHandler(async (event) => {
   if (method === "POST") {
     const body = await readBody(event);
 
-    // Arrays de parentes para conectar
     let parentesToConnect =
       body.parentesIds?.map((id: number) => ({ id })) || [];
 
-    // Lógica Nova: Se o passageiro digitou o CPF de um familiar
     if (body.cpfFamiliar) {
       const familiar = await prisma.user.findUnique({
         where: { cpf: body.cpfFamiliar },
@@ -50,7 +48,6 @@ export default defineEventHandler(async (event) => {
         },
       });
     } catch (e: any) {
-      // Captura o erro de CPF Duplicado no banco
       if (e.code === "P2002") {
         throw createError({
           statusCode: 400,

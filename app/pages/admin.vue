@@ -442,7 +442,6 @@ const logado = ref(false)
 const senha = ref('')
 const erroLogin = ref('')
 
-// NOVA FUNÇÃO: Checa se já está logado ao carregar a página
 onMounted(() => {
     if (import.meta.client && localStorage.getItem('graziTurAdmin') === 'true') {
         logado.value = true
@@ -455,7 +454,6 @@ const fazerLogin = async () => {
     try {
         await $fetch('/api/auth', { method: 'POST', body: { password: senha.value } })
         logado.value = true
-        // NOVA FUNÇÃO: Salva a memória do login
         if (import.meta.client) localStorage.setItem('graziTurAdmin', 'true')
         carregar()
     } catch (e) {
@@ -463,7 +461,6 @@ const fazerLogin = async () => {
     }
 }
 
-// NOVA FUNÇÃO: Para deslogar e apagar a memória
 const fazerLogout = () => {
     logado.value = false
     senha.value = ''
@@ -493,7 +490,6 @@ const formUser = ref({
 })
 const buscaParenteModal = ref('')
 
-// NOVA FUNÇÃO: Adicionado a hora "?t=" na URL para FORÇAR o Render a dar os dados novos (Quebrador de Cache)
 const carregar = async () => {
     const timestamp = new Date().getTime()
     usuarios.value = await $fetch(`/api/users?t=${timestamp}`)

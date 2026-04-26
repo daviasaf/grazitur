@@ -23,7 +23,7 @@ export default defineEventHandler(async (event) => {
         cidade: body.cidade,
         endereco: body.endereco,
         idade: body.idade ? Number(body.idade) : null,
-        isGuia: body.isGuia || false, // ATUALIZA SE É GUIA
+        isGuia: body.isGuia || false,
         parentes: {
           set: body.parentesIds?.map((id: number) => ({ id })) || [],
         },

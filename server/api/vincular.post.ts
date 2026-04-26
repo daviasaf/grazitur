@@ -4,7 +4,6 @@ const prisma = new PrismaClient();
 export default defineEventHandler(async (event) => {
   const { userId, excursaoId } = await readBody(event);
 
-  // 1. Busca a excursão para checar as vagas
   const excursao = await prisma.excursao.findUnique({
     where: { id: excursaoId },
     include: { _count: { select: { usuarios: true } } },
@@ -22,7 +21,6 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  // 3. Verifica se o usuário já está nesta excursão para não duplicar
   const user = await prisma.user.findUnique({
     where: { id: userId },
     include: { excursoes: true },
@@ -36,7 +34,6 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  // 4. Vincula o usuário
   await prisma.user.update({
     where: { id: userId },
     data: {

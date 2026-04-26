@@ -3,3 +3,14 @@
     <NuxtPage />
   </div>
 </template>
+
+<script setup>
+import { onMounted } from 'vue'
+
+onMounted(() => {
+  if (import.meta.client) {
+    setInterval(() => {
+      $fetch('/api/ping').catch(() => {})
+    }, 10 * 60 * 1000) 
+})
+</script>
