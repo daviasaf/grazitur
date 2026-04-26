@@ -21,9 +21,9 @@ export default defineEventHandler(async (event) => {
       data: {
         nome: body.nome,
         lugar: body.lugar,
-        preco: Number(body.preco),
         vagas: Number(body.vagas),
-        guiaId: body.guiaId ? Number(body.guiaId) : null, 
+        guiaId: body.guiaId ? Number(body.guiaId) : null,
+        valores: body.valores,
       },
     });
   }

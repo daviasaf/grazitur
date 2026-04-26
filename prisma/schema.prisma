@@ -36,11 +36,9 @@ model Excursao {
   id          Int      @id @default(autoincrement())
   nome        String
   lugar       String
-  preco       Float
   vagas       Int
-  
+  valores   String?  @default("[]")
   usuarios    User[]   @relation("UserExcursao")
-
   guiaId      Int?
   guia        User?    @relation("GuiaExcursao", fields: [guiaId], references: [id])
 

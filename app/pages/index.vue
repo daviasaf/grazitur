@@ -3,13 +3,11 @@
         <div class="container px-3 px-md-0">
             <div class="row justify-content-center">
                 <div class="col-12 col-lg-8">
-
                     <div v-if="telaObrigado" class="card border-0 shadow-sm p-4 p-md-5 text-center rounded-4 bg-white">
                         <h2 class="fw-bold text-success mb-3">Obrigado por se cadastrar ✨</h2>
                         <p class="text-muted fs-5">Grazi Turismo agradece sua confiança.</p>
                         <p class="fw-bold text-primary mt-3 fs-4 border-bottom pb-4">Obrigado por viajar com a gente 🚍
                         </p>
-
                         <div class="mt-4">
                             <button class="btn btn-outline-primary px-4 py-2 fw-bold rounded-pill shadow-sm"
                                 @click="voltarAoInicio">
@@ -17,18 +15,15 @@
                                     class="bi bi-arrow-left me-2" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd"
                                         d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
-                                </svg>
-                                Voltar ao formulário
+                                </svg> Voltar ao formulário
                             </button>
                         </div>
                     </div>
-
                     <div v-else>
                         <div class="text-center mb-4">
                             <h2 class="fw-bold text-primary fs-3 fs-md-2">{{ tituloFormulario }}</h2>
                             <p class="text-muted small">Preencha seus dados para viajar conosco.</p>
                         </div>
-
                         <div v-if="cadastroSucesso"
                             class="card border-0 shadow-sm p-4 p-md-5 text-center rounded-4 bg-white">
                             <h3 class="text-success fw-bold mb-3 fs-4">✔ Cadastro Realizado!</h3>
@@ -41,70 +36,59 @@
                                     @click="abrirModal('familiar')">Cadastrar Familiar ou Amigo</button>
                             </div>
                         </div>
-
                         <div v-else class="card border-0 shadow-sm p-4 p-md-5 rounded-4 bg-white">
                             <div v-if="erroForm"
                                 class="alert alert-danger small fw-bold text-center border-0 rounded-3">{{ erroForm }}
                             </div>
-
-                            <div class="row g-4">
+                            <div class="row g-3">
                                 <div class="col-12">
                                     <label class="form-label small text-muted fw-bold mb-1">Nome Completo *</label>
                                     <input v-model="formUser.nome" type="text"
                                         class="form-control form-control-lg fs-6 bg-light border-0 rounded-3">
                                 </div>
-
                                 <div class="col-12">
                                     <label class="form-label small text-muted fw-bold mb-1">E-mail *</label>
                                     <input v-model="formUser.email" type="email"
                                         class="form-control form-control-lg fs-6 bg-light border-0 rounded-3"
                                         placeholder="exemplo@email.com">
                                 </div>
-
-                                <div class="col-12 col-md-6">
+                                <div class="col-12 col-md-4">
                                     <label class="form-label small text-muted fw-bold mb-1">CPF *</label>
                                     <input v-model="formUser.cpf" type="text"
                                         class="form-control form-control-lg fs-6 bg-light border-0 rounded-3"
                                         placeholder="Apenas números">
                                 </div>
-
-                                <div class="col-12 col-md-6">
-                                    <label class="form-label small text-muted fw-bold mb-1">Nascimento (DD/MM/AAAA)
-                                        *</label>
+                                <div class="col-12 col-md-4">
+                                    <label class="form-label small text-muted fw-bold mb-1">Nascimento *</label>
                                     <input v-model="formUser.nascimento" @input="formatarData" type="text"
                                         maxlength="10"
                                         class="form-control form-control-lg fs-6 bg-light border-0 rounded-3"
-                                        placeholder="Ex: 25/12/1990">
+                                        placeholder="DD/MM/AAAA">
                                 </div>
-
-                                <div class="col-12 col-md-6">
+                                <div class="col-12 col-md-4">
                                     <label class="form-label small text-muted fw-bold mb-1">Órgão Expeditor *</label>
                                     <input v-model="formUser.orgaoExpeditor" type="text"
                                         class="form-control form-control-lg fs-6 bg-light border-0 rounded-3"
                                         placeholder="Ex: Detran">
                                 </div>
-
                                 <div class="col-12 col-md-6">
                                     <label class="form-label small text-muted fw-bold mb-1">Celular / WhatsApp *</label>
                                     <input v-model="formUser.celular" type="text"
                                         class="form-control form-control-lg fs-6 bg-light border-0 rounded-3"
                                         placeholder="(00) 00000-0000">
                                 </div>
-
-                                <div class="col-12 col-md-8">
+                                <div class="col-12 col-md-6">
+                                    <label class="form-label small text-muted fw-bold mb-1">Cidade *</label>
+                                    <input v-model="formUser.cidade" type="text"
+                                        class="form-control form-control-lg fs-6 bg-light border-0 rounded-3">
+                                </div>
+                                <div class="col-12">
                                     <label class="form-label small text-muted fw-bold mb-1">Endereço Completo *</label>
                                     <input v-model="formUser.endereco" type="text"
                                         class="form-control form-control-lg fs-6 bg-light border-0 rounded-3"
                                         placeholder="Rua, Número, Bairro">
                                 </div>
-
-                                <div class="col-12 col-md-4">
-                                    <label class="form-label small text-muted fw-bold mb-1">Cidade *</label>
-                                    <input v-model="formUser.cidade" type="text"
-                                        class="form-control form-control-lg fs-6 bg-light border-0 rounded-3">
-                                </div>
-
-                                <div class="col-12 mt-5 text-end">
+                                <div class="col-12 mt-4 text-end">
                                     <button class="btn btn-primary fw-bold px-5 py-3 w-100 rounded-3 shadow-sm"
                                         @click="enviarCadastro" :disabled="carregando">{{ carregando ? 'Salvando...' :
                                         'Realizar Cadastro' }}</button>
@@ -112,11 +96,9 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
-
         <div v-if="mostrarModal" class="modal fade show d-block" style="background: rgba(0,0,0,0.6);">
             <div class="modal-dialog modal-dialog-centered px-3">
                 <div class="modal-content rounded-4 border-0 shadow-lg">
@@ -146,10 +128,8 @@
         </div>
     </div>
 </template>
-
 <script setup>
 import { ref, computed } from 'vue'
-
 const formUser = ref({ nome: '', email: '', cpf: '', orgaoExpeditor: '', nascimento: '', celular: '', cidade: '', endereco: '', cpfFamiliar: '' })
 const erroForm = ref('')
 const cadastroSucesso = ref(false)
@@ -159,38 +139,18 @@ const primeiroNome = ref('')
 const mostrarModal = ref(false)
 const tipoAcao = ref('')
 const telaObrigado = ref(false)
-
-const tituloFormulario = computed(() => {
-    if (formUser.value.cpfFamiliar) return `Adicionando parente de: ${primeiroNome.value}`
-    return 'Cadastro de Passageiro'
-})
-
-const mensagemModal = computed(() => {
-    if (tipoAcao.value === 'finalizar') return 'Deseja finalizar seu cadastro agora?'
-    return 'Deseja cadastrar um novo familiar ou amigo?'
-})
-
+const tituloFormulario = computed(() => formUser.value.cpfFamiliar ? `Adicionando parente de: ${primeiroNome.value}` : 'Cadastro de Passageiro')
+const mensagemModal = computed(() => tipoAcao.value === 'finalizar' ? 'Deseja finalizar seu cadastro agora?' : 'Deseja cadastrar um novo familiar ou amigo?')
 const formatarData = (event) => {
     let v = event.target.value.replace(/\D/g, '')
-    if (v.length >= 5) {
-        v = v.replace(/(\d{2})(\d{2})(\d{1,4})/, '$1/$2/$3')
-    } else if (v.length >= 3) {
-        v = v.replace(/(\d{2})(\d{1,4})/, '$1/$2')
-    }
+    if (v.length >= 5) v = v.replace(/(\d{2})(\d{2})(\d{1,4})/, '$1/$2/$3')
+    else if (v.length >= 3) v = v.replace(/(\d{2})(\d{1,4})/, '$1/$2')
     formUser.value.nascimento = v
 }
-
-const abrirModal = (acao) => {
-    tipoAcao.value = acao
-    mostrarModal.value = true
-}
-
+const abrirModal = (acao) => { tipoAcao.value = acao; mostrarModal.value = true }
 const confirmarAcao = () => {
-    mostrarModal.value = false
-    if (tipoAcao.value === 'finalizar') finalizar()
-    if (tipoAcao.value === 'familiar') cadastrarFamiliar()
+    mostrarModal.value = false; if (tipoAcao.value === 'finalizar') finalizar(); if (tipoAcao.value === 'familiar') cadastrarFamiliar()
 }
-
 const validarCPF = (cpf) => {
     cpf = cpf.replace(/[^\d]+/g, '')
     if (cpf === '' || cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false
@@ -206,53 +166,27 @@ const validarCPF = (cpf) => {
     if (resto !== parseInt(cpf.substring(10, 11))) return false
     return true
 }
-
 const enviarCadastro = async () => {
     erroForm.value = ''
     const camposObrigatorios = ['nome', 'email', 'cpf', 'nascimento', 'orgaoExpeditor', 'celular', 'cidade', 'endereco']
-    const algumCampoVazio = camposObrigatorios.some(campo => !formUser.value[campo])
-
-    if (algumCampoVazio) {
-        erroForm.value = "Por favor, preencha todos os campos."
-        return
-    }
-
-    if (!validarCPF(formUser.value.cpf)) {
-        erroForm.value = "O CPF digitado é inválido."
-        return
-    }
-
+    if (camposObrigatorios.some(campo => !formUser.value[campo])) { erroForm.value = "Por favor, preencha todos os campos obrigatórios (*)."; return }
+    if (!validarCPF(formUser.value.cpf)) { erroForm.value = "O CPF digitado é inválido."; return }
     carregando.value = true
     try {
         await $fetch('/api/users', { method: 'POST', body: formUser.value })
         if (!primeiroNome.value) primeiroNome.value = formUser.value.nome
         ultimoCpfCadastrado.value = formUser.value.cpf
         cadastroSucesso.value = true
-    } catch (e) {
-        erroForm.value = e.data?.message || 'Erro ao realizar cadastro.'
-    } finally {
-        carregando.value = false
-    }
+    } catch (e) { erroForm.value = e.data?.message || 'Erro ao realizar cadastro.' } finally { carregando.value = false }
 }
-
 const cadastrarFamiliar = () => {
-    formUser.value = { nome: '', email: '', cpf: '', orgaoExpeditor: '', nascimento: '', celular: '', cidade: '', endereco: '', cpfFamiliar: ultimoCpfCadastrado.value }
-    cadastroSucesso.value = false
+    formUser.value = { nome: '', email: '', cpf: '', orgaoExpeditor: '', nascimento: '', celular: '', cidade: '', endereco: '', cpfFamiliar: ultimoCpfCadastrado.value }; cadastroSucesso.value = false
 }
-
-const finalizar = () => {
-    telaObrigado.value = true
-}
-
+const finalizar = () => { telaObrigado.value = true }
 const voltarAoInicio = () => {
-    primeiroNome.value = ''
-    ultimoCpfCadastrado.value = ''
-    formUser.value = { nome: '', email: '', cpf: '', orgaoExpeditor: '', nascimento: '', celular: '', cidade: '', endereco: '', cpfFamiliar: '' }
-    cadastroSucesso.value = false
-    telaObrigado.value = false
+    primeiroNome.value = ''; ultimoCpfCadastrado.value = ''; formUser.value = { nome: '', email: '', cpf: '', orgaoExpeditor: '', nascimento: '', celular: '', cidade: '', endereco: '', cpfFamiliar: '' }; cadastroSucesso.value = false; telaObrigado.value = false
 }
 </script>
-
 <style scoped>
 .form-control:focus {
     box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
