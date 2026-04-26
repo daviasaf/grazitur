@@ -4,7 +4,7 @@
             <div class="row justify-content-center">
                 <div class="col-12 col-lg-8">
 
-                    <div v-if="telaObrigado" class="card border-0 shadow-lg p-4 p-md-5 text-center rounded-4">
+                    <div v-if="telaObrigado" class="card border-0 shadow-sm p-4 p-md-5 text-center rounded-4 bg-white">
                         <h2 class="fw-bold text-success mb-3">Obrigado por se cadastrar ✨</h2>
                         <p class="text-muted fs-5">Grazi Turismo agradece sua confiança.</p>
                         <p class="fw-bold text-primary mt-3 fs-4 border-bottom pb-4">Obrigado por viajar com a gente 🚍
@@ -29,7 +29,8 @@
                             <p class="text-muted small">Preencha seus dados para viajar conosco.</p>
                         </div>
 
-                        <div v-if="cadastroSucesso" class="card border-0 shadow-lg p-4 p-md-5 text-center rounded-4">
+                        <div v-if="cadastroSucesso"
+                            class="card border-0 shadow-sm p-4 p-md-5 text-center rounded-4 bg-white">
                             <h3 class="text-success fw-bold mb-3 fs-4">✔ Cadastro Realizado!</h3>
                             <p class="text-muted mb-4 small">Seus dados foram salvos com segurança.</p>
                             <div class="d-flex flex-column flex-sm-row gap-2 justify-content-center mt-3">
@@ -41,72 +42,69 @@
                             </div>
                         </div>
 
-                        <div v-else class="card border-0 shadow-lg p-3 p-md-5 rounded-4">
-                            <div v-if="erroForm" class="alert alert-danger small fw-bold text-center">{{ erroForm }}
+                        <div v-else class="card border-0 shadow-sm p-4 p-md-5 rounded-4 bg-white">
+                            <div v-if="erroForm"
+                                class="alert alert-danger small fw-bold text-center border-0 rounded-3">{{ erroForm }}
                             </div>
 
-                            <div class="row g-3">
+                            <div class="row g-4">
                                 <div class="col-12">
                                     <label class="form-label small text-muted fw-bold mb-1">Nome Completo *</label>
                                     <input v-model="formUser.nome" type="text"
-                                        class="form-control form-control-lg fs-6 bg-light border-0">
+                                        class="form-control form-control-lg fs-6 bg-light border-0 rounded-3">
                                 </div>
 
                                 <div class="col-12">
                                     <label class="form-label small text-muted fw-bold mb-1">E-mail *</label>
                                     <input v-model="formUser.email" type="email"
-                                        class="form-control form-control-lg fs-6 bg-light border-0"
+                                        class="form-control form-control-lg fs-6 bg-light border-0 rounded-3"
                                         placeholder="exemplo@email.com">
                                 </div>
 
-                                <div class="col-12 col-sm-6">
+                                <div class="col-12 col-md-6">
                                     <label class="form-label small text-muted fw-bold mb-1">CPF *</label>
                                     <input v-model="formUser.cpf" type="text"
-                                        class="form-control form-control-lg fs-6 bg-light border-0"
+                                        class="form-control form-control-lg fs-6 bg-light border-0 rounded-3"
                                         placeholder="Apenas números">
                                 </div>
 
-                                <div class="col-12 col-sm-6">
-                                    <label class="form-label small text-muted fw-bold mb-1">Data de Nascimento *</label>
-                                    <input v-model="formUser.nascimento" type="date"
-                                        class="form-control form-control-lg fs-6 bg-light border-0">
+                                <div class="col-12 col-md-6">
+                                    <label class="form-label small text-muted fw-bold mb-1">Nascimento (DD/MM/AAAA)
+                                        *</label>
+                                    <input v-model="formUser.nascimento" @input="formatarData" type="text"
+                                        maxlength="10"
+                                        class="form-control form-control-lg fs-6 bg-light border-0 rounded-3"
+                                        placeholder="Ex: 25/12/1990">
                                 </div>
 
-                                <div class="col-12 col-sm-6">
-                                    <label class="form-label small text-muted fw-bold mb-1">RG (Opcional)</label>
-                                    <input v-model="formUser.rg" type="text"
-                                        class="form-control form-control-lg fs-6 bg-light border-0"
-                                        placeholder="Apenas números">
-                                </div>
-
-                                <div class="col-12 col-sm-6">
+                                <div class="col-12 col-md-6">
                                     <label class="form-label small text-muted fw-bold mb-1">Órgão Expeditor *</label>
                                     <input v-model="formUser.orgaoExpeditor" type="text"
-                                        class="form-control form-control-lg fs-6 bg-light border-0"
+                                        class="form-control form-control-lg fs-6 bg-light border-0 rounded-3"
                                         placeholder="Ex: Detran">
                                 </div>
 
-                                <div class="col-12 col-sm-6">
+                                <div class="col-12 col-md-6">
                                     <label class="form-label small text-muted fw-bold mb-1">Celular / WhatsApp *</label>
                                     <input v-model="formUser.celular" type="text"
-                                        class="form-control form-control-lg fs-6 bg-light border-0"
+                                        class="form-control form-control-lg fs-6 bg-light border-0 rounded-3"
                                         placeholder="(00) 00000-0000">
                                 </div>
 
-                                <div class="col-12 col-sm-6">
-                                    <label class="form-label small text-muted fw-bold mb-1">Cidade *</label>
-                                    <input v-model="formUser.cidade" type="text"
-                                        class="form-control form-control-lg fs-6 bg-light border-0">
-                                </div>
-
-                                <div class="col-12">
+                                <div class="col-12 col-md-8">
                                     <label class="form-label small text-muted fw-bold mb-1">Endereço Completo *</label>
                                     <input v-model="formUser.endereco" type="text"
-                                        class="form-control form-control-lg fs-6 bg-light border-0"
+                                        class="form-control form-control-lg fs-6 bg-light border-0 rounded-3"
                                         placeholder="Rua, Número, Bairro">
                                 </div>
 
-                                <div class="col-12 mt-4 text-end">
+                                <div class="col-12 col-md-4">
+                                    <label class="form-label small text-muted fw-bold mb-1">Cidade *</label>
+                                    <input v-model="formUser.cidade" type="text"
+                                        class="form-control form-control-lg fs-6 bg-light border-0 rounded-3">
+                                </div>
+
+                                <div class="col-12 mt-5 text-end">
                                     <button class="btn btn-primary fw-bold px-5 py-3 w-100 rounded-3 shadow-sm"
                                         @click="enviarCadastro" :disabled="carregando">{{ carregando ? 'Salvando...' :
                                         'Realizar Cadastro' }}</button>
@@ -119,24 +117,23 @@
             </div>
         </div>
 
-        <div v-if="mostrarModal" class="modal fade show d-block"
-            style="background: rgba(0,0,0,0.6); backdrop-filter: blur(2px);">
+        <div v-if="mostrarModal" class="modal fade show d-block" style="background: rgba(0,0,0,0.6);">
             <div class="modal-dialog modal-dialog-centered px-3">
-                <div class="modal-content rounded-4 border-0 shadow">
+                <div class="modal-content rounded-4 border-0 shadow-lg">
                     <div class="modal-body text-center p-4 p-md-5">
                         <div class="mb-3 text-primary">
                             <svg v-if="tipoAcao === 'finalizar'" xmlns="http://www.w3.org/2000/svg" width="48"
-                                height="48" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                height="48" fill="currentColor" viewBox="0 0 16 16">
                                 <path
                                     d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
                             </svg>
                             <svg v-else xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor"
-                                class="bi bi-people-fill" viewBox="0 0 16 16">
+                                viewBox="0 0 16 16">
                                 <path
                                     d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
                             </svg>
                         </div>
-                        <h5 class="fw-bold mb-3 text-dark fs-4">{{ mensagemModal }}</h5>
+                        <h5 class="fw-bold mb-4 text-dark fs-5">{{ mensagemModal }}</h5>
                         <div class="d-flex gap-2">
                             <button class="btn btn-light fw-bold flex-fill py-3 rounded-3 border"
                                 @click="mostrarModal = false">Não</button>
@@ -153,7 +150,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 
-const formUser = ref({ nome: '', email: '', cpf: '', rg: '', orgaoExpeditor: '', nascimento: '', celular: '', cidade: '', endereco: '', cpfFamiliar: '' })
+const formUser = ref({ nome: '', email: '', cpf: '', orgaoExpeditor: '', nascimento: '', celular: '', cidade: '', endereco: '', cpfFamiliar: '' })
 const erroForm = ref('')
 const cadastroSucesso = ref(false)
 const carregando = ref(false)
@@ -172,6 +169,16 @@ const mensagemModal = computed(() => {
     if (tipoAcao.value === 'finalizar') return 'Deseja finalizar seu cadastro agora?'
     return 'Deseja cadastrar um novo familiar ou amigo?'
 })
+
+const formatarData = (event) => {
+    let v = event.target.value.replace(/\D/g, '')
+    if (v.length >= 5) {
+        v = v.replace(/(\d{2})(\d{2})(\d{1,4})/, '$1/$2/$3')
+    } else if (v.length >= 3) {
+        v = v.replace(/(\d{2})(\d{1,4})/, '$1/$2')
+    }
+    formUser.value.nascimento = v
+}
 
 const abrirModal = (acao) => {
     tipoAcao.value = acao
@@ -206,7 +213,7 @@ const enviarCadastro = async () => {
     const algumCampoVazio = camposObrigatorios.some(campo => !formUser.value[campo])
 
     if (algumCampoVazio) {
-        erroForm.value = "Por favor, preencha todos os campos obrigatórios (*)."
+        erroForm.value = "Por favor, preencha todos os campos."
         return
     }
 
@@ -229,7 +236,7 @@ const enviarCadastro = async () => {
 }
 
 const cadastrarFamiliar = () => {
-    formUser.value = { nome: '', email: '', cpf: '', rg: '', orgaoExpeditor: '', nascimento: '', celular: '', cidade: '', endereco: '', cpfFamiliar: ultimoCpfCadastrado.value }
+    formUser.value = { nome: '', email: '', cpf: '', orgaoExpeditor: '', nascimento: '', celular: '', cidade: '', endereco: '', cpfFamiliar: ultimoCpfCadastrado.value }
     cadastroSucesso.value = false
 }
 
@@ -240,8 +247,15 @@ const finalizar = () => {
 const voltarAoInicio = () => {
     primeiroNome.value = ''
     ultimoCpfCadastrado.value = ''
-    formUser.value = { nome: '', email: '', cpf: '', rg: '', orgaoExpeditor: '', nascimento: '', celular: '', cidade: '', endereco: '', cpfFamiliar: '' }
+    formUser.value = { nome: '', email: '', cpf: '', orgaoExpeditor: '', nascimento: '', celular: '', cidade: '', endereco: '', cpfFamiliar: '' }
     cadastroSucesso.value = false
     telaObrigado.value = false
 }
 </script>
+
+<style scoped>
+.form-control:focus {
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+    background-color: #fff !important;
+}
+</style>

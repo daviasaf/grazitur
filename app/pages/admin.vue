@@ -32,48 +32,46 @@
                     placeholder="Digite a senha" @keyup.enter="fazerLogin">
                 <button class="btn btn-primary btn-lg w-100 fw-bold fs-6 rounded-3 py-3 shadow-sm"
                     @click="fazerLogin">Entrar no Painel</button>
+                <p v-if="erroLogin" class="text-danger small fw-bold mt-3 mb-0">{{ erroLogin }}</p>
             </div>
         </div>
 
-        <div v-else class="min-vh-100 bg-light pb-5">
+        <div v-else class="min-vh-100 bg-white pb-5">
 
             <nav class="navbar bg-white shadow-sm sticky-top px-3 py-3 mb-4 mb-md-5 border-bottom">
                 <div class="container-fluid p-0 d-flex justify-content-between align-items-center">
                     <h1 class="fw-bold text-primary fs-4 m-0">GraziTur <span class="text-dark">Admin</span></h1>
-                    <button class="btn btn-outline-danger btn-sm px-4 fw-bold rounded-pill"
+                    <button class="btn btn-outline-danger btn-sm fw-bold px-4 rounded-pill"
                         @click="fazerLogout">Sair</button>
                 </div>
             </nav>
 
             <div class="container px-3 px-md-4">
-
-                <div class="bg-white p-4 p-md-5 rounded-4 shadow-sm mb-5">
-
-                    <div class="d-flex justify-content-between align-items-end mb-4">
-                        <div>
-                            <h4 class="text-dark fw-bold mb-1 fs-5">Excursões Ativas</h4>
-                            <p class="text-muted small mb-0 d-none d-md-block">Gerencie as viagens e gere as listas de
-                                passageiros.</p>
-                        </div>
-                        <button class="btn btn-success shadow-sm px-4 py-2 fw-bold rounded-3"
+                <div class="bg-light p-3 p-md-4 rounded-4 mb-5 border">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h4 class="text-dark fw-bold mb-0 fs-5">Excursões Ativas</h4>
+                        <button class="btn btn-success btn-sm shadow-sm px-3 py-2 fw-bold rounded-3"
                             @click="abrirModalExcursao()">
                             <span class="d-none d-sm-inline">+ Nova Excursão</span>
                             <span class="d-inline d-sm-none">+ Nova</span>
                         </button>
                     </div>
 
-                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
                         <div v-for="ex in excursoes" :key="ex.id" class="col">
-                            <div class="card h-100 shadow-sm border btn-card rounded-4 bg-light"
+                            <div class="card h-100 shadow-sm border-0 btn-card bg-white rounded-4"
                                 @click="abrirGerenciarExcursao(ex)">
-                                <div class="card-body p-4 d-flex flex-column bg-white rounded-4">
+                                <div class="card-body p-4 d-flex flex-column">
                                     <div class="d-flex justify-content-between align-items-start mb-2">
-                                        <h5 class="card-title text-primary fw-bold fs-5 mb-0">{{ ex.nome }}</h5>
+                                        <h5 class="card-title text-primary fw-bold fs-6 mb-0">{{ ex.nome }}</h5>
                                         <span class="badge bg-success rounded-pill px-3 py-2 fs-6">R$ {{ ex.preco
                                             }}</span>
                                     </div>
-                                    <p class="card-text text-muted mb-4 small">{{ ex.lugar }}</p>
-
+                                    <p class="card-text text-muted small mb-4"><svg xmlns="http://www.w3.org/2000/svg"
+                                            width="12" height="12" fill="currentColor" class="me-1" viewBox="0 0 16 16">
+                                            <path
+                                                d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
+                                        </svg> {{ ex.lugar }}</p>
                                     <div class="mt-auto bg-light p-3 rounded-3 border-0">
                                         <div class="small d-flex justify-content-between align-items-center mb-2">
                                             <span class="text-muted small">Guia:</span>
@@ -99,25 +97,22 @@
                     </div>
                 </div>
 
-                <div class="bg-white p-4 p-md-5 rounded-4 shadow-sm mb-5">
-
-                    <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-end mb-4 gap-3">
-                        <div>
-                            <h4 class="text-dark fw-bold mb-1 fs-5">Base de Passageiros</h4>
-                            <p class="text-muted small mb-0 d-none d-md-block">Gerencie clientes e equipe.</p>
-                        </div>
+                <div class="bg-light p-3 p-md-4 rounded-4 border mb-5">
+                    <div
+                        class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center mb-4 gap-3">
+                        <h4 class="text-dark fw-bold mb-0 fs-5">Base de Passageiros</h4>
                         <div class="d-flex gap-2 w-100 w-sm-auto">
                             <input v-model="buscaUser" type="text"
-                                class="form-control bg-light border-0 shadow-sm rounded-3 px-4"
-                                placeholder="Buscar passageiro...">
-                            <button class="btn btn-primary fw-bold px-4 rounded-3 shadow-sm text-nowrap"
+                                class="form-control form-control-sm border shadow-sm rounded-3 px-3"
+                                placeholder="Buscar por nome ou CPF...">
+                            <button class="btn btn-primary btn-sm fw-bold px-3 shadow-sm text-nowrap rounded-3"
                                 @click="prepararNovoUser">
                                 + Cadastro
                             </button>
                         </div>
                     </div>
 
-                    <div class="d-none d-lg-block border shadow-sm rounded-4 overflow-hidden bg-white">
+                    <div class="d-none d-lg-block card border shadow-sm rounded-4 overflow-hidden bg-white">
                         <div class="table-responsive">
                             <table class="table table-hover align-middle mb-0">
                                 <thead class="table-light text-muted small text-uppercase">
@@ -199,7 +194,7 @@
                                     </button>
                                     <button class="btn btn-primary flex-fill rounded-3 py-2 fw-bold small"
                                         @click="abrirVincular(u)">
-                                        Adicionar em Viagem
+                                        Add Viagem
                                     </button>
                                     <button class="btn btn-outline-danger px-3 rounded-3 py-2 fw-bold"
                                         @click="pedirConfirmacao('user', u.id, 'Excluir Passageiro', 'Deseja excluir permanentemente este passageiro?')"
@@ -221,7 +216,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
 
             <div v-if="modalCriarExcursao" class="modal fade show d-block"
@@ -267,7 +261,7 @@
                         </div>
                         <div class="modal-footer p-3 bg-light border-top d-flex gap-2">
                             <button v-if="formEx.id" class="btn btn-outline-danger fw-bold rounded-3 me-auto px-4"
-                                @click="pedirConfirmacao('excursao', formEx.id, 'Apagar Excursão', 'Atenção: Ao apagar esta excursão, todos os vínculos com os passageiros desta lista também serão removidos. Deseja continuar?')">Apagar</button>
+                                @click="pedirConfirmacao('excursao', formEx.id, 'Apagar Excursão', 'Ao apagar esta excursão, todos os vínculos com os passageiros desta lista também serão removidos. Deseja continuar?')">Apagar</button>
                             <button class="btn btn-primary fw-bold px-4 rounded-3 flex-fill"
                                 @click="salvarExcursao">Salvar Excursão</button>
                         </div>
@@ -286,18 +280,23 @@
 
                         <div class="modal-body p-3 p-md-4 bg-light">
                             <div
-                                class="d-flex flex-column flex-sm-row justify-content-between align-items-center mb-3 p-3 bg-white rounded-3 shadow-sm border">
-                                <span class="small fw-bold text-secondary mb-2 mb-sm-0">{{ exSelecionada.usuarios.length
-                                    }} / {{ exSelecionada.vagas }} vagas ocupadas</span>
-                                <button class="btn btn-success btn-sm fw-bold rounded-3 px-4 w-100 w-sm-auto"
-                                    @click="baixarListaPDF(exSelecionada)"
-                                    :disabled="exSelecionada.usuarios.length === 0 || !exSelecionada.guiaId">
-                                    Gerar PDF
-                                </button>
+                                class="d-flex flex-column flex-sm-row justify-content-between align-items-center mb-3 p-3 bg-white rounded-3 shadow-sm border gap-3">
+                                <span class="small fw-bold text-secondary text-center text-sm-start">{{
+                                    exSelecionada.usuarios.length }} / {{ exSelecionada.vagas }} vagas ocupadas</span>
+                                <div class="d-flex gap-2 w-100 w-sm-auto">
+                                    <button class="btn btn-success btn-sm fw-bold flex-fill rounded-3 px-3 py-2"
+                                        @click="baixarListaPDF(exSelecionada)"
+                                        :disabled="exSelecionada.usuarios.length === 0 || !exSelecionada.guiaId">Baixar
+                                        PDF</button>
+                                    <button class="btn btn-outline-success btn-sm fw-bold flex-fill rounded-3 px-3 py-2"
+                                        @click="baixarListaExcel(exSelecionada)"
+                                        :disabled="exSelecionada.usuarios.length === 0 || !exSelecionada.guiaId">Baixar
+                                        Excel</button>
+                                </div>
                             </div>
                             <div v-if="!exSelecionada.guiaId"
                                 class="alert alert-danger small fw-bold py-2 px-3 text-center mb-3 border-0 rounded-3">
-                                *Vincule um Guia para liberar o PDF</div>
+                                *Vincule um Guia para liberar os downloads</div>
 
                             <div class="table-responsive border rounded-3 bg-white shadow-sm">
                                 <table class="table table-hover align-middle mb-0">
@@ -374,7 +373,7 @@
                             <div v-else>
                                 <div
                                     class="alert alert-success py-3 mb-4 fw-bold text-center border-0 rounded-3 shadow-sm">
-                                    Adicionado com sucesso!
+                                    ✔ Adicionado com sucesso!
                                 </div>
 
                                 <div v-if="parentesDoUsuarioSelecionado.length > 0">
@@ -438,7 +437,7 @@
                                                 class="form-control bg-light border-0">
                                         </div>
                                         <div class="mb-3">
-                                            <label class="form-label small fw-bold text-muted">E-mail</label>
+                                            <label class="form-label small fw-bold text-muted">E-mail *</label>
                                             <input v-model="formUser.email" type="email"
                                                 class="form-control bg-light border-0"
                                                 placeholder="passageiro@email.com">
@@ -451,20 +450,18 @@
                                                     class="form-control bg-light border-0" placeholder="Apenas números">
                                             </div>
                                             <div class="col-12 col-sm-6">
-                                                <label class="form-label small fw-bold text-muted">Nascimento</label>
-                                                <input v-model="formUser.nascimento" type="date"
-                                                    class="form-control bg-light border-0">
+                                                <label class="form-label small fw-bold text-muted">Nascimento
+                                                    (DD/MM/AAAA) *</label>
+                                                <input v-model="formUser.nascimento" @input="formatarData" type="text"
+                                                    maxlength="10" class="form-control bg-light border-0"
+                                                    placeholder="Ex: 25/12/1990">
                                             </div>
                                         </div>
 
                                         <div class="row g-3">
-                                            <div class="col-12 col-sm-6">
-                                                <label class="form-label small fw-bold text-muted">RG (Opcional)</label>
-                                                <input v-model="formUser.rg" type="text"
-                                                    class="form-control bg-light border-0">
-                                            </div>
-                                            <div class="col-12 col-sm-6">
-                                                <label class="form-label small fw-bold text-muted">Órgão Exp.</label>
+                                            <div class="col-12">
+                                                <label class="form-label small fw-bold text-muted">Órgão Expeditor
+                                                    *</label>
                                                 <input v-model="formUser.orgaoExpeditor" type="text"
                                                     class="form-control bg-light border-0" placeholder="Ex: Detran">
                                             </div>
@@ -485,30 +482,29 @@
 
                                         <div class="row g-3 mb-4">
                                             <div class="col-12 col-sm-8">
-                                                <label class="form-label small fw-bold text-muted">Endereço
-                                                    Completo</label>
+                                                <label class="form-label small fw-bold text-muted">Endereço Completo
+                                                    *</label>
                                                 <input v-model="formUser.endereco" type="text"
                                                     class="form-control bg-light border-0">
                                             </div>
                                             <div class="col-12 col-sm-4">
-                                                <label class="form-label small fw-bold text-muted">Cidade</label>
+                                                <label class="form-label small fw-bold text-muted">Cidade *</label>
                                                 <input v-model="formUser.cidade" type="text"
                                                     class="form-control bg-light border-0">
                                             </div>
                                         </div>
 
                                         <div
-                                            class="p-3 bg-warning bg-opacity-10 rounded-3 border border-warning border-opacity-50 mt-auto mb-3">
+                                            class="mt-auto mb-2 p-3 bg-warning bg-opacity-10 rounded-3 border border-warning border-opacity-50">
                                             <div class="form-check form-switch m-0 d-flex align-items-center">
-                                                <input class="form-check-input fs-3 m-0 me-3 shadow-none cursor-pointer"
+                                                <input class="form-check-input fs-4 m-0 me-3 shadow-none cursor-pointer"
                                                     type="checkbox" v-model="formUser.isGuia" id="guiaSwitch">
                                                 <label
                                                     class="form-check-label fw-bold text-dark mb-0 cursor-pointer lh-sm"
                                                     for="guiaSwitch">
                                                     Habilitar como GUIA <br>
-                                                    <span
-                                                        class="fw-normal text-muted small d-none d-sm-block mt-1">Aparece
-                                                        na lista de equipe das viagens.</span>
+                                                    <span class="fw-normal text-muted small d-block mt-1">Aparece na
+                                                        lista de equipe.</span>
                                                 </label>
                                             </div>
                                         </div>
@@ -522,8 +518,8 @@
                                                     class="form-check-label fw-bold text-danger mb-0 cursor-pointer lh-sm"
                                                     for="ignorarSwitch">
                                                     IGNORAR REGRAS <br>
-                                                    <span class="fw-normal text-muted small d-block mt-1">Salvar
-                                                        cadastro sem CPF, e-mail, celular ou validações.</span>
+                                                    <span class="fw-normal text-muted small d-block mt-1">Salvar sem
+                                                        preencher campos obrigatórios.</span>
                                                 </label>
                                             </div>
                                         </div>
@@ -640,18 +636,14 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 
-// TOAST SYSTEM
 const toasts = ref([])
 const showToast = (message, type = 'success') => {
     const id = Date.now() + Math.random()
     toasts.value.push({ id, message, type })
     setTimeout(() => { toasts.value = toasts.value.filter(t => t.id !== id) }, 4000)
 }
-const removerToast = (id) => {
-    toasts.value = toasts.value.filter(t => t.id !== id)
-}
+const removerToast = (id) => { toasts.value = toasts.value.filter(t => t.id !== id) }
 
-// CONFIRMATION MODAL SYSTEM
 const modalConfirm = ref(false)
 const confirmType = ref('')
 const confirmId = ref(null)
@@ -659,32 +651,21 @@ const confirmTitle = ref('')
 const confirmText = ref('')
 
 const pedirConfirmacao = (tipo, id, titulo, texto) => {
-    confirmType.value = tipo
-    confirmId.value = id
-    confirmTitle.value = titulo
-    confirmText.value = texto
-    modalConfirm.value = true
+    confirmType.value = tipo; confirmId.value = id; confirmTitle.value = titulo; confirmText.value = texto; modalConfirm.value = true
 }
 
 const executarConfirmacao = async () => {
     modalConfirm.value = false
-    if (confirmType.value === 'excursao') {
-        await confirmarDelecaoExcursao(confirmId.value)
-    } else if (confirmType.value === 'user') {
-        await confirmarDelecaoUser(confirmId.value)
-    }
+    if (confirmType.value === 'excursao') { await confirmarDelecaoExcursao(confirmId.value) }
+    else if (confirmType.value === 'user') { await confirmarDelecaoUser(confirmId.value) }
 }
 
-// LOGIN SYSTEM
 const logado = ref(false)
 const senha = ref('')
 const erroLogin = ref('')
 
 onMounted(() => {
-    if (import.meta.client && localStorage.getItem('graziTurAdmin') === 'true') {
-        logado.value = true
-        carregar()
-    }
+    if (import.meta.client && localStorage.getItem('graziTurAdmin') === 'true') { logado.value = true; carregar() }
 })
 
 const fazerLogin = async () => {
@@ -694,41 +675,36 @@ const fazerLogin = async () => {
         logado.value = true
         if (import.meta.client) localStorage.setItem('graziTurAdmin', 'true')
         carregar()
-    } catch (e) {
-        erroLogin.value = e.data?.message || 'Senha incorreta.'
-    }
+    } catch (e) { erroLogin.value = e.data?.message || 'Senha incorreta.' }
 }
 
 const fazerLogout = () => {
-    logado.value = false
-    senha.value = ''
-    if (import.meta.client) localStorage.removeItem('graziTurAdmin')
-    usuarios.value = []
-    excursoes.value = []
+    logado.value = false; senha.value = ''; if (import.meta.client) localStorage.removeItem('graziTurAdmin')
+    usuarios.value = []; excursoes.value = []
 }
 
-// STATE
 const usuarios = ref([])
 const excursoes = ref([])
 const buscaUser = ref('')
-
 const modalCriarExcursao = ref(false)
 const modalGerenciarEx = ref(false)
 const modalVincular = ref(false)
 const modalUser = ref(false)
-
 const formEx = ref({ id: null, nome: '', lugar: '', preco: '', vagas: '', guiaId: null })
 const exSelecionada = ref(null)
-
 const userParaVincular = ref(null)
 const excursaoVinculada = ref(null)
 const parentesAdicionadosNaSessao = ref([])
 const ignorarRegras = ref(false)
-
-const formUser = ref({
-    id: null, nome: '', email: '', cpf: '', rg: '', orgaoExpeditor: '', nascimento: '', celular: '', cidade: '', endereco: '', idade: '', isGuia: false, parentesSelecionados: []
-})
+const formUser = ref({ id: null, nome: '', email: '', cpf: '', orgaoExpeditor: '', nascimento: '', celular: '', cidade: '', endereco: '', idade: '', isGuia: false, parentesSelecionados: [] })
 const buscaParenteModal = ref('')
+
+const formatarData = (event) => {
+    let v = event.target.value.replace(/\D/g, '')
+    if (v.length >= 5) { v = v.replace(/(\d{2})(\d{2})(\d{1,4})/, '$1/$2/$3') }
+    else if (v.length >= 3) { v = v.replace(/(\d{2})(\d{1,4})/, '$1/$2') }
+    formUser.value.nascimento = v
+}
 
 const validarCPF = (cpf) => {
     if (!cpf) return true;
@@ -755,262 +731,125 @@ const carregar = async () => {
 
 const usuariosFiltrados = computed(() => {
     if (!buscaUser.value) return usuarios.value
-    return usuarios.value.filter(u =>
-        u.nome.toLowerCase().includes(buscaUser.value.toLowerCase()) ||
-        (u.cpf && u.cpf.includes(buscaUser.value))
-    )
+    return usuarios.value.filter(u => u.nome.toLowerCase().includes(buscaUser.value.toLowerCase()) || (u.cpf && u.cpf.includes(buscaUser.value)))
 })
 
-const guiasDisponiveis = computed(() => {
-    return usuarios.value.filter(u => u.isGuia)
-})
+const guiasDisponiveis = computed(() => usuarios.value.filter(u => u.isGuia))
 
 const abrirModalExcursao = () => {
-    formEx.value = { id: null, nome: '', lugar: '', preco: '', vagas: '', guiaId: null }
-    modalCriarExcursao.value = true
+    formEx.value = { id: null, nome: '', lugar: '', preco: '', vagas: '', guiaId: null }; modalCriarExcursao.value = true
 }
 
 const salvarExcursao = async () => {
-    const method = formEx.value.id ? 'PUT' : 'POST'
-    const url = formEx.value.id ? `/api/excursoes/${formEx.value.id}` : '/api/excursoes'
-    try {
-        await $fetch(url, { method, body: formEx.value })
-        showToast('Excursão salva com sucesso!', 'success')
-        fecharExcursao()
-        carregar()
-    } catch (e) {
-        showToast('Erro ao salvar excursão.', 'danger')
-    }
+    const method = formEx.value.id ? 'PUT' : 'POST'; const url = formEx.value.id ? `/api/excursoes/${formEx.value.id}` : '/api/excursoes'
+    try { await $fetch(url, { method, body: formEx.value }); showToast('Excursão salva com sucesso!', 'success'); fecharExcursao(); carregar() } catch (e) { showToast('Erro ao salvar excursão.', 'danger') }
 }
 
 const confirmarDelecaoExcursao = async (id) => {
-    try {
-        await $fetch(`/api/excursoes/${id}`, { method: 'DELETE' })
-        showToast('Excursão apagada.', 'success')
-        fecharExcursao()
-        carregar()
-    } catch (e) { showToast('Erro ao apagar.', 'danger') }
+    try { await $fetch(`/api/excursoes/${id}`, { method: 'DELETE' }); showToast('Excursão apagada.', 'success'); fecharExcursao(); carregar() } catch (e) { showToast('Erro ao apagar.', 'danger') }
 }
 
-const abrirGerenciarExcursao = (ex) => {
-    exSelecionada.value = excursoes.value.find(e => e.id === ex.id)
-    modalGerenciarEx.value = true
-}
-
-const fecharExcursao = () => {
-    modalCriarExcursao.value = false
-    modalGerenciarEx.value = false
-}
-
-const prepararEdicaoEx = (ex) => {
-    formEx.value = { ...ex }
-    modalGerenciarEx.value = false
-    modalCriarExcursao.value = true
-}
+const abrirGerenciarExcursao = (ex) => { exSelecionada.value = excursoes.value.find(e => e.id === ex.id); modalGerenciarEx.value = true }
+const fecharExcursao = () => { modalCriarExcursao.value = false; modalGerenciarEx.value = false }
+const prepararEdicaoEx = (ex) => { formEx.value = { ...ex }; modalGerenciarEx.value = false; modalCriarExcursao.value = true }
 
 const prepararNovoUser = () => {
-    ignorarRegras.value = false
-    formUser.value = { id: null, nome: '', email: '', cpf: '', rg: '', orgaoExpeditor: '', nascimento: '', celular: '', cidade: '', endereco: '', idade: '', isGuia: false, parentesSelecionados: [] }
-    buscaParenteModal.value = ''
-    modalUser.value = true
+    ignorarRegras.value = false; formUser.value = { id: null, nome: '', email: '', cpf: '', orgaoExpeditor: '', nascimento: '', celular: '', cidade: '', endereco: '', idade: '', isGuia: false, parentesSelecionados: [] }; buscaParenteModal.value = ''; modalUser.value = true
 }
 
 const prepararEdicaoUser = (u) => {
     ignorarRegras.value = false
-    const listaBruta = [...(u.parentes || []), ...(u.parentesDe || [])]
-    const listaParentes = [...new Map(listaBruta.map(item => [item.id, item])).values()]
-    formUser.value = {
-        id: u.id, nome: u.nome, email: u.email, cpf: u.cpf, rg: u.rg, orgaoExpeditor: u.orgaoExpeditor, nascimento: u.nascimento, celular: u.celular, idade: u.idade, cidade: u.cidade, endereco: u.endereco, isGuia: u.isGuia,
-        parentesSelecionados: listaParentes
-    }
-    buscaParenteModal.value = ''
-    modalUser.value = true
+    const listaBruta = [...(u.parentes || []), ...(u.parentesDe || [])]; const listaParentes = [...new Map(listaBruta.map(item => [item.id, item])).values()]
+    formUser.value = { id: u.id, nome: u.nome, email: u.email, cpf: u.cpf, orgaoExpeditor: u.orgaoExpeditor, nascimento: u.nascimento, celular: u.celular, idade: u.idade, cidade: u.cidade, endereco: u.endereco, isGuia: u.isGuia, parentesSelecionados: listaParentes }; buscaParenteModal.value = ''; modalUser.value = true
 }
 
 const salvarUser = async () => {
     if (!ignorarRegras.value) {
-        if (!formUser.value.nome || !formUser.value.cpf || !formUser.value.celular) {
-            showToast("Preencha Nome, CPF e Celular. (Ou ative Ignorar Regras)", "warning")
-            return
-        }
-        if (formUser.value.cpf && !validarCPF(formUser.value.cpf)) {
-            showToast("O CPF digitado é inválido!", "danger")
-            return
-        }
+        const campos = ['nome', 'email', 'cpf', 'nascimento', 'orgaoExpeditor', 'celular', 'cidade', 'endereco']
+        if (campos.some(c => !formUser.value[c])) { showToast("Preencha os campos obrigatórios (*).", "warning"); return }
+        if (formUser.value.cpf && !validarCPF(formUser.value.cpf)) { showToast("O CPF digitado é inválido!", "danger"); return }
     } else {
-        if (!formUser.value.nome) {
-            showToast("O Nome é obrigatório pelo banco de dados!", "warning")
-            return
-        }
+        if (!formUser.value.nome) { showToast("O Nome é obrigatório pelo banco de dados!", "warning"); return }
     }
-
-    const payload = {
-        ...formUser.value,
-        parentesIds: formUser.value.parentesSelecionados.map(p => p.id)
-    }
-
-    const method = formUser.value.id ? 'PUT' : 'POST'
-    const url = formUser.value.id ? `/api/users/${formUser.value.id}` : '/api/users'
-
-    try {
-        await $fetch(url, { method, body: payload })
-        showToast('Cadastro salvo com sucesso!', 'success')
-        modalUser.value = false
-        carregar()
-    } catch (e) { showToast(e.data?.message || 'Erro ao salvar cadastro.', 'danger') }
+    const payload = { ...formUser.value, parentesIds: formUser.value.parentesSelecionados.map(p => p.id) }
+    const method = formUser.value.id ? 'PUT' : 'POST'; const url = formUser.value.id ? `/api/users/${formUser.value.id}` : '/api/users'
+    try { await $fetch(url, { method, body: payload }); showToast('Cadastro salvo com sucesso!', 'success'); modalUser.value = false; carregar() } catch (e) { showToast(e.data?.message || 'Erro ao salvar.', 'danger') }
 }
 
 const confirmarDelecaoUser = async (id) => {
-    try {
-        await $fetch(`/api/users/${id}`, { method: 'DELETE' })
-        showToast('Passageiro removido.', 'success')
-        carregar()
-    } catch (e) { showToast('Erro ao remover.', 'danger') }
+    try { await $fetch(`/api/users/${id}`, { method: 'DELETE' }); showToast('Passageiro removido.', 'success'); carregar() } catch (e) { showToast('Erro ao remover.', 'danger') }
 }
 
 const usuariosParaParenteFiltrados = computed(() => {
     if (!buscaParenteModal.value) return []
-    return usuarios.value.filter(u =>
-        u.id !== formUser.value.id &&
-        u.nome.toLowerCase().includes(buscaParenteModal.value.toLowerCase())
-    ).map(u => ({
-        ...u,
-        jaAdicionado: formUser.value.parentesSelecionados.some(p => p.id === u.id)
-    })).slice(0, 5)
+    return usuarios.value.filter(u => u.id !== formUser.value.id && u.nome.toLowerCase().includes(buscaParenteModal.value.toLowerCase())).map(u => ({ ...u, jaAdicionado: formUser.value.parentesSelecionados.some(p => p.id === u.id) })).slice(0, 5)
 })
 
-const adicionarParenteNoForm = (user) => {
-    if (!formUser.value.parentesSelecionados.some(p => p.id === user.id)) {
-        formUser.value.parentesSelecionados = [...formUser.value.parentesSelecionados, user];
-    }
-}
-
-const removerParenteDoForm = (index) => {
-    formUser.value.parentesSelecionados.splice(index, 1)
-}
+const adicionarParenteNoForm = (user) => { if (!formUser.value.parentesSelecionados.some(p => p.id === user.id)) { formUser.value.parentesSelecionados = [...formUser.value.parentesSelecionados, user]; } }
+const removerParenteDoForm = (index) => { formUser.value.parentesSelecionados.splice(index, 1) }
 
 const parentesDoUsuarioSelecionado = computed(() => {
     if (!userParaVincular.value) return []
-    const listaBruta = [...(userParaVincular.value.parentes || []), ...(userParaVincular.value.parentesDe || [])]
-    const listaUnica = [...new Map(listaBruta.map(item => [item.id, item])).values()]
+    const listaBruta = [...(userParaVincular.value.parentes || []), ...(userParaVincular.value.parentesDe || [])]; const listaUnica = [...new Map(listaBruta.map(item => [item.id, item])).values()]
     return listaUnica.map(p => ({ ...p, adicionado: false }))
 })
 
-const abrirVincular = (u) => {
-    userParaVincular.value = u
-    excursaoVinculada.value = null
-    parentesAdicionadosNaSessao.value = []
-    modalVincular.value = true
-}
-
-const fecharModalVincular = () => {
-    modalVincular.value = false
-    excursaoVinculada.value = null
-    carregar()
-}
+const abrirVincular = (u) => { userParaVincular.value = u; excursaoVinculada.value = null; parentesAdicionadosNaSessao.value = []; modalVincular.value = true }
+const fecharModalVincular = () => { modalVincular.value = false; excursaoVinculada.value = null; carregar() }
 
 const vincularMainUser = async (userId, excursao) => {
-    if (excursao.guiaId === userId) {
-        showToast('Este usuário é o Guia desta viagem e já faz parte da equipe!', 'warning')
-        return
-    }
-
-    try {
-        await $fetch('/api/vincular', { method: 'POST', body: { userId, excursaoId: excursao.id } })
-        excursaoVinculada.value = excursao
-        showToast('Adicionado com sucesso!', 'success')
-    } catch (e) { showToast(e.data?.message || 'Erro ao adicionar na viagem.', 'danger') }
+    if (excursao.guiaId === userId) { showToast('Este usuário é o Guia desta viagem e já faz parte da equipe!', 'warning'); return }
+    try { await $fetch('/api/vincular', { method: 'POST', body: { userId, excursaoId: excursao.id } }); excursaoVinculada.value = excursao; showToast('Adicionado com sucesso!', 'success') } catch (e) { showToast(e.data?.message || 'Erro ao adicionar.', 'danger') }
 }
 
 const vincularParente = async (parente, excursaoId) => {
     if (parentesAdicionadosNaSessao.value.includes(parente.id)) return
-
-    if (excursaoVinculada.value && excursaoVinculada.value.guiaId === parente.id) {
-        showToast('Este parente é o Guia desta viagem!', 'warning')
-        return
-    }
-
-    try {
-        await $fetch('/api/vincular', { method: 'POST', body: { userId: parente.id, excursaoId } })
-        parentesAdicionadosNaSessao.value.push(parente.id)
-        showToast('Parente vinculado à viagem!', 'success')
-    } catch (e) { showToast(e.data?.message || 'Erro: Já Lotado.', 'danger') }
+    if (excursaoVinculada.value && excursaoVinculada.value.guiaId === parente.id) { showToast('Este parente é o Guia desta viagem!', 'warning'); return }
+    try { await $fetch('/api/vincular', { method: 'POST', body: { userId: parente.id, excursaoId } }); parentesAdicionadosNaSessao.value.push(parente.id); showToast('Parente vinculado à viagem!', 'success') } catch (e) { showToast(e.data?.message || 'Erro: Já Lotado.', 'danger') }
 }
 
 const removerUserDaEx = async (userId, excursaoId) => {
-    try {
-        await $fetch('/api/desvincular', { method: 'POST', body: { userId, excursaoId } })
-        await carregar()
-        exSelecionada.value = excursoes.value.find(e => e.id === excursaoId)
-        showToast('Passageiro retirado da lista.', 'success')
-    } catch (e) { showToast('Erro ao remover.', 'danger') }
+    try { await $fetch('/api/desvincular', { method: 'POST', body: { userId, excursaoId } }); await carregar(); exSelecionada.value = excursoes.value.find(e => e.id === excursaoId); showToast('Passageiro retirado da lista.', 'success') } catch (e) { showToast('Erro ao remover.', 'danger') }
 }
 
 const baixarListaPDF = async (excursao) => {
     if (!import.meta.client) return;
-
     try {
-        const { jsPDF } = await import('jspdf')
-        const autoTableModule = await import('jspdf-autotable')
-        const autoTable = autoTableModule.default || autoTableModule
-        const doc = new jsPDF()
-
-        doc.setFontSize(22)
-        doc.setTextColor(13, 110, 253)
-        doc.text(`Lista de Passageiros`, 14, 22)
-
-        doc.setFontSize(14)
-        doc.setTextColor(50, 50, 50)
-        doc.text(`Excursão: ${excursao.nome}`, 14, 32)
-
-        doc.setFontSize(11)
-        doc.setTextColor(100, 100, 100)
-        doc.text(`Destino: ${excursao.lugar}`, 14, 40)
-
+        const { jsPDF } = await import('jspdf'); const autoTableModule = await import('jspdf-autotable'); const autoTable = autoTableModule.default || autoTableModule; const doc = new jsPDF()
+        doc.setFontSize(22); doc.setTextColor(13, 110, 253); doc.text(`Lista de Passageiros`, 14, 22)
+        doc.setFontSize(14); doc.setTextColor(50, 50, 50); doc.text(`Excursão: ${excursao.nome}`, 14, 32)
+        doc.setFontSize(11); doc.setTextColor(100, 100, 100); doc.text(`Destino: ${excursao.lugar}`, 14, 40)
         let listaCompleta = [...excursao.usuarios]
-
         if (excursao.guia) {
             const guiaJaNaLista = listaCompleta.some(u => u.id === excursao.guia.id)
-            if (!guiaJaNaLista) {
-                const guiaFormatado = { ...excursao.guia, nome: `${excursao.guia.nome} (GUIA)` }
-                listaCompleta.push(guiaFormatado)
-            } else {
-                const indexGuia = listaCompleta.findIndex(u => u.id === excursao.guia.id)
-                listaCompleta[indexGuia].nome = `${listaCompleta[indexGuia].nome} (GUIA)`
-            }
+            if (!guiaJaNaLista) { listaCompleta.push({ ...excursao.guia, nome: `${excursao.guia.nome} (GUIA)` }) }
+            else { const indexGuia = listaCompleta.findIndex(u => u.id === excursao.guia.id); listaCompleta[indexGuia].nome = `${listaCompleta[indexGuia].nome} (GUIA)` }
         }
-
         listaCompleta.sort((a, b) => a.nome.localeCompare(b.nome))
+        const dadosTabela = listaCompleta.map((user, index) => [index + 1, user.nome, user.cpf || '-', user.orgaoExpeditor || '-'])
+        autoTable(doc, { startY: 50, head: [['Nº', 'Nome Completo', 'CPF', 'Órgão Expeditor']], body: dadosTabela, headStyles: { fillColor: [13, 110, 253], textColor: 255 }, alternateRowStyles: { fillColor: [245, 248, 250] }, styles: { fontSize: 10, cellPadding: 4 } })
+        doc.save(`Lista_${excursao.nome.replace(/\s+/g, '_')}.pdf`); showToast('PDF gerado com sucesso!', 'success')
+    } catch (error) { showToast('Ocorreu um erro na biblioteca de PDF.', 'danger') }
+}
 
-        const dadosTabela = listaCompleta.map((user, index) => [
-            index + 1,
-            user.nome,
-            user.cpf || '-',
-            user.orgaoExpeditor || '-'
-        ])
-
-        autoTable(doc, {
-            startY: 50,
-            head: [['Nº', 'Nome Completo', 'CPF', 'Órgão Expeditor']],
-            body: dadosTabela,
-            headStyles: { fillColor: [13, 110, 253], textColor: 255 },
-            alternateRowStyles: { fillColor: [245, 248, 250] },
-            styles: { fontSize: 10, cellPadding: 4 },
-        })
-
-        const nomeArquivo = `Lista_${excursao.nome.replace(/\s+/g, '_')}.pdf`
-        doc.save(nomeArquivo)
-        showToast('PDF gerado com sucesso!', 'success')
-
-    } catch (error) {
-        console.error("Erro ao gerar o PDF:", error)
-        showToast('Ocorreu um erro na biblioteca de PDF.', 'danger')
+const baixarListaExcel = (excursao) => {
+    let listaCompleta = [...excursao.usuarios]
+    if (excursao.guia) {
+        const guiaJaNaLista = listaCompleta.some(u => u.id === excursao.guia.id)
+        if (!guiaJaNaLista) { listaCompleta.push({ ...excursao.guia, nome: `${excursao.guia.nome} (GUIA)` }) }
+        else { const indexGuia = listaCompleta.findIndex(u => u.id === excursao.guia.id); listaCompleta[indexGuia].nome = `${listaCompleta[indexGuia].nome} (GUIA)` }
     }
+    listaCompleta.sort((a, b) => a.nome.localeCompare(b.nome))
+    let csvContent = "\uFEFFNº;Nome Completo;CPF;Órgão Expeditor\n"
+    listaCompleta.forEach((user, index) => {
+        const nome = user.nome.replace(/;/g, ','); const cpf = user.cpf || '-'; const orgao = user.orgaoExpeditor || '-'
+        csvContent += `${index + 1};${nome};${cpf};${orgao}\n`
+    })
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' }); const link = document.createElement("a"); const url = URL.createObjectURL(blob); link.setAttribute("href", url); link.setAttribute("download", `Lista_${excursao.nome.replace(/\s+/g, '_')}.csv`); link.style.visibility = 'hidden'; document.body.appendChild(link); link.click(); document.body.removeChild(link); showToast('Planilha gerada com sucesso!', 'success')
 }
 </script>
 
 <style scoped>
-/* Estilos visuais refinados */
 .btn-card {
     transition: transform 0.2s ease;
     cursor: pointer;
