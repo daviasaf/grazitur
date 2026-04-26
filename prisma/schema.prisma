@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id              Int      @id @default(autoincrement())
+  nome            String
+  cpf             String   @unique
+  rg              String?
+  orgaoExpeditor  String?
+  nascimento      String?
+  celular         String?
+  cidade          String?
+  endereco        String?
+  idade           Int?
+  
+  // A etiqueta que define se essa pessoa pode ser Guia
+  isGuia          Boolean  @default(false)
+
+  parentes        User[]   @relation("UserKinship")
+  parentesDe      User[]   @relation("UserKinship")
+  
+  excursoes       Excursao[] @relation("UserExcursao")
+  excursoesGuia   Excursao[] @relation("GuiaExcursao") // Relação de quando ele atua como guia
+
+  createdAt       DateTime @default(now())
+}
+
+model Excursao {
+  id          Int      @id @default(autoincrement())
+  nome        String
+  lugar       String
+  preco       Float
+  vagas       Int
+  
+  usuarios    User[]   @relation("UserExcursao")
+
+  // Agora o Guia aponta direto para a tabela de Usuários (User)
+  guiaId      Int?
+  guia        User?    @relation("GuiaExcursao", fields: [guiaId], references: [id])
+
+  createdAt   DateTime @default(now())
+}
