@@ -11,6 +11,6 @@ onMounted(() => {
   if (import.meta.client) {
     setInterval(() => {
       $fetch('/api/ping').catch(() => {})
-    }, 10 * 60 * 1000) 
+    }, 40 * 1000) 
 }})
 </script>
