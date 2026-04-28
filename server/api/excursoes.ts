@@ -24,6 +24,10 @@ export default defineEventHandler(async (event) => {
         vagas: Number(body.vagas),
         guiaId: body.guiaId ? Number(body.guiaId) : null,
         valores: body.valores,
+        ativarContrato: body.ativarContrato || false,
+        aplicarParcelas: body.aplicarParcelas || false,
+        contratoDetalhes: body.contratoDetalhes || "{}",
+        contratoGrupos: body.contratoGrupos || "{}",
       },
     });
   }
