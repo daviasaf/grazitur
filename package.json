@@ -19,6 +19,7 @@
     "vue-router": "^5.0.4"
   },
   "devDependencies": {
+    "@types/node": "^25.6.0",
     "prisma": "^5.22.0"
   }
 }

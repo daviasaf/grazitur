@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --brand-color: #2563eb;
+    --brand-hover: #1d4ed8;
+    --bg-surface: #f8fafc;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-surface);
+    color: #334155;
+}
+
+/* Cores de Marca */
+.text-brand { color: var(--brand-color) !important; }
+.bg-brand { background-color: var(--brand-color) !important; color: white !important; }
+.bg-brand-light { background-color: #eff6ff !important; }
+
+/* Botões */
+.btn-brand {
+    background-color: var(--brand-color) !important;
+    color: white !important;
+    border: none !important;
+}
+
+.btn-brand:hover {
+    background-color: var(--brand-hover) !important;
+}
+
+.btn-outline-brand {
+    color: var(--brand-color) !important;
+    border: 1px solid var(--brand-color) !important;
+    background-color: transparent !important;
+}
+
+.btn-outline-brand:hover {
+    background-color: var(--brand-color) !important;
+    color: white !important;
+}
+
+/* Utilitários de Design */
+.shadow-soft {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03) !important;
+}
+
+.shadow-hover {
+    transition: all 0.2s ease;
+}
+
+.shadow-hover:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+    transform: translateY(-2px);
+}
+
+.bg-surface { background-color: var(--bg-surface) !important; }
+.rounded-5 { border-radius: 1.5rem !important; }
+.rounded-4 { border-radius: 1rem !important; }
+.tracking-tight { letter-spacing: -0.025em; }
+.cursor-pointer { cursor: pointer; }

@@ -45,5 +45,8 @@ model Excursao {
   contratoDetalhes String? @default("{}")
   contratoGrupos   String? @default("{}")
 
+  liberarContratos Boolean @default(false)
+  assinaturasJson String?
+
   createdAt       DateTime @default(now())
 }

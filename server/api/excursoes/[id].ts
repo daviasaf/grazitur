@@ -23,7 +23,8 @@ export default defineEventHandler(async (event) => {
         aplicarParcelas: body.aplicarParcelas,
         contratoDetalhes: body.contratoDetalhes,
         contratoGrupos: body.contratoGrupos,
-        pagamentosJson: body.pagamentosJson, 
+        pagamentosJson: body.pagamentosJson,
+        liberarContratos: body.liberarContratos || false,
       },
     });
   }
