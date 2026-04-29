@@ -1,6 +1,20 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
+const formatarNome = (nome: string) => {
+  if (!nome) return nome;
+  const preposicoes = ["da", "de", "di", "do", "du", "das", "dos", "e"];
+  return nome
+    .toLowerCase()
+    .split(" ")
+    .map((word) =>
+      preposicoes.includes(word)
+        ? word
+        : word.charAt(0).toUpperCase() + word.slice(1),
+    )
+    .join(" ");
+};
+
 export default defineEventHandler(async (event) => {
   const method = getMethod(event);
 
@@ -17,12 +31,17 @@ export default defineEventHandler(async (event) => {
     let parentesToConnect =
       body.parentesIds?.map((id: number) => ({ id })) || [];
 
+    let parentesDeToConnect: { id: number }[] = [];
+
+    // Limpa a máscara do CPF do familiar antes de procurar na base de dados
     if (body.cpfFamiliar) {
       const familiar = await prisma.user.findUnique({
-        where: { cpf: body.cpfFamiliar },
+        where: { cpf: String(body.cpfFamiliar).replace(/[^\d]+/g, "") },
       });
       if (familiar) {
-        parentesToConnect.push({ id: familiar.id });
+        // Se este novo usuário está sendo criado através do link/botão do familiar logado,
+        // o familiar logado é o LÍDER. O novo usuário deve apontar para ele no array "parentesDe".
+        parentesDeToConnect.push({ id: familiar.id });
       } else {
         throw createError({
           statusCode: 404,
@@ -34,9 +53,9 @@ export default defineEventHandler(async (event) => {
     try {
       return await prisma.user.create({
         data: {
-          nome: body.nome,
+          nome: formatarNome(body.nome),
           email: body.email,
-          cpf: body.cpf,
+          cpf: body.cpf ? String(body.cpf).replace(/[^\d]+/g, "") : "",
           rg: body.rg,
           orgaoExpeditor: body.orgaoExpeditor,
           nascimento: body.nascimento,
@@ -46,6 +65,7 @@ export default defineEventHandler(async (event) => {
           idade: body.idade ? Number(body.idade) : null,
           isGuia: body.isGuia || false,
           parentes: { connect: parentesToConnect },
+          parentesDe: { connect: parentesDeToConnect }, 
         },
       });
     } catch (e: any) {

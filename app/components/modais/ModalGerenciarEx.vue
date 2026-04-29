@@ -20,9 +20,11 @@
                                         excursao.usuarios.length }} / {{ excursao.vagas }}</h6>
                                     <div class="d-flex flex-wrap gap-2">
                                         <button v-if="excursao.ativarContrato"
-                                            class="btn btn-primary-custom fw-bold rounded-pill px-4 py-2 shadow-sm"
-                                            @click="modalGrupos = true">👥 Formar Grupos Familiares</button>
-                                        <button class="btn btn-pdf-custom fw-bold rounded-pill px-4 py-2 shadow-sm"
+                                            class="btn btn-outline-primary fw-bold rounded-pill px-4 py-2 shadow-sm bg-white"
+                                            @click="modalGrupos = true">Gerenciar Grupos / Famílias</button>
+
+                                        <button
+                                            class="btn btn-pdf-custom fw-bold rounded-pill px-4 py-2 shadow-sm ms-auto"
                                             @click="acaoBaixarListaPDF"
                                             :disabled="excursao.usuarios.length === 0 || !excursao.guiaId">PDF Lista de
                                             Chamada</button>
@@ -49,15 +51,18 @@
                                             <th class="py-3 border-0 text-center fw-bold">CPF</th>
                                             <th v-if="excursao.aplicarParcelas"
                                                 class="py-3 border-0 text-center fw-bold text-brand">Pagamento</th>
-                                            <th v-if="excursao.ativarContrato"
+
+                                            <th v-if="excursao.liberarContratos"
                                                 class="py-3 border-0 text-center fw-bold text-success">Contrato</th>
+
                                             <th class="pe-4 py-3 border-0 text-center fw-bold">Ações</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr v-for="p in excursao.usuarios" :key="p.id">
                                             <td class="ps-4 py-3 fw-bold text-dark small text-start">{{ p.nome }}</td>
-                                            <td class="text-muted fw-semibold small py-3 text-center">{{ p.cpf || '-' }}
+                                            <td class="text-muted fw-semibold small py-3 text-center">{{
+                                                mascaraCPF(p.cpf) || '-' }}
                                             </td>
                                             <td v-if="excursao.aplicarParcelas"
                                                 class="fw-bold text-brand small py-3 text-center">
@@ -68,14 +73,25 @@
                                                 </div>
                                             </td>
 
-                                            <td v-if="excursao.ativarContrato" class="text-center">
-                                                <button v-if="verificarAssinatura(p.id)"
-                                                    class="btn btn-sm btn-dark-custom rounded-pill fw-bold px-3 shadow-sm"
-                                                    @click="baixarContratoAssinado(p.id)">
-                                                    Baixar Assinado
-                                                </button>
-                                                <span v-else
-                                                    class="text-muted small fw-semibold fst-italic">Pendente</span>
+                                            <td v-if="excursao.liberarContratos" class="text-center">
+                                                <template v-if="p.id === excursao.guiaId">
+                                                    <span
+                                                        class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 rounded-pill px-3 py-1">✔
+                                                        Guia Assinado</span>
+                                                </template>
+                                                <template v-else-if="verificarSeEhDependente(p.id)">
+                                                    <span
+                                                        class="text-muted small fw-semibold fst-italic">Dependente</span>
+                                                </template>
+                                                <template v-else>
+                                                    <button v-if="verificarAssinatura(p.id)"
+                                                        class="btn btn-sm btn-dark-custom rounded-pill fw-bold px-3 shadow-sm"
+                                                        @click="baixarContratoAssinado(p.id)">
+                                                        Baixar Assinado
+                                                    </button>
+                                                    <span v-else
+                                                        class="text-muted small fw-semibold fst-italic">Pendente</span>
+                                                </template>
                                             </td>
 
                                             <td class="pe-4 py-3 text-center">
@@ -121,13 +137,18 @@
                                 class="text-center p-5 bg-white rounded-4 border border-light">
                                 <p class="text-muted mb-0 fw-bold">Nenhum grupo familiar configurado ainda.</p>
                             </div>
+
                             <div v-for="(dependentes, liderId) in (excursao.grupos || {})" :key="liderId"
-                                class="p-4 bg-brand-light border border-light rounded-4 position-relative shadow-sm">
-                                <button
-                                    class="btn btn-light text-danger position-absolute top-0 end-0 m-3 rounded-circle shadow-sm"
-                                    style="width: 36px; height: 36px;" @click="removerGrupo(liderId)"
-                                    title="Desfazer Grupo">✕</button>
-                                <div class="fw-bold text-brand mb-2 fs-6">Líder: {{ getNomeUser(liderId) }}</div>
+                                class="p-4 bg-brand-light border border-light rounded-4 position-relative shadow-sm mt-3">
+
+                                <div class="position-absolute top-0 end-0 m-3 d-flex gap-2" style="z-index: 10;">
+                                    <button class="btn btn-sm btn-primary shadow-sm fw-bold px-3 rounded-pill"
+                                        @click="editarGrupo(liderId)" title="Editar Grupo">✎ Editar</button>
+                                    <button class="btn btn-sm btn-danger shadow-sm fw-bold px-3 rounded-pill"
+                                        @click="removerGrupo(liderId)" title="Desfazer Grupo">✕ Apagar</button>
+                                </div>
+
+                                <div class="fw-bold text-brand mb-2 fs-6 mt-2">Líder: {{ getNomeUser(liderId) }}</div>
                                 <div class="small text-dark fw-bold mb-2 ps-4">Acompanhantes (Dependentes):</div>
                                 <ul class="mb-0 ps-5 small text-muted fw-semibold">
                                     <li v-for="depId in dependentes" :key="depId" class="mb-1">{{ getNomeUser(depId) }}
@@ -145,7 +166,9 @@
                 <div class="modal-content shadow-lg border-0 rounded-5 bg-white">
                     <div
                         class="modal-header bg-light p-4 border-bottom border-light rounded-top-5 d-flex justify-content-between align-items-center">
-                        <h5 class="modal-title fw-bold fs-5 text-dark m-0">Criar Grupo Familiar</h5>
+                        <h5 class="modal-title fw-bold fs-5 text-dark m-0">{{ formGrupo.originalLiderId ? 'Editar Grupo'
+                            :
+                            'Criar Grupo Familiar' }}</h5>
                         <button class="btn-close m-0" @click="modalAgrupar = false"></button>
                     </div>
                     <div class="modal-body p-4 p-md-5">
@@ -154,7 +177,7 @@
                             class="form-select form-select-lg bg-light border-0 fw-bold text-dark mb-4 py-2"
                             @change="buscaDependente = ''">
                             <option :value="null">-- Selecione --</option>
-                            <option v-for="u in excursao.usuarios" :key="u.id" :value="u.id">{{ u.nome }}</option>
+                            <option v-for="u in usuariosParaLider" :key="u.id" :value="u.id">{{ u.nome }}</option>
                         </select>
 
                         <label v-if="formGrupo.liderId" class="form-label small fw-bold text-success mb-2">2. Escolha os
@@ -179,7 +202,7 @@
                     </div>
                     <div class="modal-footer bg-light p-3 border-top border-light rounded-bottom-5">
                         <button class="btn btn-primary-custom w-100 py-3 rounded-pill fw-bold shadow-soft"
-                            @click="salvarGrupo">Confirmar Grupo</button>
+                            @click="salvarGrupo">Salvar Alterações</button>
                     </div>
                 </div>
             </div>
@@ -189,6 +212,8 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import { mascaraCPF } from '~/utils/formatadores'
+import { exportarListaPDF, exportarListaExcel, gerarContratoAssinadoPDF } from '~/utils/exportacoes'
 
 const props = defineProps({ excursao: { type: Object, required: true } })
 const emit = defineEmits(['close', 'atualizado', 'editarParametros', 'alterarPagamento'])
@@ -196,15 +221,21 @@ const { showToast } = useToasts()
 
 const modalGrupos = ref(false)
 const modalAgrupar = ref(false)
-const formGrupo = ref({ liderId: null, dependentes: [] })
+const formGrupo = ref({ liderId: null, dependentes: [], originalLiderId: null })
 const buscaDependente = ref('')
 
 // Lógica de Assinatura Individual
 const verificarAssinatura = (userId) => {
     if (!props.excursao.assinaturas) return false;
-    // O backend salvará no formato: { "ID_DO_USER": "DATA_DA_ASSINATURA" }
     return !!props.excursao.assinaturas[String(userId)];
 }
+
+const verificarSeEhDependente = (userId) => {
+    if (!props.excursao.grupos) return false;
+    return Object.values(props.excursao.grupos).some((dependentesArray) =>
+        dependentesArray.map(String).includes(String(userId))
+    );
+};
 
 const baixarContratoAssinado = (userId) => {
     gerarContratoAssinadoPDF(props.excursao, userId, showToast);
@@ -221,28 +252,97 @@ const removerUserDaEx = async (userId) => {
     } catch (e) { showToast('Erro ao remover passageiro!', 'danger') }
 }
 
+const usuariosParaLider = computed(() => {
+    if (!props.excursao) return [];
+    const idsJaEmGrupo = new Set();
+    Object.entries(props.excursao.grupos || {}).forEach(([lId, arr]) => {
+        // Ignora os membros do grupo ATUAL que está sendo editado, para não bloqueá-los de serem selecionados
+        if (String(lId) !== String(formGrupo.value.originalLiderId)) {
+            idsJaEmGrupo.add(String(lId));
+            arr.forEach(i => idsJaEmGrupo.add(String(i)));
+        }
+    });
+    return props.excursao.usuarios.filter(u => !idsJaEmGrupo.has(String(u.id)) && u.id !== props.excursao.guiaId);
+});
+
 const usuariosPossiveisDependentes = computed(() => {
     if (!props.excursao || !formGrupo.value.liderId) return [];
     const idsJaEmGrupo = new Set();
-    Object.values(props.excursao.grupos || {}).forEach(arr => arr.forEach(i => idsJaEmGrupo.add(String(i))));
-    let lista = props.excursao.usuarios.filter(u => String(u.id) !== String(formGrupo.value.liderId) && !idsJaEmGrupo.has(String(u.id)) && u.id !== props.excursao.guiaId);
+    Object.entries(props.excursao.grupos || {}).forEach(([lId, arr]) => {
+        if (String(lId) !== String(formGrupo.value.originalLiderId)) {
+            idsJaEmGrupo.add(String(lId));
+            arr.forEach(i => idsJaEmGrupo.add(String(i)));
+        }
+    });
+    // O Líder atual selecionado não pode ser dependente dele mesmo
+    idsJaEmGrupo.add(String(formGrupo.value.liderId));
+
+    let lista = props.excursao.usuarios.filter(u => !idsJaEmGrupo.has(String(u.id)) && u.id !== props.excursao.guiaId);
     if (buscaDependente.value) { lista = lista.filter(u => u.nome.toLowerCase().includes(buscaDependente.value.toLowerCase())); }
     return lista;
 })
 
-const abrirAgrupar = () => { formGrupo.value = { liderId: null, dependentes: [] }; buscaDependente.value = ''; modalAgrupar.value = true; }
-const salvarGrupo = async () => {
-    if (!formGrupo.value.liderId || formGrupo.value.dependentes.length === 0) { showToast('Selecione o líder e os dependentes.', 'warning'); return; }
-    const novosGrupos = { ...(props.excursao.grupos || {}) };
-    novosGrupos[String(formGrupo.value.liderId)] = formGrupo.value.dependentes.map(String);
-    const payload = { ...props.excursao, valores: JSON.stringify(props.excursao.valores), contratoDetalhes: JSON.stringify(props.excursao.detalhes || {}), contratoGrupos: JSON.stringify(novosGrupos) };
-    try { await $fetch(`/api/excursoes/${props.excursao.id}`, { method: 'PUT', body: payload }); showToast('Grupo criado!', 'success'); modalAgrupar.value = false; emit('atualizado'); } catch (e) { showToast('Erro ao agrupar.', 'danger'); }
+const abrirAgrupar = () => {
+    formGrupo.value = { liderId: null, dependentes: [], originalLiderId: null };
+    buscaDependente.value = '';
+    modalAgrupar.value = true;
 }
+
+const editarGrupo = (liderIdStr) => {
+    formGrupo.value = {
+        liderId: Number(liderIdStr),
+        dependentes: props.excursao.grupos[liderIdStr].map(Number),
+        originalLiderId: Number(liderIdStr)
+    };
+    buscaDependente.value = '';
+    modalAgrupar.value = true;
+}
+
+const salvarGrupo = async () => {
+    if (!formGrupo.value.liderId || formGrupo.value.dependentes.length === 0) {
+        showToast('Selecione o líder e os dependentes.', 'warning');
+        return;
+    }
+
+    const novosGrupos = { ...(props.excursao.grupos || {}) };
+
+    // Se mudou de líder durante a edição, apaga o registro do líder antigo
+    if (formGrupo.value.originalLiderId && String(formGrupo.value.originalLiderId) !== String(formGrupo.value.liderId)) {
+        delete novosGrupos[String(formGrupo.value.originalLiderId)];
+    }
+
+    novosGrupos[String(formGrupo.value.liderId)] = formGrupo.value.dependentes.map(String);
+
+    const payload = {
+        ...props.excursao,
+        valores: JSON.stringify(props.excursao.valores),
+        contratoDetalhes: JSON.stringify(props.excursao.detalhes || {}),
+        contratoGrupos: JSON.stringify(novosGrupos)
+    };
+
+    try {
+        await $fetch(`/api/excursoes/${props.excursao.id}`, { method: 'PUT', body: payload });
+        showToast('Grupo salvo com sucesso!', 'success');
+        modalAgrupar.value = false;
+        emit('atualizado');
+    } catch (e) { showToast('Erro ao agrupar.', 'danger'); }
+}
+
 const removerGrupo = async (liderId) => {
     const novosGrupos = { ...(props.excursao.grupos || {}) };
     delete novosGrupos[String(liderId)];
-    const payload = { ...props.excursao, valores: JSON.stringify(props.excursao.valores), contratoDetalhes: JSON.stringify(props.excursao.detalhes || {}), contratoGrupos: JSON.stringify(novosGrupos) };
-    try { await $fetch(`/api/excursoes/${props.excursao.id}`, { method: 'PUT', body: payload }); showToast('Grupo removido!', 'success'); emit('atualizado'); } catch (e) { showToast('Erro.', 'danger'); }
+    const payload = {
+        ...props.excursao,
+        valores: JSON.stringify(props.excursao.valores),
+        contratoDetalhes: JSON.stringify(props.excursao.detalhes || {}),
+        contratoGrupos: JSON.stringify(novosGrupos)
+    };
+
+    try {
+        await $fetch(`/api/excursoes/${props.excursao.id}`, { method: 'PUT', body: payload });
+        showToast('Grupo removido!', 'success');
+        emit('atualizado');
+    } catch (e) { showToast('Erro.', 'danger'); }
 }
 
 const acaoBaixarListaPDF = () => { exportarListaPDF(props.excursao, showToast) }

@@ -4,7 +4,7 @@
         <AuthAdminLogin v-if="!logado" @sucesso="aoLogar" />
 
         <div v-else class="min-vh-100 bg-surface pb-5">
-            <LayoutAdminHeader @logout="fazerLogout" />
+           <LayoutAdminHeader @logout="fazerLogout" @exportarSeed="acaoGerarSeed" />
 
             <div class="main-container px-3 px-md-4 mt-4 mt-md-5">
 
@@ -44,7 +44,8 @@
                 </div>
             </div>
 
-            <ModaisModalUser v-if="modalUser" :usuarioEditando="userSelecionado" @close="modalUser = false"
+          <ModaisModalUser v-if="modalUser" :usuarioEditando="userSelecionado" :todosUsuarios="usuarios"
+                @close="modalUser = false" @salvo="carregar" />
                 @salvo="carregar" />
             <ModaisModalNovaExcursao v-if="modalCriarExcursao" :excursaoEditando="exSelecionada"
                 :guiasDisponiveis="guiasDisponiveis" @close="modalCriarExcursao = false" @salvo="carregar"
@@ -67,6 +68,7 @@
 import { ref, computed, onMounted } from 'vue'
 import PassageirosTabela from '~/components/passageiros/Tabela.vue'
 import UiModalConfirm from '~/components/ui/ModalConfirm.vue' // Criação sugerida no passo 1 caso queira isolar esse tb!
+import { exportarSeedUsuarios } from '~/utils/exportacoes'
 
 const { showToast } = useToasts()
 const logado = ref(false)
@@ -101,6 +103,10 @@ const executarConfirmacao = async () => {
         else if (confirmType.value === 'user') { await $fetch(`/api/users/${confirmId.value}`, { method: 'DELETE' }); }
         showToast('Apagado com Sucesso!', 'success'); await carregar();
     } catch (e) { showToast('Erro ao apagar!', 'danger') }
+}
+
+const acaoGerarSeed = () => {
+    exportarSeedUsuarios(usuarios.value, showToast);
 }
 
 const carregar = async () => {

@@ -19,8 +19,9 @@
 
             <div class="col-12 col-md-4">
                 <label class="form-label small text-muted fw-bold mb-1">CPF *</label>
-                <input v-model="formUser.cpf" type="text"
-                    class="form-control form-control-lg fs-6 bg-light border-0 rounded-3" placeholder="Apenas números">
+                <input v-model="formUser.cpf" @input="e => formUser.cpf = mascaraCPF(e.target.value)" type="text"
+                    class="form-control form-control-lg fs-6 bg-light border-0 rounded-3" placeholder="000.000.000-00"
+                    maxlength="14">
             </div>
 
             <div class="col-12 col-md-4">
@@ -40,12 +41,24 @@
             </div>
 
             <div class="col-12 col-md-4">
+                <label class="form-label small text-muted fw-bold mb-1">RG (Opcional)</label>
+                <input v-model="formUser.rg" @input="e => formUser.rg = mascaraRG(e.target.value)" type="text"
+                    class="form-control form-control-lg fs-6 bg-light border-0 rounded-3" placeholder="00.000.000-0">
+            </div>
+
+            <div class="col-12 col-md-4">
+                <label class="form-label small text-muted fw-bold mb-1">Idade </label>
+                <input v-model="formUser.idade" type="number"
+                    class="form-control form-control-lg fs-6 bg-light border-0 rounded-3" placeholder="Ex: 25">
+            </div>
+
+            <div class="col-12 col-md-4">
                 <label class="form-label small text-muted fw-bold mb-1">Celular / WhatsApp *</label>
                 <input v-model="formUser.celular" type="text"
                     class="form-control form-control-lg fs-6 bg-light border-0 rounded-3" placeholder="(00) 00000-0000">
             </div>
 
-            <div class="col-12 col-md-3">
+            <div class="col-12 col-md-4">
                 <label class="form-label small text-muted fw-bold mb-1">Estado *</label>
                 <select v-model="estadoSelecionado" @change="buscarCidades"
                     class="form-select form-select-lg fs-6 bg-light border-0 rounded-3" :disabled="carregandoEstados">
@@ -54,7 +67,7 @@
                 </select>
             </div>
 
-            <div class="col-12 col-md-5">
+            <div class="col-12 col-md-8">
                 <label class="form-label small text-muted fw-bold mb-1">Cidade *</label>
                 <select v-model="cidadeSelecionada" class="form-select form-select-lg fs-6 bg-light border-0 rounded-3"
                     :disabled="!estadoSelecionado || carregandoCidades">
@@ -74,7 +87,7 @@
             <div class="col-12 mt-4 text-end">
                 <button class="btn btn-primary fw-bold px-5 py-3 w-100 rounded-3 shadow-sm" @click="enviarCadastro"
                     :disabled="carregando">
-                    {{ carregando ? 'Salvando...' : 'Realizar Cadastro' }}
+                    {{ carregando ? 'Salvando...' : (formUser.id ? 'Salvar Alterações' : 'Realizar Cadastro') }}
                 </button>
             </div>
         </div>
@@ -102,11 +115,15 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { mascaraCPF, mascaraData, mascaraRG, validarCPF } from '~/utils/formatadores'
 
-const props = defineProps({ cpfFamiliar: { type: String, default: '' } })
+const props = defineProps({
+    cpfFamiliar: { type: String, default: '' },
+    usuarioEditando: { type: Object, default: () => null }
+})
 const emit = defineEmits(['sucesso'])
 
-const formUser = ref({ nome: '', email: '', cpf: '', orgaoExpeditor: '', nascimento: '', celular: '', cidade: '', endereco: '', cpfFamiliar: props.cpfFamiliar })
+const formUser = ref({ id: null, nome: '', email: '', cpf: '', rg: '', idade: '', orgaoExpeditor: '', nascimento: '', celular: '', cidade: '', endereco: '', cpfFamiliar: props.cpfFamiliar })
 const erroForm = ref('')
 const carregando = ref(false)
 
@@ -133,6 +150,24 @@ onMounted(async () => {
         console.error('Erro ao carregar estados do IBGE', e)
     } finally {
         carregandoEstados.value = false
+    }
+
+    if (props.usuarioEditando) {
+        formUser.value = { ...formUser.value, ...props.usuarioEditando }
+
+        if (opcoesOrgao.value.includes(props.usuarioEditando.orgaoExpeditor)) {
+            selecaoOrgao.value = props.usuarioEditando.orgaoExpeditor
+        } else if (props.usuarioEditando.orgaoExpeditor) {
+            opcoesOrgao.value.splice(opcoesOrgao.value.length - 1, 0, props.usuarioEditando.orgaoExpeditor)
+            selecaoOrgao.value = props.usuarioEditando.orgaoExpeditor
+        }
+
+        if (props.usuarioEditando.cidade && props.usuarioEditando.cidade.includes(', ')) {
+            const [cid, uf] = props.usuarioEditando.cidade.split(', ')
+            estadoSelecionado.value = uf
+            await buscarCidades()
+            cidadeSelecionada.value = cid
+        }
     }
 })
 
@@ -181,7 +216,6 @@ const cancelarOutroOrgao = () => {
 const enviarCadastro = async () => {
     erroForm.value = ''
 
-    // Concatena a Cidade e Estado antes da validação
     if (cidadeSelecionada.value && estadoSelecionado.value) {
         formUser.value.cidade = `${cidadeSelecionada.value}, ${estadoSelecionado.value}`
     } else {
@@ -194,8 +228,15 @@ const enviarCadastro = async () => {
 
     carregando.value = true
     try {
-        await $fetch('/api/users', { method: 'POST', body: formUser.value })
-        emit('sucesso', formUser.value.cpf, formUser.value.nome)
+        const payload = {
+            ...formUser.value,
+            cpf: formUser.value.cpf.replace(/[^\d]+/g, "")
+        };
+        const method = formUser.value.id ? 'PUT' : 'POST';
+        const url = formUser.value.id ? `/api/users/${formUser.value.id}` : '/api/users';
+
+        await $fetch(url, { method, body: payload })
+        emit('sucesso', payload.cpf, formUser.value.nome)
     } catch (e) {
         erroForm.value = e.data?.message || 'Erro ao realizar cadastro.'
     } finally {

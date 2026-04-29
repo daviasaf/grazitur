@@ -9,12 +9,20 @@
                 </svg>
                 GraziTur <span class="text-dark">Admin</span>
             </h1>
-            <button class="btn btn-light text-danger fw-bold rounded-pill px-4 shadow-sm"
-                @click="$emit('logout')">Sair</button>
+
+            <div class="d-flex gap-2">
+                <button class="btn btn-outline-brand fw-bold rounded-pill px-3 shadow-sm d-none d-md-block"
+                    @click="$emit('exportarSeed')">
+                    📦 Gerar Seed/Backup
+                </button>
+
+                <button class="btn btn-light text-danger fw-bold rounded-pill px-4 shadow-sm"
+                    @click="$emit('logout')">Sair</button>
+            </div>
         </div>
     </nav>
 </template>
 
 <script setup>
-defineEmits(['logout'])
+defineEmits(['logout', 'exportarSeed'])
 </script>

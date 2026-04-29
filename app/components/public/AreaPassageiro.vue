@@ -4,9 +4,9 @@
             <h3 class="fw-bold text-dark mb-2">Acessar Minha Viagem</h3>
             <p class="text-muted small mb-4">Digite seu CPF para ver seus contratos e pagamentos.</p>
 
-            <input v-model="cpfLogin" type="text"
+            <input v-model="cpfLogin" @input="e => cpfLogin = mascaraCPF(e.target.value)" type="text"
                 class="form-control form-control-lg bg-light border-0 rounded-pill text-center mx-auto mb-4"
-                style="max-width: 300px;" placeholder="Somente números" @keyup.enter="acessarArea">
+                style="max-width: 300px;" placeholder="000.000.000-00" maxlength="14" @keyup.enter="acessarArea">
 
             <button class="btn btn-brand fw-bold px-5 py-3 rounded-pill shadow-soft mx-auto" @click="acessarArea"
                 :disabled="carregando">
@@ -17,9 +17,15 @@
         </div>
 
         <div v-else>
-            <div class="d-flex justify-content-between align-items-center mb-4">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4 gap-3">
                 <h3 class="fw-bold text-dark mb-0">Olá, {{ primeiroNome }}!</h3>
-                <button class="btn btn-sm btn-outline-danger rounded-pill fw-bold px-3" @click="sair">Sair</button>
+                <div class="d-flex flex-wrap gap-2 justify-content-center justify-content-md-end">
+                    <button class="btn btn-sm btn-success rounded-pill fw-bold px-3 shadow-sm"
+                        @click="$emit('cadastrarFamiliar', usuarioLogado)">+ Cadastrar Familiar</button>
+                    <button class="btn btn-sm btn-outline-primary rounded-pill fw-bold px-3"
+                        @click="$emit('editarDados', usuarioLogado)">Editar Meus Dados</button>
+                    <button class="btn btn-sm btn-outline-danger rounded-pill fw-bold px-3" @click="sair">Sair</button>
+                </div>
             </div>
 
             <div v-if="minhasExcursoes.length === 0" class="alert alert-info rounded-4 border-0 shadow-sm">
@@ -47,7 +53,7 @@
                             <h6 class="fw-bold text-dark small text-uppercase mb-3">Seu Pagamento</h6>
                             <span
                                 class="badge bg-success bg-opacity-10 text-success fs-6 rounded-pill px-3 py-2 border border-success border-opacity-25">{{
-                                obterPagamento(ex, usuarioLogado.id) }}</span>
+                                    obterPagamento(ex, usuarioLogado.id) }}</span>
                         </div>
                     </div>
 
@@ -68,6 +74,11 @@
                                         formatarData(ex.assinaturas[usuarioLogado.id]) }}.</small>
                                 </div>
                             </div>
+                        </div>
+
+                        <div v-else-if="verificarSeEhDependente(ex)">
+                            <p class="small text-danger fw-bold mb-3 fst-italic">Você é um dependente nesta viagem. O
+                                contrato deve ser assinado pelo titular (líder) do seu grupo familiar.</p>
                         </div>
 
                         <div v-else>
@@ -109,20 +120,19 @@
 
                     <div class="modal-body p-4 p-md-5"
                         style="font-family: Arial, sans-serif; font-size: 0.95rem; line-height: 1.6; color: #333;">
-                        <h4 class="text-center fw-bold mb-4">CONTRATO DE PRESTAÇÃO DE SERVIÇOS E AQUISIÇÃO DE PACOTE
-                            TURÍSTICO</h4>
+                        <h4 class="text-center fw-bold mb-4">CONTRATO DE PRESTAÇÃO DE SERVIÇOS TURÍSTICOS</h4>
 
                         <p class="fw-bold mb-1">CLÁUSULA 1 – DAS PARTES</p>
                         <p class="text-justify mb-3">
                             <b>A) CONTRATANTE:</b><br>
                             O(a) Sr(a). {{ usuarioLogado.nome }}, portador(a) do RG {{ usuarioLogado.orgaoExpeditor ||
-                            "_______________" }}, inscrito no CPF sob o nº {{ usuarioLogado.cpf || "_______________" }},
+                                "_______________" }}, inscrito no CPF sob o nº {{ usuarioLogado.cpf || "_______________" }},
                             residente e domiciliado na {{ usuarioLogado.endereco || "_______________" }} - {{
                                 usuarioLogado.cidade || "_______________" }}, celular: {{ usuarioLogado.celular ||
-                            "_______________" }}.
+                                "_______________" }}.
                             <span v-if="obterDependentes(excursaoSendoAssinada).length > 0">
                                 <br><br><b>ACOMPANHANTES (DEPENDENTES):</b> {{
-                                    obterDependentes(excursaoSendoAssinada).map(d => d.nome).join(', ') }}.
+                                    obterDependentes(excursaoSendoAssinada).map(d => d.nome).join(', ')}}.
                             </span>
                         </p>
                         <p class="text-justify mb-3">
@@ -134,80 +144,247 @@
                         <p class="text-justify mb-4">Este Contrato é formulado à luz do Código de Defesa do Consumidor,
                             da Deliberação Normativa da Embratur e texto da Associação Brasileira das Operadoras de
                             Turismo – BRAZTOA.</p>
+                        <p class="text-justify mb-4">As partes acima identificadas, entre si, justo e acertado o
+                            presente Contrato dos serviços de GRAZI TURISMO, declaram ciência e concordância com as
+                            cláusulas a seguir expostas.</p>
 
-                        <p class="fw-bold mb-1">CLÁUSULA 2 – DO OBJETO</p>
-                        <p class="text-justify mb-4">O presente contrato tem como objeto a prestação, pela CONTRATADA, à
-                            CONTRATANTE, de serviços de intermediação e organização turística, incluindo transporte,
-                            reserva de vagas em hospedagem (quando houver), contratação de serviços de recepção,
-                            transferência e assistência, segundo as especificações do pacote adquirido. A CONTRATADA
-                            atua como intermediadora, não sendo responsável direta pela execução de serviços de
-                            terceiros.</p>
+                        <p class="fw-bold mb-1">CLÁUSULA 2 – DAS CONDIÇÕES E OBJETO DO PRESENTE CONTRATO</p>
+                        <p class="text-justify mb-4">O presente contrato tem como OBJETO a prestação, pela CONTRATADA, à
+                            CONTRATANTE, dos serviços na área de turismo.<br>
+                            Os pacotes inclusos na prestação dos serviços contratados incluem a reserva e pagamento de
+                            vagas em meios de hospedagem (quando houver), transporte, contratação de serviços de
+                            recepção, transferência e assistência, segundo as especificações do pacote adquirido.<br>
+                            A GRAZI TURISMO atua como intermediária entre seus clientes e prestadores de serviços,
+                            isentando sua responsabilidade por todo e qualquer problema resultante de casos fortuitos ou
+                            de força maior, ou seja: greves, distúrbios, quarentenas, epidemias, guerras, fenômenos
+                            naturais tais como terremotos, furacões, enchentes, avalanches, mas não limitando-se a
+                            estes, modificações, atrasos e/ou cancelamento devido a motivos técnicos, mecânicos e/ou
+                            meteorológicos, sobre os quais a operadora não possui poder de previsão ou controle.</p>
 
-                        <p class="fw-bold mb-1">CLÁUSULA 3 – DA CIÊNCIA E ACEITAÇÃO DOS RISCOS</p>
-                        <p class="text-justify mb-4">O CONTRATANTE declara estar ciente de que atividades turísticas
-                            envolvem riscos naturais e inerentes, incluindo, mas não se limitando a: afogamento em
-                            praias, rios e piscinas; acidentes durante passeios; mal súbito (infarto, AVC, etc.); quedas
-                            ou lesões. Declara que participa da excursão por livre vontade, assumindo tais riscos.</p>
+                        <p class="fw-bold mb-1">CLÁUSULA 3 – DA CONTRATAÇÃO</p>
+                        <p class="text-justify mb-4">Para aquisição dos serviços prestados pela GRAZI TURISMO, o
+                            contratante deverá escolher entre os valores constantes no ANEXO I do presente contrato.<br>
+                            É lícito ao Contratante exercer seu direito de arrependimento, desistindo da contratação dos
+                            serviços, desde que o faça em até 7 (sete) dias contados da contratação, nos moldes do
+                            artigo 49 do Código de Defesa do Consumidor (com exceção das taxas/multas impostas em
+                            virtude do cancelamento, as quais serão aplicadas).</p>
 
-                        <p class="fw-bold mb-1">CLÁUSULA 4 – DA RESPONSABILIDADE E SAÚDE</p>
-                        <p class="text-justify mb-4">É responsabilidade do CONTRATANTE estar em boas condições de saúde,
-                            informar previamente qualquer limitação ou doença crônica, seguir todas as orientações da
-                            guia e equipe de apoio e zelar por sua segurança. A CONTRATADA não se responsabiliza por
-                            ocorrências decorrentes de imprudência, negligência ou descumprimento de orientações de
-                            segurança.</p>
+                        <p class="fw-bold mb-1">CLÁUSULA 4 – DO FINANCIAMENTO</p>
+                        <p class="text-justify mb-4">O Contratante declara estar ciente de que, após sua solicitação e
+                            envio da documentação solicitada, será notificado. Em seguida, após a escolha do valor
+                            referente ao pacote selecionado, poderá efetuar o pagamento mediante pix, depósito,
+                            transferência bancária ou em dinheiro nos meses assim solicitado.<br>
+                            Não incidirá nenhum tipo de juros sobre o valor a ser pago para a obtenção dos créditos,
+                            independente do número de parcelas escolhidas pelo adquirente.</p>
 
-                        <p class="fw-bold mb-1">CLÁUSULA 5 – DO SEGURO VIAGEM</p>
-                        <p class="text-justify mb-4">O CONTRATANTE declara ciência sobre a contratação ou não de seguro
-                            viagem. Está ciente de que despesas médicas, hospitalares ou funerárias ocorridas durante a
-                            viagem são de sua inteira responsabilidade, não cabendo à CONTRATADA arcar com tais custos.
+                        <p class="fw-bold mb-1">CLÁUSULA 5 – DO CANCELAMENTO, DA DESISTÊNCIA E DAS TAXAS</p>
+                        <p class="text-justify mb-2">É lícito ao CLIENTE requerer a desistência do contrato e solicitar
+                            o cancelamento em até 7 (sete) dias contados da contratação, nos moldes da cláusula 3
+                            anteriormente descrita.</p>
+                        <p class="fw-bold mb-1">5.1 – Condições do Cancelamento</p>
+                        <ul class="mb-3">
+                            <li>Em pedidos de RESCISÃO com mais de 30 (trinta) dias de antecedência da data do início da
+                                viagem, a multa aplicada será de 10% (dez por cento);</li>
+                            <li>Entre 30 (trinta) a 20 (vinte) dias de antecedência da data do início da viagem, a multa
+                                aplicada será de 20% (vinte por cento);</li>
+                            <li>Entre 19 (dezenove) a 15 (quinze) dias de antecedência da data do início da viagem, a
+                                multa aplicada será de 50% (cinquenta por cento);</li>
+                            <li>Entre 14 (quatorze) a 10 (dez) dias de antecedência da data do início da viagem, a multa
+                                aplicada será de 80% (oitenta por cento);</li>
+                            <li>Em caso de RESCISÃO em menos de 9 (nove) dias de antecedência da data do início da
+                                viagem, a multa aplicada será de 100% (cem por cento), e o CONTRATANTE não terá direito
+                                à restituição dos valores pagos no pacote.</li>
+                        </ul>
+                        <p class="fw-bold mb-1">5.2 – Reversão do valor em crédito</p>
+                        <p class="text-justify mb-2">Com a migração para outro pacote em valor inferior, contratação
+                            futura de novo serviço ou contratação imediata de viagem disponível dentro do valor já
+                            pago.<br>
+                            Em caso de cancelamento com reversão do valor em créditos, o contratante terá o prazo de até
+                            12 meses para utilizar o valor disponível.</p>
+                        <p class="fw-bold mb-1">5.3 – RESCISÃO pela parte contratada</p>
+                        <p class="text-justify mb-2">Caso o pacote seja cancelado pela parte contratada por não atingir
+                            o número mínimo de participantes, por condições climáticas não favoráveis ou caso surjam
+                            motivos técnicos operacionais que impeçam o cumprimento total da atividade, o CONTRATANTE
+                            poderá optar por uma das três opções:<br>
+                            a) Agendar a mesma viagem em outra data;<br>
+                            b) Receber 100% do valor em créditos para serem usados em uma nova compra;<br>
+                            c) Receber 100% através de pix, depósito ou transferência bancária diretamente na
+                            conta-corrente do CONTRATANTE.</p>
+                        <p class="fw-bold mb-1">5.4 – Da inadimplência</p>
+                        <p class="text-justify mb-2">Caso o contratante deixe de efetuar o pagamento de algum dos meses
+                            solicitado, e não o atualize dentro do prazo do vencimento, considerar-se-á CANCELADO o
+                            pacote contratado, incidindo a partir do cancelamento pela inadimplência as regras da
+                            cláusula 5.1 quanto ao período já pago.</p>
+                        <p class="fw-bold mb-1">5.5 – Das taxas</p>
+                        <p class="text-justify mb-1">Todas as taxas do pacote contratado estão inclusas no valor final e
+                            serão inclusas no pacote contratado, ressalvadas:</p>
+                        <ul class="mb-3">
+                            <li>Entradas a atrações turísticas que não estiverem estritamente especificadas no pacote;
+                            </li>
+                            <li>As despesas de caráter pessoal;</li>
+                            <li>As refeições não mencionadas, gorjetas, serviços de maleteiros.</li>
+                        </ul>
+                        <p class="text-justify mb-4">Tais despesas serão de responsabilidade exclusiva do contratante.
                         </p>
 
-                        <p class="fw-bold mb-1">CLÁUSULA 6 – ATENDIMENTO MÉDICO E EMERGÊNCIAS</p>
-                        <p class="text-justify mb-4">Em caso de emergência, a CONTRATADA prestará apoio na busca de
-                            socorro imediato, porém todas as despesas decorrentes do atendimento serão de
-                            responsabilidade exclusiva do CONTRATANTE ou seus familiares.</p>
+                        <p class="fw-bold mb-1">CLÁUSULA 6 – DA UTILIZAÇÃO DO PACOTE ADQUIRIDO</p>
+                        <p class="text-justify mb-4">O contratante poderá utilizar o pacote adquirido SOMENTE após a
+                            quitação de todas as parcelas.</p>
 
-                        <p class="fw-bold mb-1">CLÁUSULA 7 – DO TRANSPORTE E TERCEIROS</p>
-                        <p class="text-justify mb-4">A responsabilidade civil e criminal pelo transporte é exclusiva da
-                            empresa transportadora contratada. A CONTRATADA atua como intermediária, isentando-se de
-                            responsabilidade por acidentes, atrasos ou falhas mecânicas, cabendo-lhe apenas a escolha de
-                            prestadores legalmente habilitados.</p>
+                        <p class="fw-bold mb-1">CLÁUSULA 7 – CONDIÇÕES ESPECÍFICAS E OBRIGAÇÕES DA OPERADORA</p>
+                        <p class="text-justify mb-2"><b>7.1</b> A GRAZI TURISMO atua como intermediária entre seus
+                            clientes e prestadores de serviços, conforme descrito na cláusula segunda, deste modo, a
+                            empresa contratada reserva-se do direito de promover as alterações que se fizerem
+                            necessárias quanto aos itinerários, hotéis, serviços, etc., sem prejuízo para o cliente.</p>
+                        <p class="text-justify mb-2"><b>7.2 – Obriga-se a OPERADORA a:</b><br>
+                            a) Prestar informações claras e precisas ao CLIENTE, sobre o produto adquirido (dados do
+                            local de destino, hospedagens, refeições, traslados, preços, taxas e custos adicionais,
+                            dentre outros), que serão documentadas no ANEXO I.<br>
+                            b) Comunicar com antecedência de até dois dias do início dos serviços ao CLIENTE, as
+                            eventuais alterações de dias ou horários de partida e chegada das viagens; modificações de
+                            categoria de apartamentos, acomodações, quartos, cabines ou assemelhados, hotéis, pousadas e
+                            estabelecimentos afins e de quaisquer outras informações constantes.</p>
+                        <p class="text-justify mb-2"><b>7.3 – DA CIÊNCIA E ACEITAÇÃO DOS RISCOS</b><br>
+                            O CONTRATANTE declara estar ciente de que atividades turísticas envolvem riscos naturais e
+                            imprevisíveis, incluindo, mas não se limitando a:</p>
+                        <ul class="mb-2">
+                            <li>Afogamento em praias, rios, cachoeiras e piscinas;</li>
+                            <li>Acidentes durante passeios turísticos;</li>
+                            <li>Mal súbito, incluindo infarto, AVC ou outras condições médicas inesperadas;</li>
+                            <li>Quedas, lesões ou qualquer outro evento decorrente da atividade turística.</li>
+                        </ul>
+                        <p class="text-justify mb-2">Declara ainda que participa das atividades por livre e espontânea
+                            vontade, assumindo os riscos inerentes às atividades realizadas durante a viagem.</p>
+                        <p class="text-justify mb-2"><b>7.4 – DA RESPONSABILIDADE DO CONTRATANTE</b><br>
+                            É de inteira responsabilidade do CONTRATANTE:</p>
+                        <ul class="mb-2">
+                            <li>Estar em boas condições de saúde para participação nas atividades;</li>
+                            <li>Informar previamente qualquer limitação física, doença ou condição médica relevante;
+                            </li>
+                            <li>Seguir todas as orientações da guia, motorista e equipe responsável;</li>
+                            <li>Zelar por sua segurança pessoal e pelos demais integrantes do grupo.</li>
+                        </ul>
+                        <p class="text-justify mb-2">A CONTRATADA não se responsabiliza por ocorrências decorrentes de
+                            imprudência, negligência ou descumprimento de orientações por parte do CONTRATANTE.</p>
+                        <p class="text-justify mb-2"><b>7.5 – DO COMPORTAMENTO DO PASSAGEIRO</b><br>
+                            A CONTRATADA poderá desligar da excursão, sem direito a reembolso, o passageiro que:</p>
+                        <ul class="mb-2">
+                            <li>Colocar em risco a segurança do grupo;</li>
+                            <li>Estiver sob efeito de álcool ou substâncias que comprometam a segurança coletiva;</li>
+                            <li>Desrespeitar normas de convivência, legislação vigente ou orientações da equipe
+                                responsável;</li>
+                            <li>Praticar atos que comprometam o bom andamento da viagem ou a integridade física de
+                                terceiros.</li>
+                        </ul>
+                        <p class="text-justify mb-2">Neste caso, todas as despesas decorrentes do desligamento serão de
+                            responsabilidade exclusiva do CONTRATANTE.</p>
+                        <p class="text-justify mb-4"><b>7.6 – DAS BAGAGENS E OBJETOS PESSOAIS</b><br>
+                            A CONTRATADA não se responsabiliza por perda, extravio, dano ou roubo de bagagens, dinheiro,
+                            documentos ou objetos pessoais durante a viagem.<br>
+                            Recomenda-se que o CONTRATANTE mantenha seus objetos pessoais sempre sob sua guarda e
+                            responsabilidade.</p>
 
-                        <p class="fw-bold mb-1">CLÁUSULA 8 – CASO FORTUITO E FORÇA MAIOR</p>
-                        <p class="text-justify mb-4">Ocorrendo fenômenos da natureza, calamidade pública, perturbação da
-                            ordem, greves ou problemas técnicos que coloquem em risco a segurança, a CONTRATADA poderá
-                            alterar itinerários ou cancelar a viagem sem acréscimo de multas ou indenizações.</p>
+                        <p class="fw-bold mb-1">CLÁUSULA 8 – SEGURO VIAGEM</p>
+                        <p class="text-justify mb-2">A CONTRATADA informará previamente, por meio de anúncio, material
+                            informativo ou comunicação oficial, se o pacote contratado inclui ou não seguro viagem.</p>
+                        <p class="text-justify mb-2"><b>§1º – Quando o seguro viagem estiver incluído no pacote:</b><br>
+                            A CONTRATADA responsabiliza-se pela contratação do seguro conforme as condições divulgadas,
+                            devendo fornecer ao CONTRATANTE as informações essenciais da apólice, coberturas e
+                            procedimentos de acionamento.</p>
+                        <p class="text-justify mb-2"><b>§2º – Quando o seguro viagem NÃO estiver incluído no
+                                pacote:</b><br>
+                            A CONTRATADA recomenda expressamente a contratação de seguro viagem (assistência médica,
+                            hospitalar, odontológica, traslado médico, traslado de corpo, invalidez, morte, entre
+                            outros).<br>
+                            O CONTRATANTE declara estar ciente de que o seguro viagem não está incluso, assumindo total
+                            responsabilidade pela sua contratação ou não, sendo de sua exclusiva responsabilidade todas
+                            as despesas decorrentes de atendimentos médicos, hospitalares, remoções, traslados,
+                            inclusive em caso de óbito, bem como quaisquer outros custos relacionados a acidentes,
+                            doenças ou eventos ocorridos durante a viagem.</p>
+                        <p class="text-justify mb-2"><b>§3º – Ciência e responsabilidade do CONTRATANTE:</b><br>
+                            O CONTRATANTE declara que recebeu orientação prévia quanto à importância do seguro viagem,
+                            optando, por livre decisão, por sua contratação ou não.</p>
+                        <p class="text-justify mb-4"><b>§4º – Limitação de responsabilidade:</b><br>
+                            A CONTRATADA não se responsabiliza por custos decorrentes da ausência de contratação do
+                            seguro viagem pelo CONTRATANTE, ressalvadas as hipóteses de responsabilidade previstas na
+                            legislação vigente.</p>
 
-                        <p class="fw-bold mb-1">CLÁUSULA 9 – CANCELAMENTO, DESISTÊNCIA E TAXAS (Pelo Contratante)</p>
-                        <p class="text-justify mb-4">9.1 – Condições do Cancelamento: Rescisão com mais de 30 dias de
-                            antecedência: multa de 10%; Entre 30 a 20 dias: multa de 20%; Entre 19 a 15 dias: multa de
-                            50%; Entre 14 a 10 dias: multa de 80%; Menos de 9 dias: multa de 100% (sem direito a
-                            restituição).<br>
-                            9.2 – O contratante poderá optar pela reversão do valor pago em créditos para viagens
-                            futuras (prazo de 12 meses).</p>
+                        <p class="fw-bold mb-1">CLÁUSULA 9 – DA OCORRÊNCIA DE CASOS FORTUITOS E FORÇA MAIOR</p>
+                        <p class="text-justify mb-4">Ocorrendo caso fortuito, assim entendidos aqueles não previstos e
+                            não possíveis de serem evitados pela OPERADORA ou eventos de força maior (fenômenos da
+                            natureza, como tempestades, tufões, ciclones, enchentes, entre outros), que coloquem em
+                            risco a vida e a segurança do contratante, ou ainda situação de calamidade pública,
+                            perturbação da ordem, acidentes ou greves prejudiciais aos serviços de viagem, poderá a
+                            OPERADORA cancelar a viagem, antes do seu início ou em seu curso, sem acréscimo de multa,
+                            juros, correção ou pagamento de indenização a qualquer título.<br>
+                            Os atrasos e os cancelamentos de trajetos motivados por razões técnicas, operacionais,
+                            mecânicas ou meteorológicas, sobre os quais a OPERADORA não possua poder de previsão ou
+                            controle, estão incluídos nos casos fortuitos ou de força maior, que a isentam de
+                            responsabilidade civil ou criminal, na forma prevista no item anterior.</p>
 
-                        <p class="fw-bold mb-1">CLÁUSULA 10 – CANCELAMENTO PELA CONTRATADA</p>
-                        <p class="text-justify mb-4">Caso o pacote seja cancelado pela CONTRATADA por não atingir o
-                            quórum mínimo, condições climáticas ou motivos técnicos operacionais, o cliente poderá optar
-                            por: reagendamento, crédito integral ou reembolso integral.</p>
+                        <p class="fw-bold mb-1">CLÁUSULA 10 – MEIOS DE TRANSPORTE</p>
+                        <p class="text-justify mb-4">Os meios de transporte específicos que serão utilizados pelo
+                            CLIENTE, na viagem ou produto que está adquirindo através deste contrato, encontram-se
+                            devida e claramente definidos e especificados no ANEXO I.<br>
+                            O contratante declara-se ciente, por este contrato, de que a responsabilidade civil e
+                            criminal que decorra do contrato de transporte é exclusiva da empresa de transporte
+                            contratada, nos termos da legislação vigente.<br>
+                            A OPERADORA limita-se a contratar empresas idôneas para que prestem ao(s) seu(s) CLIENTE(S)
+                            transportes rodoviário, ferroviário, marítimo, pluvial ou lacustre, na categoria turística,
+                            com o emprego de ônibus, navios, veículos, vagões, barcos etc., que devem estar em boas
+                            condições de funcionamento.<br>
+                            Essas empresas têm responsabilidade objetiva pela segurança dos passageiros e de suas
+                            bagagens, nos termos das leis e normas específicas, obrigando-se a dispor de apólice de
+                            seguro obrigatório para o eventual ressarcimento de danos materiais e físicos.</p>
 
-                        <p class="fw-bold mb-1">CLÁUSULA 11 – COMPORTAMENTO E BAGAGENS</p>
-                        <p class="text-justify mb-4">A CONTRATADA poderá desligar da excursão, sem reembolso, o
-                            passageiro que colocar em risco a segurança do grupo, desrespeitar normas ou estiver sob
-                            efeito excessivo de álcool/drogas. A CONTRATADA não se responsabiliza por perda, roubo ou
-                            extravio de objetos pessoais e bagagens.</p>
+                        <p class="fw-bold mb-1">CLÁUSULA 11 – DOCUMENTAÇÃO DE VIAGEM</p>
+                        <p class="text-justify mb-4"><b>Adultos:</b> Carteira de Identidade (RG); Carteira Nacional de
+                            Habilitação (CNH); Passaporte; Carteira de Identidade Profissional (com foto e fé
+                            pública).<br>
+                            <b>Crianças e Adolescentes (até 18 anos):</b> Certidão de Nascimento (original ou cópia
+                            autenticada); Carteira de Identidade (RG); Passaporte.<br>
+                            <b>Outros documentos:</b> Boletim de Ocorrência (em caso de extravio ou roubo do documento);
+                            Cópia autenticada do documento de identidade; Autorização de viagem assinada pelos pais
+                            (para menores de 16 anos, caso não estejam acompanhados dos pais).<br>
+                            <b>Observações:</b> É fundamental que os documentos estejam válidos e atualizados. Não são
+                            aceitos prints ou fotos dos documentos como prova de identificação. Em caso de dúvidas ou
+                            situações específicas, é sempre recomendado consultar a empresa de transporte ou a ANTT
+                            (Agência Nacional de Transportes Terrestres). É de responsabilidade do contratante o dever
+                            de providenciar toda sua documentação de viagem.
+                        </p>
 
-                        <p class="fw-bold mb-1">CLÁUSULA 12 – DO FINANCIAMENTO E QUITAÇÃO</p>
-                        <p class="text-justify mb-4">O serviço só será prestado após a quitação total das parcelas. Não
-                            incidirá juros sobre o valor do pacote, independente do número de parcelas. Em caso de
-                            inadimplência, o pacote será considerado cancelado.</p>
+                        <p class="fw-bold mb-1">CLÁUSULA 12 – ELEIÇÃO DE FORO</p>
+                        <p class="text-justify mb-4">Para dirimir toda e qualquer dúvida decorrente do presente
+                            contrato, por eleição, os clientes elegem o foro da comarca de Quissamã/Carapebus/RJ, com a
+                            exclusão de qualquer outro, por mais privilegiado que o seja.</p>
 
-                        <p class="fw-bold mb-1">CLÁUSULA 13 – FORO</p>
-                        <p class="text-justify mb-4">Para dirimir dúvidas deste contrato, as partes elegem o foro da
-                            comarca de Quissamã/RJ.</p>
+                        <p class="text-justify mb-2">O CONTRATANTE declara neste momento, ao assinar o presente
+                            contrato, ter lido e, por isso, conhecer e aceitar integralmente todas as suas cláusulas
+                            específificas e gerais, declarando, ainda, serem verdadeiras todas as informações prestadas
+                            à
+                            CONTRATADA, assumindo, de livre e espontânea vontade, todas as responsabilidades previstas
+                            neste Contrato.<br>
+                            O presente contrato é passível de modificações antes de sua assinatura, sempre que
+                            solicitado pelo contratante, em grande e visível ambiente virtual disponível ao lado do
+                            ícone de envio do contrato.</p>
 
-                        <h5 class="text-center fw-bold mt-5 mb-3">DESCRIÇÃO DA PRESTAÇÃO DE SERVIÇO</h5>
-                        <p class="mb-4">
+                        <p class="fw-bold mb-1">O CONTRATANTE declara, para todos os fins legais, que:</p>
+                        <ul class="mb-4">
+                            <li>Leu integralmente o presente contrato;</li>
+                            <li>Compreendeu todas as cláusulas nele contidas;</li>
+                            <li>Está ciente dos riscos inerentes às atividades turísticas;</li>
+                            <li>Assume voluntariamente a responsabilidade por sua participation nas atividades incluídas
+                                no pacote contratado;</li>
+                            <li>Compromete-se a cumprir todas as orientações fornecidas pela equipe responsável pela
+                                excursão;</li>
+                            <li>Declara estar em condições físicas e de saúde adequadas para participação nas atividades
+                                propostas;</li>
+                            <li>Declara estar ciente de que a CONTRATADA atua como intermediadora de serviços turísticos
+                                e não executora direta dos serviços prestados por terceiros.</li>
+                        </ul>
+
+                        <h5 class="text-center fw-bold mt-5 mb-3">ANEXO I – DESCRIÇÃO DA PRESTAÇÃO DE SERVIÇO</h5>
+                        <p class="mb-3">
                             <b>Destino da viagem:</b> {{ excursaoSendoAssinada.lugar }}<br>
                             <b>Data de saída:</b> {{ excursaoSendoAssinada.detalhes?.dataSaida || "__/__/____" }}
                             &nbsp;&nbsp;&nbsp;<b>Horário:</b> {{ excursaoSendoAssinada.detalhes?.horaSaida || "__:__"
@@ -217,10 +394,10 @@
                             }}<br>
                             <b>Transporte:</b> {{ excursaoSendoAssinada.detalhes?.transporte || "_________________" }}
                             &nbsp;&nbsp;&nbsp;<b>Empresa:</b> {{ excursaoSendoAssinada.detalhes?.empresa ||
-                            "_________________" }}
+                                "_________________" }}
                         </p>
 
-                        <p class="fw-bold mb-2">DADOS DO RECEPTIVO E SERVIÇOS PRESTADOS:</p>
+                        <p class="fw-bold mb-1">DADOS DO RECEPTIVO E SERVIÇOS PRESTADOS:</p>
                         <p class="mb-4 text-muted" style="white-space: pre-wrap;">{{
                             excursaoSendoAssinada.detalhes?.roteiro ||
                             "________________________________________________" }}</p>
@@ -239,9 +416,9 @@
                                 <tbody>
                                     <tr v-for="m in obterLiderEDependentes(excursaoSendoAssinada)" :key="m.id">
                                         <td>{{ m.nome }}</td>
-                                        <td>{{ m.nascimento || "-" }}</td>
-                                        <td>{{ m.cpf || "-" }}</td>
-                                        <td>{{ excursaoSendoAssinada.aplicarParcelas ?
+                                        <td class="center">{{ m.nascimento || "-" }}</td>
+                                        <td class="center">{{ m.cpf || "-" }}</td>
+                                        <td class="center">{{ excursaoSendoAssinada.aplicarParcelas ?
                                             obterPagamento(excursaoSendoAssinada, m.id) : "À combinar" }}</td>
                                     </tr>
                                 </tbody>
@@ -254,10 +431,8 @@
 
                         <div class="text-center mt-4">
                             <p class="mb-5">Quissamã/RJ, {{ dataAtualFormatada() }}</p>
-
                             <p class="mb-0">_____________________________________________</p>
                             <p class="mb-5 fw-bold">CONTRATANTE: {{ usuarioLogado.nome }}</p>
-
                             <p class="mb-0">_____________________________________________</p>
                             <p class="fw-bold">58.904.532 LÍVIA GRAZIELA DOS SANTOS - GRAZI TURISMO</p>
                         </div>
@@ -290,6 +465,9 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+import { mascaraCPF } from '~/utils/formatadores'
+
+defineEmits(['editarDados', 'cadastrarFamiliar'])
 
 const cpfLogin = ref('')
 const usuarioLogado = ref(null)
@@ -299,7 +477,6 @@ const minhasExcursoes = ref([])
 const carregando = ref(false)
 const assinando = ref(false)
 
-// Estados do Modal
 const modalContratoAberto = ref(false)
 const excursaoSendoAssinada = ref(null)
 
@@ -312,7 +489,7 @@ onMounted(() => {
     if (import.meta.client) {
         const cpfSalvo = localStorage.getItem('graziTurPassageiroCPF')
         if (cpfSalvo) {
-            cpfLogin.value = cpfSalvo
+            cpfLogin.value = mascaraCPF(cpfSalvo)
             acessarArea()
         }
     }
@@ -324,12 +501,13 @@ const acessarArea = async () => {
 
     carregando.value = true
     try {
-        const res = await $fetch(`/api/passageiro/viagens?cpf=${cpfLogin.value}`)
+        const cpfLimpo = cpfLogin.value.replace(/\D/g, '')
+        const res = await $fetch(`/api/passageiro/viagens?cpf=${cpfLimpo}`)
         usuarioLogado.value = res.user
         minhasExcursoes.value = res.excursoes
 
         if (import.meta.client) {
-            localStorage.setItem('graziTurPassageiroCPF', cpfLogin.value)
+            localStorage.setItem('graziTurPassageiroCPF', cpfLimpo)
         }
     } catch (e) {
         erroLogin.value = e.data?.statusMessage || 'Passageiro não encontrado. Verifique seu CPF.'
@@ -366,10 +544,8 @@ const dataAtualFormatada = () => {
     return new Date().toLocaleDateString('pt-BR');
 }
 
-// LÓGICAS PARA O CONTRATO (Dependentes e Líderes)
 const obterDependentes = (ex) => {
     if (!ex || !usuarioLogado.value) return [];
-    // Busca os IDs que estão atrelados ao usuário logado (ele sendo o Líder)
     const idsDependentes = ex.grupos?.[String(usuarioLogado.value.id)] || [];
     return ex.usuarios.filter(u => idsDependentes.includes(String(u.id)));
 }
@@ -378,13 +554,18 @@ const obterLiderEDependentes = (ex) => {
     return [usuarioLogado.value, ...obterDependentes(ex)];
 }
 
-// ABRIR O MODAL
+const verificarSeEhDependente = (ex) => {
+    if (!ex || !ex.grupos || !usuarioLogado.value) return false;
+    return Object.values(ex.grupos).some(dependentesArray =>
+        dependentesArray.map(String).includes(String(usuarioLogado.value.id))
+    );
+}
+
 const abrirModalContrato = (excursao) => {
     excursaoSendoAssinada.value = excursao;
     modalContratoAberto.value = true;
 }
 
-// ASSINAR E FECHAR O MODAL
 const assinarContrato = async () => {
     assinando.value = true
     try {
@@ -396,7 +577,6 @@ const assinarContrato = async () => {
             }
         })
 
-        // Atualiza na interface
         const ex = minhasExcursoes.value.find(e => e.id === excursaoSendoAssinada.value.id)
         if (!ex.assinaturas) ex.assinaturas = {}
         ex.assinaturas[usuarioLogado.value.id] = new Date().toISOString()

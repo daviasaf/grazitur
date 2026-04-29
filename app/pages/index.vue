@@ -65,10 +65,11 @@
                         <PublicStepSucesso v-if="step === 'sucesso'" @finalizar="abrirConfirmacao('finalizar')"
                             @cadastrarFamiliar="abrirConfirmacao('familiar')" />
                         <PublicFormPassageiro v-if="step === 'cadastro'" :cpfFamiliar="cpfFamiliarBase"
-                            @sucesso="onCadastroSucesso" />
+                            :usuarioEditando="usuarioEdicao" @sucesso="onCadastroSucesso" />
                     </div>
 
-                    <PublicAreaPassageiro v-if="step === 'login'" />
+                    <PublicAreaPassageiro v-if="step === 'login'" @editarDados="editarDadosPassageiro"
+                        @cadastrarFamiliar="iniciarCadastroFamiliarArea" />
                 </div>
             </div>
         </div>
@@ -86,8 +87,24 @@ const cpfFamiliarBase = ref('')
 const nomeLider = ref('')
 const modalAberto = ref(false)
 const tipoAcao = ref('')
+const usuarioEdicao = ref(null)
 
-const tituloFormulario = computed(() => cpfFamiliarBase.value ? `Adicionando parente de: ${nomeLider.value}` : 'Cadastro de Passageiro')
+const tituloFormulario = computed(() => {
+    if (usuarioEdicao.value) return 'Editar Meus Dados';
+    return cpfFamiliarBase.value ? `Adicionando parente de: ${nomeLider.value}` : 'Cadastro de Passageiro';
+})
+
+const editarDadosPassageiro = (usuario) => {
+    usuarioEdicao.value = usuario;
+    step.value = 'cadastro';
+}
+
+const iniciarCadastroFamiliarArea = (usuario) => {
+    usuarioEdicao.value = null; // Garante que é uma criação limpa
+    cpfFamiliarBase.value = usuario.cpf;
+    nomeLider.value = usuario.nome;
+    step.value = 'cadastro';
+}
 
 const onCadastroSucesso = (cpf, nome) => {
     if (!nomeLider.value) nomeLider.value = nome;
@@ -106,6 +123,7 @@ const executarAcao = () => {
 const reiniciarFluxo = () => {
     cpfFamiliarBase.value = '';
     nomeLider.value = '';
+    usuarioEdicao.value = null;
     step.value = 'home';
 }
 </script>

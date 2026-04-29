@@ -25,8 +25,29 @@ export default defineEventHandler(async (event) => {
     });
   }
 
+  // Verifica se o usuário é um dependente
+  if (excursao.contratoGrupos) {
+    try {
+      const grupos = JSON.parse(excursao.contratoGrupos);
+      // Checa se o userId está dentro do array de dependentes de algum líder
+      const ehDependente = Object.values(grupos).some((dependentesArray: any) =>
+        dependentesArray.map(String).includes(String(userId)),
+      );
+
+      if (ehDependente) {
+        throw createError({
+          statusCode: 403,
+          statusMessage:
+            "Dependentes não assinam o contrato, apenas o titular.",
+        });
+      }
+    } catch (e) {
+      console.error("Erro ao verificar dependente:", e);
+    }
+  }
+
   // Prepara o objeto de assinaturas
-  let assinaturas = {};
+  let assinaturas: Record<string, string> = {};
   if (excursao.assinaturasJson) {
     try {
       assinaturas = JSON.parse(excursao.assinaturasJson);

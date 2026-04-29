@@ -28,10 +28,12 @@
                                 <div class="row g-3">
                                     <div class="col-12 col-md-6">
                                         <label class="form-label small fw-semibold text-muted">CPF *</label>
-                                        <input v-model="formUser.cpf" type="text"
+                                        <input v-model="formUser.cpf"
+                                            @input="e => formUser.cpf = mascaraCPF(e.target.value)" type="text"
                                             class="form-control bg-light border-0 rounded-3 py-2 fw-semibold"
-                                            placeholder="Apenas números">
+                                            placeholder="000.000.000-00" maxlength="14">
                                     </div>
+                                    
                                     <div class="col-12 col-md-6">
                                         <label
                                             class="form-label small fw-semibold text-muted d-flex justify-content-between">Nascimento
@@ -41,6 +43,20 @@
                                             maxlength="10"
                                             class="form-control bg-light border-0 rounded-3 py-2 fw-semibold"
                                             placeholder="DD/MM/AAAA">
+                                    </div>
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-semibold text-muted">RG (Opcional)</label>
+                                            <input v-model="formUser.rg"
+                                                @input="e => formUser.rg = mascaraRG(e.target.value)" type="text"
+                                                class="form-control bg-light border-0 rounded-3 py-2">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-semibold text-muted">Idade
+                                                </label>
+                                            <input v-model="formUser.idade" type="number"
+                                                class="form-control bg-light border-0 rounded-3 py-2">
+                                        </div>
                                     </div>
                                     <div class="col-12">
                                         <label class="form-label small fw-semibold text-muted">Órgão Expeditor *</label>
@@ -53,6 +69,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-lg-6">
                             <div
                                 class="bg-white p-4 p-md-5 rounded-4 shadow-sm border border-light h-100 d-flex flex-column">
@@ -63,7 +80,6 @@
                                     <input v-model="formUser.celular" type="text"
                                         class="form-control bg-light border-0 rounded-3 py-2 fw-semibold">
                                 </div>
-
                                 <div class="row g-3 mb-3">
                                     <div class="col-12 col-sm-4">
                                         <label class="form-label small fw-semibold text-muted">Estado *</label>
@@ -87,14 +103,12 @@
                                         </select>
                                     </div>
                                 </div>
-
                                 <div class="mb-4">
                                     <label class="form-label small fw-semibold text-muted">Endereço Completo *</label>
                                     <input v-model="formUser.endereco" type="text"
                                         class="form-control bg-light border-0 rounded-3 py-2 fw-semibold"
                                         placeholder="Rua, Número, Bairro">
                                 </div>
-
                                 <div class="mt-auto p-3 bg-warning bg-opacity-10 rounded-4 border border-warning mb-3">
                                     <div class="form-check form-switch m-0 d-flex align-items-center">
                                         <input class="form-check-input fs-4 m-0 me-3 shadow-none cursor-pointer"
@@ -109,6 +123,55 @@
                                             type="checkbox" v-model="ignorarRegras" id="ignorarSwitch">
                                         <label class="form-check-label fw-bold text-danger mb-0 cursor-pointer lh-sm"
                                             for="ignorarSwitch">IGNORAR REGRAS</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="bg-white p-4 p-md-5 rounded-4 shadow-sm border border-light">
+                                <h6 class="text-brand fw-bold border-bottom pb-3 mb-4" style="color: #2563eb;">Vincular
+                                    Familiares / Amigos</h6>
+
+                                <div class="mb-3 d-flex flex-wrap gap-2">
+                                    <span v-for="p in formUser.parentesSelecionados" :key="p.id"
+                                        class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 p-2 px-3 d-flex align-items-center gap-2 fs-6 rounded-pill">
+                                        {{ p.nome }}
+                                        <button type="button" class="btn-close shadow-none" style="font-size: 0.5rem;"
+                                            @click="removerParente(p.id)"></button>
+                                    </span>
+                                    <span v-if="formUser.parentesSelecionados.length === 0"
+                                        class="text-muted small fst-italic">
+                                        Nenhum dependente vinculado a este cadastro.
+                                    </span>
+                                </div>
+
+                                <div class="position-relative mt-4">
+                                    <label class="form-label small fw-semibold text-muted">Buscar passageiro para
+                                        vincular:</label>
+                                    <input v-model="buscaParente" type="text"
+                                        class="form-control bg-light border-0 rounded-3 py-2 fw-semibold"
+                                        placeholder="Digite o nome do passageiro...">
+
+                                    <div v-if="buscaParente"
+                                        class="position-absolute w-100 bg-white border border-light shadow-lg rounded-3 mt-1 p-2"
+                                        style="max-height: 220px; overflow-y: auto; z-index: 100;">
+                                        <div v-for="u in usuariosParaVincular" :key="u.id"
+                                            class="d-flex justify-content-between align-items-center p-2 border-bottom border-light cursor-pointer hover-bg"
+                                            @click="adicionarParente(u)">
+                                            <div>
+                                                <span class="fw-bold text-dark d-block" style="font-size: 0.9rem;">{{
+                                                    u.nome }}</span>
+                                                <span class="text-muted" style="font-size: 0.75rem;">CPF: {{ u.cpf ||
+                                                    '-' }}</span>
+                                            </div>
+                                            <button type="button" class="btn btn-sm btn-brand rounded-pill px-3 fw-bold"
+                                                style="background-color: #2563eb; color: white; border: none;">Vincular</button>
+                                        </div>
+                                        <div v-if="usuariosParaVincular.length === 0"
+                                            class="p-3 text-center text-muted small fw-semibold">
+                                            Nenhum passageiro disponível encontrado.
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -153,17 +216,33 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 
 const props = defineProps({
-    usuarioEditando: { type: Object, default: () => null }
+    usuarioEditando: { type: Object, default: () => null },
+    todosUsuarios: { type: Array, default: () => [] }
 })
 const emit = defineEmits(['close', 'salvo'])
 const { showToast } = useToasts()
 
 const ignorarRegras = ref(false)
 const carregando = ref(false)
-const formUser = ref({ id: null, nome: '', email: '', cpf: '', orgaoExpeditor: '', nascimento: '', celular: '', cidade: '', endereco: '', idade: '', isGuia: false, parentesSelecionados: [] })
+const formUser = ref({
+    id: null,
+    nome: '',
+    email: '',
+    cpf: '',
+    orgaoExpeditor: '',
+    nascimento: '',
+    celular: '',
+    cidade: '',
+    endereco: '',
+    idade: '',
+    isGuia: false,
+    parentesSelecionados: []
+})
+
+const buscaParente = ref('')
 
 // Órgão Expeditor
 const opcoesOrgao = ref(['DETRAN', 'DIC', 'IFP', 'SSP', 'Outros'])
@@ -190,7 +269,10 @@ onMounted(async () => {
 
     // 2. Preencher dados se for Edição
     if (props.usuarioEditando) {
-        formUser.value = { ...props.usuarioEditando, parentesSelecionados: [] }
+        formUser.value = {
+            ...props.usuarioEditando,
+            parentesSelecionados: props.usuarioEditando.parentes ? [...props.usuarioEditando.parentes] : []
+        }
 
         // Tratar Órgão Expeditor
         if (opcoesOrgao.value.includes(props.usuarioEditando.orgaoExpeditor)) {
@@ -204,7 +286,7 @@ onMounted(async () => {
         if (props.usuarioEditando.cidade && props.usuarioEditando.cidade.includes(', ')) {
             const [cid, uf] = props.usuarioEditando.cidade.split(', ')
             estadoSelecionado.value = uf
-            await buscarCidades() // Busca a lista antes de setar o valor
+            await buscarCidades()
             cidadeSelecionada.value = cid
         }
     }
@@ -249,6 +331,27 @@ const cancelarOutroOrgao = () => {
     modalOutroOrgao.value = false
 }
 
+// Lógica de Parentes
+const usuariosParaVincular = computed(() => {
+    if (!buscaParente.value) return []
+    const idsJaSelecionados = formUser.value.parentesSelecionados.map(p => p.id)
+    if (formUser.value.id) idsJaSelecionados.push(formUser.value.id)
+
+    return props.todosUsuarios.filter(u =>
+        !idsJaSelecionados.includes(u.id) &&
+        u.nome.toLowerCase().includes(buscaParente.value.toLowerCase())
+    )
+})
+
+const adicionarParente = (usuario) => {
+    formUser.value.parentesSelecionados.push(usuario)
+    buscaParente.value = ''
+}
+
+const removerParente = (id) => {
+    formUser.value.parentesSelecionados = formUser.value.parentesSelecionados.filter(p => p.id !== id)
+}
+
 const salvarUser = async () => {
     if (!ignorarRegras.value) {
         const campos = ['nome', 'email', 'cpf', 'nascimento', 'orgaoExpeditor', 'celular', 'endereco'];
@@ -262,7 +365,6 @@ const salvarUser = async () => {
         }
     }
 
-    // Prepara a string final de cidade
     if (cidadeSelecionada.value && estadoSelecionado.value) {
         formUser.value.cidade = `${cidadeSelecionada.value}, ${estadoSelecionado.value}`
     }
@@ -306,5 +408,13 @@ const salvarUser = async () => {
 .form-select:focus {
     box-shadow: 0 0 0 0.25rem rgba(37, 99, 235, 0.1);
     border-color: #93c5fd !important;
+}
+
+.hover-bg:hover {
+    background-color: #f8fafc !important;
+}
+
+.cursor-pointer {
+    cursor: pointer;
 }
 </style>
