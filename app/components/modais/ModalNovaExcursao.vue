@@ -61,6 +61,15 @@
                                 <div
                                     class="form-check form-switch d-flex align-items-center bg-white p-3 rounded-3 shadow-sm m-0 border border-light">
                                     <input class="form-check-input fs-4 m-0 me-3 shadow-none cursor-pointer"
+                                        type="checkbox" v-model="formEx.ativarContrato" id="ativarContratoSwitch"
+                                        @change="!formEx.ativarContrato ? formEx.liberarContratos = false : null">
+                                    <label class="form-check-label fw-bold text-dark cursor-pointer lh-sm"
+                                        for="ativarContratoSwitch">Habilitar Contratos Oficiais</label>
+                                </div>
+
+                                <div v-if="formEx.ativarContrato"
+                                    class="form-check form-switch d-flex align-items-center bg-white p-3 rounded-3 shadow-sm m-0 border border-light">
+                                    <input class="form-check-input fs-4 m-0 me-3 shadow-none cursor-pointer"
                                         type="checkbox" v-model="formEx.liberarContratos" id="liberarContratosSwitch">
                                     <label class="form-check-label fw-bold text-success cursor-pointer lh-sm"
                                         for="liberarContratosSwitch">
@@ -68,14 +77,6 @@
                                         <span class="text-muted small fw-normal fst-italic">Permite que o cliente
                                             visualize e assine pelo CPF</span>
                                     </label>
-                                </div>
-
-                                <div
-                                    class="form-check form-switch d-flex align-items-center bg-white p-3 rounded-3 shadow-sm m-0 border border-light">
-                                    <input class="form-check-input fs-4 m-0 me-3 shadow-none cursor-pointer"
-                                        type="checkbox" v-model="formEx.ativarContrato" id="ativarContratoSwitch">
-                                    <label class="form-check-label fw-bold text-dark cursor-pointer lh-sm"
-                                        for="ativarContratoSwitch">Habilitar Contratos Oficiais</label>
                                 </div>
 
                                 <div
@@ -189,7 +190,7 @@ const formEx = ref({
     valores: [],
     ativarContrato: false,
     aplicarParcelas: false,
-    liberarContratos: false, // NOVO CAMPO
+    liberarContratos: false,
     detalhes: { dataSaida: '', horaSaida: '', dataRetorno: '', horaRetorno: '', transporte: '', empresa: '', roteiro: '' }
 })
 
@@ -221,7 +222,7 @@ const salvarExcursao = async () => {
         valores: JSON.stringify(formEx.value.valores || []),
         ativarContrato: formEx.value.ativarContrato,
         aplicarParcelas: formEx.value.aplicarParcelas,
-        liberarContratos: formEx.value.liberarContratos, // ENVIA O NOVO CAMPO
+        liberarContratos: formEx.value.liberarContratos,
         contratoDetalhes: JSON.stringify(formEx.value.detalhes || {})
     };
 

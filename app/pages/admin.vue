@@ -46,7 +46,6 @@
 
           <ModaisModalUser v-if="modalUser" :usuarioEditando="userSelecionado" :todosUsuarios="usuarios"
                 @close="modalUser = false" @salvo="carregar" />
-                @salvo="carregar" />
             <ModaisModalNovaExcursao v-if="modalCriarExcursao" :excursaoEditando="exSelecionada"
                 :guiasDisponiveis="guiasDisponiveis" @close="modalCriarExcursao = false" @salvo="carregar"
                 @apagar="(id) => pedirConfirmacao('excursao', id, 'Apagar Excursão', 'Deseja apagar esta viagem definitivamente?')" />

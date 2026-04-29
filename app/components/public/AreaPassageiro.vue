@@ -425,9 +425,18 @@
                             </table>
                         </div>
 
-                        <p class="text-justify mb-5"><b>DECLARAÇÃO FINAL:</b> O CONTRATANTE declara que leu, compreendeu
+                        <p class="text-justify mb-4"><b>DECLARAÇÃO FINAL:</b> O CONTRATANTE declara que leu, compreendeu
                             e concorda com todas as cláusulas acima, especialmente quanto aos riscos envolvidos e
                             responsabilidades assumidas.</p>
+
+                        <div class="bg-brand-light p-4 rounded-4 border border-brand border-opacity-25 mb-5 d-flex justify-content-center">
+                            <div class="form-check d-flex align-items-center gap-3 m-0">
+                                <input class="form-check-input border-brand shadow-sm m-0" type="checkbox" id="checkHabilitarContrato" v-model="contratoHabilitado" style="width: 1.5em; height: 1.5em; cursor: pointer;">
+                                <label class="form-check-label fw-bold text-dark user-select-none" for="checkHabilitarContrato" style="cursor: pointer; padding-top: 2px;">
+                                    Habilitar contratos oficiais
+                                </label>
+                            </div>
+                        </div>
 
                         <div class="text-center mt-4">
                             <p class="mb-5">Quissamã/RJ, {{ dataAtualFormatada() }}</p>
@@ -444,7 +453,9 @@
                             class="btn btn-outline-secondary fw-bold w-100 w-sm-auto px-4 me-auto rounded-pill py-3 bg-white"
                             @click="modalContratoAberto = false" :disabled="assinando">Li e não concordo
                             (Cancelar)</button>
+
                         <button
+                            v-if="contratoHabilitado"
                             class="btn btn-brand fw-bold px-5 py-3 w-100 w-sm-auto rounded-pill shadow-soft d-flex align-items-center justify-content-center gap-2"
                             @click="assinarContrato" :disabled="assinando">
                             <svg v-if="!assinando" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
@@ -476,6 +487,9 @@ const erroForm = ref('')
 const minhasExcursoes = ref([])
 const carregando = ref(false)
 const assinando = ref(false)
+
+// NOVA VARIÁVEL REATIVA
+const contratoHabilitado = ref(false)
 
 const modalContratoAberto = ref(false)
 const excursaoSendoAssinada = ref(null)
@@ -563,6 +577,7 @@ const verificarSeEhDependente = (ex) => {
 
 const abrirModalContrato = (excursao) => {
     excursaoSendoAssinada.value = excursao;
+    contratoHabilitado.value = false; // RESETA O CHECKBOX SEMPRE QUE ABRIR
     modalContratoAberto.value = true;
 }
 

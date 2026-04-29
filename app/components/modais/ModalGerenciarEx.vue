@@ -20,7 +20,7 @@
                                         excursao.usuarios.length }} / {{ excursao.vagas }}</h6>
                                     <div class="d-flex flex-wrap gap-2">
                                         <button v-if="excursao.ativarContrato"
-                                            class="btn btn-outline-primary fw-bold rounded-pill px-4 py-2 shadow-sm bg-white"
+                                            class="btn btn-outline-primary fw-bold rounded-pill px-4 py-2 shadow-sm"
                                             @click="modalGrupos = true">Gerenciar Grupos / Famílias</button>
 
                                         <button
