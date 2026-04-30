@@ -11,12 +11,13 @@
                     <div class="mb-4">
                         <span
                             class="badge bg-primary bg-opacity-10 text-brand px-3 py-2 rounded-pill fw-bold mb-3 fs-6">{{
-                            usuarioPagamento?.nome }}</span>
+                                usuarioPagamento?.nome }}</span>
                     </div>
                     <label class="form-label small fw-bold text-muted mb-2">Nova opção de parcela:</label>
                     <select v-model="novoPagamento"
                         class="form-select form-select-lg bg-light border-0 fw-bold text-dark mb-2 py-3 text-center rounded-4">
                         <option value="">-- Pendente / À Combinar --</option>
+                        <option value="Criança de 0 a 1,9 meses - Isento">Criança de 0 a 1,9 meses - Isento</option>
                         <option v-for="(v, i) in excursaoSelecionada.valores" :key="i"
                             :value="`${v.vezes}x de R$ ${v.valor}`">{{ v.vezes }}x de R$ {{ v.valor }}</option>
                     </select>

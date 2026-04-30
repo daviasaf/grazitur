@@ -67,17 +67,27 @@
                                                 </span>
                                             </td>
                                             <td class="text-end pe-0 py-3">
-                                                <button v-if="obterPagamento(ex, m.id) !== 'Pendente / À combinar'"
+                                                <button
+                                                    v-if="obterPagamento(ex, m.id) !== 'Pendente / À combinar' && obterPagamento(ex, m.id) !== 'Criança de 0 a 1,9 meses - Isento'"
                                                     class="btn btn-sm btn-brand rounded-pill fw-bold px-3 shadow-sm text-nowrap"
                                                     @click="abrirModalPix(ex, m)">
                                                     Pagar com Pix
                                                 </button>
+                                                <span
+                                                    v-else-if="obterPagamento(ex, m.id) === 'Criança de 0 a 1,9 meses - Isento'"
+                                                    class="text-success small fw-bold text-nowrap">✔ Não Paga</span>
                                                 <span v-else
                                                     class="text-muted small fst-italic text-nowrap">Indefinido</span>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
+                            </div>
+
+                            <div v-if="temCriancaIsenta(ex)"
+                                class="alert alert-warning py-2 px-3 small fw-bold mt-3 mb-0 border-0 rounded-3 d-flex align-items-center gap-2 bg-warning bg-opacity-10 text-dark">
+                                👶 <span>Passageiros marcados como <strong>"Criança de 0 a 1,9 meses"</strong> são
+                                    isentos e não pagam o valor da viagem.</span>
                             </div>
                         </div>
                     </div>
@@ -128,6 +138,7 @@
             </div>
         </div>
 
+        <!-- ================= MODAIS DE PIX E AVISO ================= -->
         <div v-if="modalPixAberto" class="modal fade show d-block" style="background: rgba(0,0,0,0.7); z-index: 1060;">
             <div class="modal-dialog modal-dialog-centered px-3">
                 <div class="modal-content border-0 shadow-lg rounded-5 bg-white">
@@ -649,6 +660,12 @@ const sair = () => {
 const obterPagamento = (ex, pId) => {
     return ex.pagamentos?.[pId] || 'Pendente / À combinar';
 }
+
+const temCriancaIsenta = (ex) => {
+    const familia = obterLiderEDependentes(ex);
+    return familia.some(m => obterPagamento(ex, m.id) === 'Criança de 0 a 1,9 meses - Isento');
+}
+
 const obterValorParcela = (pagamentoStr) => {
     if (!pagamentoStr || pagamentoStr === 'Pendente / À combinar') return '';
     const match = pagamentoStr.match(/R\$\s*([\d,.]+)/);

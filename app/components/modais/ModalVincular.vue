@@ -33,6 +33,8 @@
                             <select v-model="opcaoPagamentoMain"
                                 class="form-select form-select-lg border-0 fw-bold text-dark bg-white shadow-sm rounded-3 py-3 text-center">
                                 <option value="">-- À Combinar --</option>
+                                <option value="Criança de 0 a 1,9 meses - Isento">Criança de 0 a 1,9 meses - Isento
+                                </option>
                                 <option v-for="(v, i) in excursaoSendoVinculada.valores" :key="i"
                                     :value="`${v.vezes}x de R$ ${v.valor}`">{{ v.vezes }}x de R$ {{ v.valor }}</option>
                             </select>
@@ -82,6 +84,8 @@
                                 <select v-model="opcaoPagamentoParente"
                                     class="form-select form-select-lg border-0 fw-bold text-dark bg-white shadow-sm rounded-3 py-3 text-center">
                                     <option value="">-- À Combinar --</option>
+                                    <option value="Criança de 0 a 1,9 meses - Isento">Criança de 0 a 1,9 meses - Isento
+                                    </option>
                                     <option v-for="(v, i) in excursaoVinculada.valores" :key="i"
                                         :value="`${v.vezes}x de R$ ${v.valor}`">{{ v.vezes }}x de R$ {{ v.valor }}
                                     </option>
@@ -127,7 +131,6 @@ const parentesDoUsuarioSelecionado = computed(() => {
 })
 
 const selecionarExcursaoParaVincular = (e) => {
-    // Verifica se a pessoa logada já está matriculada nesta excursão antes mesmo de abrir
     if (e.usuarios && e.usuarios.some(u => String(u.id) === String(props.userParaVincular.id))) {
         showToast(`${props.userParaVincular.nome} já está matriculado(a) nesta viagem!`, 'warning');
         return;
@@ -153,10 +156,9 @@ const vincularMainUser = async (userId, excursao) => {
 }
 
 const iniciarVinculoParente = (parente) => {
-    // Verifica se o dependente já está na excursão antes de abrir o modal de pagamento
     if (excursaoVinculada.value.usuarios && excursaoVinculada.value.usuarios.some(u => String(u.id) === String(parente.id))) {
         showToast(`${parente.nome} já está matriculado(a) nesta viagem!`, 'warning');
-        parentesAdicionadosNaSessao.value.push(parente.id); // Marca visualmente que já está inserido
+        parentesAdicionadosNaSessao.value.push(parente.id);
         return;
     }
 
