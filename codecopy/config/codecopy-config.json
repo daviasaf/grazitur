@@ -34,7 +34,8 @@
     "*.woff",
     "*.woff2",
     "*.ttf",
-    "*.eot"
+    "*.eot",
+    ".json"
   ],
   "includedExtensions": [
     ".js",

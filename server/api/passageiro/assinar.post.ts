@@ -13,7 +13,6 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  // Busca a excursão
   const excursao = await prisma.excursao.findUnique({
     where: { id: excursaoId },
   });
@@ -25,11 +24,11 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  // Verifica se o usuário é um dependente
+
   if (excursao.contratoGrupos) {
     try {
       const grupos = JSON.parse(excursao.contratoGrupos);
-      // Checa se o userId está dentro do array de dependentes de algum líder
+
       const ehDependente = Object.values(grupos).some((dependentesArray: any) =>
         dependentesArray.map(String).includes(String(userId)),
       );
@@ -46,7 +45,7 @@ export default defineEventHandler(async (event) => {
     }
   }
 
-  // Prepara o objeto de assinaturas
+
   let assinaturas: Record<string, string> = {};
   if (excursao.assinaturasJson) {
     try {
@@ -56,10 +55,10 @@ export default defineEventHandler(async (event) => {
     }
   }
 
-  // Registra a assinatura com a data/hora atual ISO
+
   assinaturas[String(userId)] = new Date().toISOString();
 
-  // Salva no banco de dados
+
   await prisma.excursao.update({
     where: { id: excursaoId },
     data: {

@@ -12,10 +12,14 @@
                 {{ excursao.lugar }}
             </p>
             <div class="mt-auto bg-white p-3 rounded-4 border-0 shadow-sm">
-                <div class="small d-flex justify-content-between align-items-center mb-2">
-                    <span class="text-muted small fw-semibold">Guia Responsável:</span>
-                    <span :class="excursao.guia ? 'text-dark fw-bold' : 'text-danger fw-bold'">{{
-                        excursao.guia?.nome || 'Pendente' }}</span>
+                <!-- CORREÇÃO: text-truncate, max-width e troca de "Guia Responsável" para "Guia" no celular -->
+                <div class="small d-flex justify-content-between align-items-center mb-2 gap-2">
+                    <span class="text-muted small fw-semibold text-nowrap d-none d-sm-inline">Guia Responsável:</span>
+                    <span class="text-muted small fw-semibold text-nowrap d-inline d-sm-none">Guia:</span>
+                    <span :class="excursao.guia ? 'text-dark fw-bold' : 'text-danger fw-bold'"
+                        class="text-end text-truncate" style="max-width: 65%;" :title="excursao.guia?.nome">
+                        {{ formatarNomeGuia(excursao.guia?.nome) }}
+                    </span>
                 </div>
                 <div class="progress rounded-pill bg-light" style="height: 8px;">
                     <div class="progress-bar rounded-pill"
@@ -36,6 +40,12 @@ defineProps({
     excursao: { type: Object, required: true }
 })
 defineEmits(['gerenciar'])
+
+const formatarNomeGuia = (nome) => {
+    if (!nome) return 'Pendente';
+    const partes = nome.trim().split(' ');
+    return partes.slice(0, 2).join(' ');
+}
 </script>
 
 <style scoped>

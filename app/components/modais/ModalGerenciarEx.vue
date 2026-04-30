@@ -42,42 +42,74 @@
                             Vincule um Guia para liberar os downloads de Lista de Chamada.
                         </div>
 
+                        <!-- TABELA COM DEPENDENTES AGRUPADOS ABAIXO DO LÍDER E SEM COLUNA VÍNCULO -->
                         <div class="border border-light rounded-4 overflow-hidden bg-white shadow-sm">
                             <div class="scrollable-table-container">
                                 <table class="table table-hover align-middle mb-0 table-fixed-header">
-                                    <thead class="text-muted small text-uppercase">
+                                    <thead class="text-muted small text-uppercase bg-light">
                                         <tr>
-                                            <th class="ps-4 py-3 border-0 text-start fw-bold">Nome do Passageiro</th>
-                                            <th class="py-3 border-0 text-center fw-bold">CPF</th>
+                                            <th class="ps-4 py-3 border-0 text-start fw-bold">Passageiro & Contato</th>
                                             <th v-if="excursao.aplicarParcelas"
                                                 class="py-3 border-0 text-center fw-bold text-brand">Pagamento</th>
-
                                             <th v-if="excursao.liberarContratos"
                                                 class="py-3 border-0 text-center fw-bold text-success">Contrato</th>
-
                                             <th class="pe-4 py-3 border-0 text-center fw-bold">Ações</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="p in excursao.usuarios" :key="p.id">
-                                            <td class="ps-4 py-3 fw-bold text-dark small text-start">{{ p.nome }}</td>
-                                            <td class="text-muted fw-semibold small py-3 text-center">{{
-                                                mascaraCPF(p.cpf) || '-' }}
+                                        <tr v-for="p in usuariosOrdenados" :key="p.id"
+                                            :class="getVinculo(p.id).isDependente ? 'bg-light' : ''">
+                                            <!-- NOME E CONTATOS COM RECUO PARA DEPENDENTES -->
+                                            <td class="ps-4 py-3 text-start">
+                                                <div class="d-flex align-items-start gap-2">
+                                                    <span v-if="getVinculo(p.id).isDependente"
+                                                        class="text-muted fw-bold mt-1">↳</span>
+                                                    <div>
+                                                        <div class="fw-bold d-flex align-items-center gap-2"
+                                                            :class="getVinculo(p.id).isDependente ? 'text-secondary' : 'text-dark'"
+                                                            style="font-size: 0.95rem;">
+                                                            {{ p.nome }}
+                                                            <span v-if="p.id === excursao.guiaId"
+                                                                class="badge bg-warning text-dark py-0 px-2 rounded-pill shadow-sm"
+                                                                style="font-size: 0.65rem;">GUIA</span>
+                                                        </div>
+                                                        <div
+                                                            class="text-muted small fw-semibold d-flex align-items-center gap-2 mt-1">
+                                                            <span title="CPF">{{ mascaraCPF(p.cpf) || '-' }}</span>
+                                                            <span class="text-light opacity-50">|</span>
+                                                            <a v-if="p.celular" :href="formatarWhatsApp(p.celular)"
+                                                                target="_blank"
+                                                                class="text-success text-decoration-none d-flex align-items-center gap-1 hover-whatsapp"
+                                                                title="Chamar no WhatsApp">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="12"
+                                                                    height="12" fill="currentColor" viewBox="0 0 16 16">
+                                                                    <path
+                                                                        d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232" />
+                                                                </svg>
+                                                                {{ p.celular }}
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </td>
-                                            <td v-if="excursao.aplicarParcelas"
-                                                class="fw-bold text-brand small py-3 text-center">
-                                                <div class="cursor-pointer d-inline-block bg-primary bg-opacity-10 px-3 py-1 rounded-pill"
+
+                                            <!-- PAGAMENTO -->
+                                            <td v-if="excursao.aplicarParcelas" class="py-3 text-center">
+                                                <div class="cursor-pointer d-inline-block px-3 py-1 rounded-pill fw-bold border transition-hover"
+                                                    :class="obterPagamento(p.id) === 'Pendente' ? 'bg-danger bg-opacity-10 text-danger border-danger border-opacity-25' : 'bg-primary bg-opacity-10 text-brand border-primary border-opacity-25'"
+                                                    style="font-size: 0.75rem;"
                                                     @click="$emit('alterarPagamento', p, excursao)"
-                                                    title="Alterar Pagamento">
+                                                    title="Clique para Alterar Pagamento">
                                                     {{ obterPagamento(p.id) }} ✎
                                                 </div>
                                             </td>
 
+                                            <!-- CONTRATO -->
                                             <td v-if="excursao.liberarContratos" class="text-center">
                                                 <template v-if="p.id === excursao.guiaId">
                                                     <span
                                                         class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 rounded-pill px-3 py-1">✔
-                                                        Guia Assinado</span>
+                                                        Guia</span>
                                                 </template>
                                                 <template v-else-if="verificarSeEhDependente(p.id)">
                                                     <span
@@ -90,14 +122,15 @@
                                                         Baixar Assinado
                                                     </button>
                                                     <span v-else
-                                                        class="text-muted small fw-semibold fst-italic">Pendente</span>
+                                                        class="text-danger small fw-bold fst-italic">Pendente</span>
                                                 </template>
                                             </td>
 
+                                            <!-- AÇÕES -->
                                             <td class="pe-4 py-3 text-center">
                                                 <button
                                                     class="btn btn-sm bg-danger bg-opacity-10 text-danger border-0 rounded-circle action-btn"
-                                                    style="width: 32px; height: 32px;"
+                                                    style="width: 32px; height: 32px;" title="Remover Passageiro"
                                                     @click="removerUserDaEx(p.id)">✕</button>
                                             </td>
                                         </tr>
@@ -224,17 +257,62 @@ const modalAgrupar = ref(false)
 const formGrupo = ref({ liderId: null, dependentes: [], originalLiderId: null })
 const buscaDependente = ref('')
 
-// Lógica de Assinatura Individual
+const usuariosOrdenados = computed(() => {
+    if (!props.excursao || !props.excursao.usuarios) return [];
+
+    const ordered = [];
+    const processedIds = new Set();
+
+    const usuariosMap = new Map(props.excursao.usuarios.map(u => [String(u.id), u]));
+    const grupos = props.excursao.grupos || {};
+
+    for (const [liderId, dependentes] of Object.entries(grupos)) {
+        if (usuariosMap.has(liderId)) {
+            ordered.push(usuariosMap.get(liderId));
+            processedIds.add(liderId);
+
+            dependentes.forEach(depId => {
+                if (usuariosMap.has(String(depId)) && !processedIds.has(String(depId))) {
+                    ordered.push(usuariosMap.get(String(depId)));
+                    processedIds.add(String(depId));
+                }
+            });
+        }
+    }
+
+    props.excursao.usuarios.forEach(u => {
+        if (!processedIds.has(String(u.id))) {
+            ordered.push(u);
+        }
+    });
+
+    return ordered;
+});
+
+const formatarWhatsApp = (celular) => {
+    if (!celular) return '#';
+    const num = celular.replace(/\D/g, '');
+    return `https://wa.me/55${num}`;
+}
+
+const getVinculo = (userId) => {
+    if (props.excursao.grupos) {
+        for (const dependentes of Object.values(props.excursao.grupos)) {
+            if (dependentes.includes(String(userId))) {
+                return { isDependente: true };
+            }
+        }
+    }
+    return { isDependente: false };
+}
+
 const verificarAssinatura = (userId) => {
     if (!props.excursao.assinaturas) return false;
     return !!props.excursao.assinaturas[String(userId)];
 }
 
 const verificarSeEhDependente = (userId) => {
-    if (!props.excursao.grupos) return false;
-    return Object.values(props.excursao.grupos).some((dependentesArray) =>
-        dependentesArray.map(String).includes(String(userId))
-    );
+    return getVinculo(userId).isDependente;
 };
 
 const baixarContratoAssinado = (userId) => {
@@ -242,6 +320,7 @@ const baixarContratoAssinado = (userId) => {
 }
 
 const obterPagamento = (pId) => { return props.excursao.pagamentos?.[pId] || 'Pendente'; }
+
 const getNomeUser = (id) => { const u = props.excursao.usuarios.find(x => String(x.id) === String(id)); return u ? u.nome : 'Desconhecido'; }
 
 const removerUserDaEx = async (userId) => {
@@ -256,7 +335,6 @@ const usuariosParaLider = computed(() => {
     if (!props.excursao) return [];
     const idsJaEmGrupo = new Set();
     Object.entries(props.excursao.grupos || {}).forEach(([lId, arr]) => {
-        // Ignora os membros do grupo ATUAL que está sendo editado, para não bloqueá-los de serem selecionados
         if (String(lId) !== String(formGrupo.value.originalLiderId)) {
             idsJaEmGrupo.add(String(lId));
             arr.forEach(i => idsJaEmGrupo.add(String(i)));
@@ -274,7 +352,6 @@ const usuariosPossiveisDependentes = computed(() => {
             arr.forEach(i => idsJaEmGrupo.add(String(i)));
         }
     });
-    // O Líder atual selecionado não pode ser dependente dele mesmo
     idsJaEmGrupo.add(String(formGrupo.value.liderId));
 
     let lista = props.excursao.usuarios.filter(u => !idsJaEmGrupo.has(String(u.id)) && u.id !== props.excursao.guiaId);
@@ -306,7 +383,6 @@ const salvarGrupo = async () => {
 
     const novosGrupos = { ...(props.excursao.grupos || {}) };
 
-    // Se mudou de líder durante a edição, apaga o registro do líder antigo
     if (formGrupo.value.originalLiderId && String(formGrupo.value.originalLiderId) !== String(formGrupo.value.liderId)) {
         delete novosGrupos[String(formGrupo.value.originalLiderId)];
     }
@@ -365,6 +441,20 @@ const acaoBaixarListaExcel = () => { exportarListaExcel(props.excursao, showToas
 
 .action-btn:hover {
     transform: scale(1.1);
+}
+
+.transition-hover {
+    transition: all 0.2s;
+}
+
+.transition-hover:hover {
+    filter: brightness(0.9);
+    transform: scale(1.02);
+}
+
+.hover-whatsapp:hover {
+    text-decoration: underline !important;
+    opacity: 0.8;
 }
 
 .btn-pdf-custom {

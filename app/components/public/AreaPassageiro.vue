@@ -43,17 +43,42 @@
                 </div>
                 <div class="card-body p-4">
                     <div class="row g-4">
-                        <div class="col-12 col-md-6 border-end border-light">
+                        <div class="col-12 col-md-5 border-end border-light">
                             <h6 class="fw-bold text-dark small text-uppercase mb-3">Informações da Viagem</h6>
                             <p class="small mb-1 text-muted"><strong>Saída:</strong> {{ ex.detalhes?.dataSaida || 'A definir' }} às {{ ex.detalhes?.horaSaida || 'A definir' }}</p>
+                            <p class="small mb-1 text-muted"><strong>Retorno:</strong> {{ ex.detalhes?.dataRetorno || 'A definir' }} às {{ ex.detalhes?.horaRetorno || 'A definir' }}</p>
                             <p class="small mb-1 text-muted"><strong>Transporte:</strong> {{ ex.detalhes?.transporte ||
                                 'A definir' }}</p>
                         </div>
-                        <div class="col-12 col-md-6">
-                            <h6 class="fw-bold text-dark small text-uppercase mb-3">Seu Pagamento</h6>
-                            <span
-                                class="badge bg-success bg-opacity-10 text-success fs-6 rounded-pill px-3 py-2 border border-success border-opacity-25">{{
-                                    obterPagamento(ex, usuarioLogado.id) }}</span>
+
+                        <div class="col-12 col-md-7">
+                            <h6 class="fw-bold text-dark small text-uppercase mb-3">Passageiros e Pagamentos</h6>
+                            <div class="table-responsive">
+                                <table class="table table-borderless align-middle mb-0">
+                                    <tbody>
+                                        <tr v-for="m in obterLiderEDependentes(ex)" :key="m.id"
+                                            class="border-bottom border-light">
+                                            <td class="ps-0 py-3"><strong class="small text-dark">{{ m.nome }}</strong>
+                                            </td>
+                                            <td class="py-3">
+                                                <span
+                                                    class="badge bg-success bg-opacity-10 text-success fs-6 rounded-pill px-3 py-2 border border-success border-opacity-25 text-nowrap">
+                                                    {{ obterPagamento(ex, m.id) }}
+                                                </span>
+                                            </td>
+                                            <td class="text-end pe-0 py-3">
+                                                <button v-if="obterPagamento(ex, m.id) !== 'Pendente / À combinar'"
+                                                    class="btn btn-sm btn-brand rounded-pill fw-bold px-3 shadow-sm text-nowrap"
+                                                    @click="abrirModalPix(ex, m)">
+                                                    Pagar com Pix
+                                                </button>
+                                                <span v-else
+                                                    class="text-muted small fst-italic text-nowrap">Indefinido</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
 
@@ -102,6 +127,74 @@
                 </div>
             </div>
         </div>
+
+        <div v-if="modalPixAberto" class="modal fade show d-block" style="background: rgba(0,0,0,0.7); z-index: 1060;">
+            <div class="modal-dialog modal-dialog-centered px-3">
+                <div class="modal-content border-0 shadow-lg rounded-5 bg-white">
+                    <div class="modal-header border-0 pb-0">
+                        <button type="button" class="btn-close" @click="modalPixAberto = false"></button>
+                    </div>
+                    <div class="modal-body text-center px-4 px-md-5 pb-5 pt-0">
+                        <div class="mb-3 text-brand">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="54" height="54" fill="currentColor"
+                                viewBox="0 0 16 16">
+                                <path
+                                    d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z" />
+                            </svg>
+                        </div>
+                        <h5 class="fw-bold text-dark mb-1">Pagamento via Pix</h5>
+                        <p class="small text-muted mb-4">
+                            Passageiro: <strong class="text-dark">{{ pixData.nome }}</strong><br>
+                            Parcela: <strong class="text-success">{{ pixData.valor }}</strong>
+                        </p>
+
+                        <div class="p-3 bg-light rounded-4 mb-4 text-break small text-muted border border-light user-select-all"
+                            style="max-height: 120px; overflow-y: auto;">
+                            {{ pixData.codigo }}
+                        </div>
+
+                        <button class="btn btn-brand w-100 py-3 fw-bold rounded-pill shadow-soft fs-5"
+                            @click="copiarPixEAvise">
+                            Copiar Pix Copia e Cola
+                        </button>
+                        <p class="mt-3 mb-0 small text-muted fst-italic">Após copiar, abra o aplicativo do seu banco
+                            para colar.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div v-if="modalAvisoAberto" class="modal fade show d-block"
+            style="background: rgba(0,0,0,0.7); z-index: 1070;">
+            <div class="modal-dialog modal-dialog-centered px-3" style="max-width: 400px;">
+                <div
+                    class="modal-content border-0 shadow-lg rounded-5 bg-white text-center p-4 p-md-5 position-relative">
+                    <button type="button" class="btn-close position-absolute top-0 end-0 m-3 shadow-none"
+                        style="font-size: 0.6rem;" @click="modalAvisoAberto = false"></button>
+
+                    <div class="text-success mb-3 mt-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                        </svg>
+                    </div>
+
+                    <h5 class="fw-bold text-dark mb-2">Código Copiado!</h5>
+                    <p class="text-muted small fw-semibold mb-4 lh-base">
+                        Avise a Grazi tur que voce pagou a parcela de <br><strong class="text-brand fs-6">{{
+                            passageiroAviso }}</strong>
+                    </p>
+
+                    <a :href="linkWhatsApp" target="_blank"
+                        class="btn btn-success w-100 py-3 fw-bold rounded-pill shadow-sm"
+                        @click="modalAvisoAberto = false">
+                        Avisar pelo WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- ========================================================= -->
 
         <div v-if="modalContratoAberto && excursaoSendoAssinada" class="modal fade show d-block"
             style="background: rgba(0,0,0,0.8); z-index: 1050;">
@@ -165,7 +258,7 @@
                         <p class="text-justify mb-4">Para aquisição dos serviços prestados pela GRAZI TURISMO, o
                             contratante deverá escolher entre os valores constantes no ANEXO I do presente contrato.<br>
                             É lícito ao Contratante exercer seu direito de arrependimento, desistindo da contratação dos
-                            serviços, desde que o faça em até 7 (sete) dias contados da contratação, nos moldes do
+                            servços, desde que o faça em até 7 (sete) dias contados da contratação, nos moldes do
                             artigo 49 do Código de Defesa do Consumidor (com exceção das taxas/multas impostas em
                             virtude do cancelamento, as quais serão aplicadas).</p>
 
@@ -383,7 +476,7 @@
                                 e não executora direta dos serviços prestados por terceiros.</li>
                         </ul>
 
-                        <h5 class="text-center fw-bold mt-5 mb-3">ANEXO I – DESCRIÇÃO DA PRESTAÇÃO DE SERVIÇO</h5>
+                        <h5 class="text-center fw-bold mt-5 mb-3">ANEXO I – DESCRIÇÃO DA PRESTAÇÃO DE SERVIÇOS</h5>
                         <p class="mb-3">
                             <b>Destino da viagem:</b> {{ excursaoSendoAssinada.lugar }}<br>
                             <b>Data de saída:</b> {{ excursaoSendoAssinada.detalhes?.dataSaida || "__/__/____" }}
@@ -429,10 +522,14 @@
                             e concorda com todas as cláusulas acima, especialmente quanto aos riscos envolvidos e
                             responsabilidades assumidas.</p>
 
-                        <div class="bg-brand-light p-4 rounded-4 border border-brand border-opacity-25 mb-5 d-flex justify-content-center">
+                        <div
+                            class="bg-brand-light p-4 rounded-4 border border-brand border-opacity-25 mb-5 d-flex justify-content-center">
                             <div class="form-check d-flex align-items-center gap-3 m-0">
-                                <input class="form-check-input border-brand shadow-sm m-0" type="checkbox" id="checkHabilitarContrato" v-model="contratoHabilitado" style="width: 1.5em; height: 1.5em; cursor: pointer;">
-                                <label class="form-check-label fw-bold text-dark user-select-none" for="checkHabilitarContrato" style="cursor: pointer; padding-top: 2px;">
+                                <input class="form-check-input border-brand shadow-sm m-0" type="checkbox"
+                                    id="checkHabilitarContrato" v-model="contratoHabilitado"
+                                    style="width: 1.5em; height: 1.5em; cursor: pointer;">
+                                <label class="form-check-label fw-bold text-dark user-select-none"
+                                    for="checkHabilitarContrato" style="cursor: pointer; padding-top: 2px;">
                                     Habilitar contratos oficiais
                                 </label>
                             </div>
@@ -454,8 +551,7 @@
                             @click="modalContratoAberto = false" :disabled="assinando">Li e não concordo
                             (Cancelar)</button>
 
-                        <button
-                            v-if="contratoHabilitado"
+                        <button v-if="contratoHabilitado"
                             class="btn btn-brand fw-bold px-5 py-3 w-100 w-sm-auto rounded-pill shadow-soft d-flex align-items-center justify-content-center gap-2"
                             @click="assinarContrato" :disabled="assinando">
                             <svg v-if="!assinando" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
@@ -488,16 +584,26 @@ const minhasExcursoes = ref([])
 const carregando = ref(false)
 const assinando = ref(false)
 
-// NOVA VARIÁVEL REATIVA
 const contratoHabilitado = ref(false)
 
 const modalContratoAberto = ref(false)
 const excursaoSendoAssinada = ref(null)
 
+const modalPixAberto = ref(false)
+const modalAvisoAberto = ref(false)
+const pixData = ref({ exId: null, userId: null, nome: '', valor: '', codigo: '', nomeViagem: '' })
+const passageiroAviso = ref('')
+
 const primeiroNome = computed(() => {
     if (!usuarioLogado.value) return '';
     return usuarioLogado.value.nome.split(' ')[0];
 })
+
+const linkWhatsApp = computed(() => {
+    const nomeViagem = pixData.value.nomeViagem || 'a excursão';
+    const msg = `Olá, acabei de pagar a taxa da viagem ${nomeViagem} no valor de ${pixData.value.valor}, pelo passageiro ${pixData.value.nome}`;
+    return `https://wa.me/5522999454860?text=${encodeURIComponent(msg)}`;
+});
 
 onMounted(() => {
     if (import.meta.client) {
@@ -543,6 +649,51 @@ const sair = () => {
 const obterPagamento = (ex, pId) => {
     return ex.pagamentos?.[pId] || 'Pendente / À combinar';
 }
+const obterValorParcela = (pagamentoStr) => {
+    if (!pagamentoStr || pagamentoStr === 'Pendente / À combinar') return '';
+    const match = pagamentoStr.match(/R\$\s*([\d,.]+)/);
+    return match ? `R$ ${match[1]}` : pagamentoStr;
+}
+
+const gerarPixCopiaECola = (ex, userId) => {
+    const chavePix = "58904532000133";
+    const valorStr = obterValorParcela(obterPagamento(ex, userId)).replace('R$ ', '').replace(/\./g, '').replace(',', '.');
+    const valor = parseFloat(valorStr) || 0;
+    const valorFormatado = valor.toFixed(2);
+    const tamanhoValor = valorFormatado.length.toString().padStart(2, '0');
+
+    const payload = `00020126360014BR.GOV.BCB.PIX0114${chavePix}52040000530398654${tamanhoValor}${valorFormatado}5802BR5901N6001C62160512GraziTurismo6304`;
+
+    let crc = 0xFFFF;
+    for (let i = 0; i < payload.length; i++) {
+        crc ^= payload.charCodeAt(i) << 8;
+        for (let j = 0; j < 8; j++) {
+            if ((crc & 0x8000) > 0) crc = (crc << 1) ^ 0x1021;
+            else crc = crc << 1;
+        }
+    }
+    const crcHex = (crc & 0xFFFF).toString(16).toUpperCase().padStart(4, '0');
+    return payload + crcHex;
+}
+
+const abrirModalPix = (ex, user) => {
+    const valor = obterValorParcela(obterPagamento(ex, user.id));
+    const codigo = gerarPixCopiaECola(ex, user.id);
+    pixData.value = { exId: ex.id, userId: user.id, nome: user.nome, valor, codigo, nomeViagem: ex.nome };
+    modalPixAberto.value = true;
+}
+
+const copiarPixEAvise = async () => {
+    try {
+        await navigator.clipboard.writeText(pixData.value.codigo);
+    } catch (err) {
+        console.error('Falha ao copiar PIX:', err);
+    }
+
+    passageiroAviso.value = pixData.value.nome;
+    modalPixAberto.value = false;
+    modalAvisoAberto.value = true;
+}
 
 const verificarAssinatura = (ex) => {
     if (!ex.assinaturas) return false;
@@ -577,7 +728,7 @@ const verificarSeEhDependente = (ex) => {
 
 const abrirModalContrato = (excursao) => {
     excursaoSendoAssinada.value = excursao;
-    contratoHabilitado.value = false; // RESETA O CHECKBOX SEMPRE QUE ABRIR
+    contratoHabilitado.value = false;
     modalContratoAberto.value = true;
 }
 

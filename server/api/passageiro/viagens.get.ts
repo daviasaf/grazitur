@@ -3,7 +3,6 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 export default defineEventHandler(async (event) => {
-  // Pega o CPF que vem na URL (ex: ?cpf=12345678900)
   const query = getQuery(event);
   let cpf = query.cpf;
 
@@ -14,10 +13,8 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  // Remove qualquer formatação (pontos, traços) caso o usuário tenha digitado
   cpf = cpf.replace(/[^\d]+/g, "");
 
-  // 1. Busca o usuário pelo CPF
   const user = await prisma.user.findFirst({
     where: { cpf: cpf },
   });
@@ -29,7 +26,7 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  // 2. Busca as excursões onde este usuário está incluído
+
   const excursoes = await prisma.excursao.findMany({
     where: {
       usuarios: {
@@ -37,11 +34,11 @@ export default defineEventHandler(async (event) => {
       },
     },
     include: {
-      usuarios: true, // Inclui os usuários para podermos verificar líderes/dependentes depois
+      usuarios: true, 
     },
   });
 
-  // 3. Formata os dados JSON (idêntico ao que o Admin faz)
+
   const excursoesFormatadas = excursoes.map((ex) => {
     let val = [];
     let pags = {};

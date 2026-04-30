@@ -244,13 +244,11 @@ const formUser = ref({
 
 const buscaParente = ref('')
 
-// Órgão Expeditor
 const opcoesOrgao = ref(['DETRAN', 'DIC', 'IFP', 'SSP', 'Outros'])
 const selecaoOrgao = ref('')
 const modalOutroOrgao = ref(false)
 const outroOrgaoTexto = ref('')
 
-// Estados e Cidades
 const estados = ref([])
 const cidades = ref([])
 const estadoSelecionado = ref('')
@@ -259,7 +257,6 @@ const carregandoEstados = ref(false)
 const carregandoCidades = ref(false)
 
 onMounted(async () => {
-    // 1. Carregar Estados do IBGE
     carregandoEstados.value = true
     try {
         const res = await $fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome')
@@ -267,14 +264,12 @@ onMounted(async () => {
     } catch (e) { console.error('Erro IBGE', e) }
     finally { carregandoEstados.value = false }
 
-    // 2. Preencher dados se for Edição
     if (props.usuarioEditando) {
         formUser.value = {
             ...props.usuarioEditando,
             parentesSelecionados: props.usuarioEditando.parentes ? [...props.usuarioEditando.parentes] : []
         }
 
-        // Tratar Órgão Expeditor
         if (opcoesOrgao.value.includes(props.usuarioEditando.orgaoExpeditor)) {
             selecaoOrgao.value = props.usuarioEditando.orgaoExpeditor
         } else if (props.usuarioEditando.orgaoExpeditor) {
@@ -282,7 +277,6 @@ onMounted(async () => {
             selecaoOrgao.value = props.usuarioEditando.orgaoExpeditor
         }
 
-        // Tratar Cidade/Estado (Formato "Cidade, UF")
         if (props.usuarioEditando.cidade && props.usuarioEditando.cidade.includes(', ')) {
             const [cid, uf] = props.usuarioEditando.cidade.split(', ')
             estadoSelecionado.value = uf
@@ -331,7 +325,6 @@ const cancelarOutroOrgao = () => {
     modalOutroOrgao.value = false
 }
 
-// Lógica de Parentes
 const usuariosParaVincular = computed(() => {
     if (!buscaParente.value) return []
     const idsJaSelecionados = formUser.value.parentesSelecionados.map(p => p.id)

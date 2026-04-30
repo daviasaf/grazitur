@@ -1,143 +1,510 @@
 [
   {
-    "id": 119,
-    "nome": "Adailza da Conceição Longhi da Costa Bezerra ",
-    "email": "adailza.longhi@hotmail.com",
-    "cpf": "89168429720",
-    "rg": null,
+    "id": 157,
+    "nome": "Paula Rangel Nunes",
+    "email": "paularangelnunes07@gmail.com",
+    "cpf": "18718066747",
+    "rg": "",
     "orgaoExpeditor": "DETRAN",
-    "nascimento": "06/02/1962",
-    "celular": "22998197660",
+    "nascimento": "22/07/2007",
+    "celular": "22998922169",
     "cidade": "Quissamã, RJ",
-    "endereco": "Rua Augusto de Carvalho 596- Caxias ",
-    "idade": null,
+    "endereco": "Rua Pátio da Usina, Engenho, 910",
+    "idade": 18,
     "isGuia": false,
     "parentes": [],
     "parentesDe": []
   },
   {
-    "id": 118,
-    "nome": "Cansado da Silva Junior",
-    "email": "cansado@gmail.com",
-    "cpf": "29026817045",
-    "rg": null,
+    "id": 155,
+    "nome": "Ester Braga da Silva",
+    "email": "mariaestelabragadasilva@gmail.com",
+    "cpf": "13057925723",
+    "rg": "",
     "orgaoExpeditor": "DETRAN",
-    "nascimento": "06/09/2007",
-    "celular": "412312",
-    "cidade": "Baixa Grande do Ribeiro, PI",
-    "endereco": "312321",
-    "idade": null,
+    "nascimento": "02/11/1989",
+    "celular": "22999274646",
+    "cidade": "Quissamã, RJ",
+    "endereco": "Porto da Ribeira n°98 Caxias Próximo ao colégio Regina Celi ",
+    "idade": 36,
+    "isGuia": false,
+    "parentes": [],
+    "parentesDe": []
+  },
+  {
+    "id": 154,
+    "nome": "Laurentino do Espírito Santo Neto",
+    "email": "laurentinoedna10@gmail.com",
+    "cpf": "30205816720",
+    "rg": "",
+    "orgaoExpeditor": "DETRAN",
+    "nascimento": "26/06/1948",
+    "celular": "22992016350",
+    "cidade": "Quissamã, RJ",
+    "endereco": "Conde de Araruama",
+    "idade": 77,
+    "isGuia": false,
+    "parentes": [],
+    "parentesDe": [
+      {
+        "id": 153,
+        "nome": "Edna Barcelos Espírito Santo",
+        "email": "ednabesantos@gmail.com",
+        "cpf": "50161784704",
+        "rg": "",
+        "orgaoExpeditor": "DETRAN",
+        "nascimento": "04/04/1952",
+        "celular": "22996030411",
+        "cidade": "Quissamã, RJ",
+        "endereco": "Conde de Araruama ",
+        "idade": 74,
+        "isGuia": false,
+        "createdAt": "2026-04-30T00:23:42.930Z"
+      }
+    ]
+  },
+  {
+    "id": 153,
+    "nome": "Edna Barcelos Espírito Santo",
+    "email": "ednabesantos@gmail.com",
+    "cpf": "50161784704",
+    "rg": "",
+    "orgaoExpeditor": "DETRAN",
+    "nascimento": "04/04/1952",
+    "celular": "22996030411",
+    "cidade": "Quissamã, RJ",
+    "endereco": "Conde de Araruama ",
+    "idade": 74,
     "isGuia": false,
     "parentes": [
       {
-        "id": 27,
-        "nome": "Sara dos Santos Souza",
-        "email": "sarassantos011@gmail.com",
-        "cpf": "15853834738",
-        "rg": null,
-        "orgaoExpeditor": "Detran",
-        "nascimento": "06/09/2005",
-        "celular": "22999697132",
-        "cidade": "Quissamã",
-        "endereco": "Estrada Roberto Pinto de Barcelos S/N",
-        "idade": null,
+        "id": 150,
+        "nome": "Laylla Barcelos Espirito Santo Silva",
+        "email": "layllabarcelos048@gmail.com",
+        "cpf": "15627230738",
+        "rg": "27.466.306-1",
+        "orgaoExpeditor": "DETRAN",
+        "nascimento": "20/02/2009",
+        "celular": "(22) 992336374",
+        "cidade": "Quissamã, RJ",
+        "endereco": "Rua Conde De Araruama número 821 centro ",
+        "idade": 17,
         "isGuia": false,
-        "createdAt": "2026-04-26T18:42:15.477Z"
+        "createdAt": "2026-04-29T23:59:39.622Z"
       },
       {
-        "id": 102,
-        "nome": "Davi Asaf",
-        "email": "daviasaf16@gmail.com",
-        "cpf": "15853875760",
-        "rg": null,
+        "id": 154,
+        "nome": "Laurentino do Espírito Santo Neto",
+        "email": "laurentinoedna10@gmail.com",
+        "cpf": "30205816720",
+        "rg": "",
         "orgaoExpeditor": "DETRAN",
-        "nascimento": "06/09/2007",
-        "celular": "22992890200",
+        "nascimento": "26/06/1948",
+        "celular": "22992016350",
         "cidade": "Quissamã, RJ",
-        "endereco": "Estrada da Penha, S/N, Penha",
-        "idade": null,
+        "endereco": "Conde de Araruama",
+        "idade": 77,
         "isGuia": false,
-        "createdAt": "2026-04-29T01:45:03.024Z"
+        "createdAt": "2026-04-30T00:30:22.502Z"
+      },
+      {
+        "id": 140,
+        "nome": "Adriana Barcelos",
+        "email": "adriana.laylla10@gmail.com",
+        "cpf": "09621915740",
+        "rg": "11.505.285-4",
+        "orgaoExpeditor": "DETRAN",
+        "nascimento": "28/04/1982",
+        "celular": "(22) 992336374",
+        "cidade": "Quissamã, RJ",
+        "endereco": "Rua Conde De Araruama",
+        "idade": 44,
+        "isGuia": false,
+        "createdAt": "2026-04-29T22:48:58.142Z"
       }
     ],
     "parentesDe": []
   },
   {
-    "id": 111,
-    "nome": "Lorran do Rosario Andrade ",
-    "email": "barbararosario70@gmail.com",
-    "cpf": "22913872786",
-    "rg": null,
+    "id": 152,
+    "nome": "Natanny Cordeiro Monteiro",
+    "email": "Edleacordeiro3@gmail.com",
+    "cpf": "20416402780",
+    "rg": "",
     "orgaoExpeditor": "DETRAN",
-    "nascimento": "02/03/2022",
-    "celular": "22988183978",
+    "nascimento": "15/12/2017",
+    "celular": "22 998530316 ",
     "cidade": "Quissamã, RJ",
-    "endereco": "Rua Augusto Carvalho,393,caxias",
-    "idade": null,
+    "endereco": "Rua Porto da Ribeiro 143",
+    "idade": 8,
     "isGuia": false,
     "parentes": [],
+    "parentesDe": [
+      {
+        "id": 151,
+        "nome": "Edléa Cordeiro Ribeiro",
+        "email": "Edleacordeiro3@gmail.com",
+        "cpf": "12083205723",
+        "rg": "",
+        "orgaoExpeditor": "DETRAN",
+        "nascimento": "13/08/87",
+        "celular": "22 998530316 ",
+        "cidade": "Quissamã, RJ",
+        "endereco": "Rua Porto da Ribeiro 143",
+        "idade": 38,
+        "isGuia": false,
+        "createdAt": "2026-04-30T00:03:13.366Z"
+      }
+    ]
+  },
+  {
+    "id": 151,
+    "nome": "Edléa Cordeiro Ribeiro",
+    "email": "Edleacordeiro3@gmail.com",
+    "cpf": "12083205723",
+    "rg": "",
+    "orgaoExpeditor": "DETRAN",
+    "nascimento": "13/08/87",
+    "celular": "22 998530316 ",
+    "cidade": "Quissamã, RJ",
+    "endereco": "Rua Porto da Ribeiro 143",
+    "idade": 38,
+    "isGuia": false,
+    "parentes": [
+      {
+        "id": 152,
+        "nome": "Natanny Cordeiro Monteiro",
+        "email": "Edleacordeiro3@gmail.com",
+        "cpf": "20416402780",
+        "rg": "",
+        "orgaoExpeditor": "DETRAN",
+        "nascimento": "15/12/2017",
+        "celular": "22 998530316 ",
+        "cidade": "Quissamã, RJ",
+        "endereco": "Rua Porto da Ribeiro 143",
+        "idade": 8,
+        "isGuia": false,
+        "createdAt": "2026-04-30T00:05:11.191Z"
+      }
+    ],
     "parentesDe": []
   },
   {
-    "id": 110,
-    "nome": "Bárbara de Souza do Rosario ",
-    "email": "barbararosario70@gmail.com",
-    "cpf": "16132344730",
-    "rg": null,
+    "id": 150,
+    "nome": "Laylla Barcelos Espirito Santo Silva",
+    "email": "layllabarcelos048@gmail.com",
+    "cpf": "15627230738",
+    "rg": "27.466.306-1",
     "orgaoExpeditor": "DETRAN",
-    "nascimento": "30/04/2005",
-    "celular": "22988183978",
+    "nascimento": "20/02/2009",
+    "celular": "(22) 992336374",
     "cidade": "Quissamã, RJ",
-    "endereco": "Rua Augusto Carvalho,393,caxias ",
-    "idade": null,
+    "endereco": "Rua Conde De Araruama número 821 centro ",
+    "idade": 17,
     "isGuia": false,
     "parentes": [],
+    "parentesDe": [
+      {
+        "id": 153,
+        "nome": "Edna Barcelos Espírito Santo",
+        "email": "ednabesantos@gmail.com",
+        "cpf": "50161784704",
+        "rg": "",
+        "orgaoExpeditor": "DETRAN",
+        "nascimento": "04/04/1952",
+        "celular": "22996030411",
+        "cidade": "Quissamã, RJ",
+        "endereco": "Conde de Araruama ",
+        "idade": 74,
+        "isGuia": false,
+        "createdAt": "2026-04-30T00:23:42.930Z"
+      }
+    ]
+  },
+  {
+    "id": 147,
+    "nome": "Emilly da Silva Lamoglia",
+    "email": "sintiadasilvapinto@gmail.com",
+    "cpf": "18992546769",
+    "rg": "",
+    "orgaoExpeditor": "DETRAN",
+    "nascimento": "29/12/2015",
+    "celular": "22996193233",
+    "cidade": "Quissamã, RJ",
+    "endereco": "12 de setembro ",
+    "idade": 10,
+    "isGuia": false,
+    "parentes": [],
+    "parentesDe": [
+      {
+        "id": 146,
+        "nome": "Sintia da Silva Pinto",
+        "email": "sintiadasilvapinto@gmail.com",
+        "cpf": "08789862783",
+        "rg": "",
+        "orgaoExpeditor": "DETRAN",
+        "nascimento": "31/05/1981",
+        "celular": "22996193233",
+        "cidade": "Quissamã, RJ",
+        "endereco": "12 de setembro ",
+        "idade": 44,
+        "isGuia": false,
+        "createdAt": "2026-04-29T23:19:52.070Z"
+      }
+    ]
+  },
+  {
+    "id": 146,
+    "nome": "Sintia da Silva Pinto",
+    "email": "sintiadasilvapinto@gmail.com",
+    "cpf": "08789862783",
+    "rg": "",
+    "orgaoExpeditor": "DETRAN",
+    "nascimento": "31/05/1981",
+    "celular": "22996193233",
+    "cidade": "Quissamã, RJ",
+    "endereco": "12 de setembro ",
+    "idade": 44,
+    "isGuia": false,
+    "parentes": [
+      {
+        "id": 147,
+        "nome": "Emilly da Silva Lamoglia",
+        "email": "sintiadasilvapinto@gmail.com",
+        "cpf": "18992546769",
+        "rg": "",
+        "orgaoExpeditor": "DETRAN",
+        "nascimento": "29/12/2015",
+        "celular": "22996193233",
+        "cidade": "Quissamã, RJ",
+        "endereco": "12 de setembro ",
+        "idade": 10,
+        "isGuia": false,
+        "createdAt": "2026-04-29T23:26:22.555Z"
+      }
+    ],
     "parentesDe": []
   },
   {
-    "id": 109,
-    "nome": "Alice Magaldi da Silva Freitas",
-    "email": "flaviamagaldii@gmail.com",
-    "cpf": "21416837779",
-    "rg": null,
+    "id": 145,
+    "nome": "Arthur Pereira Rangel",
+    "email": "taticampos.pereira@gmail.com",
+    "cpf": "19701488709",
+    "rg": "31.805.716-3",
     "orgaoExpeditor": "DETRAN",
-    "nascimento": "14/02/2019",
-    "celular": "22998461551",
+    "nascimento": "15/05/2015",
+    "celular": "22999150555",
     "cidade": "Quissamã, RJ",
-    "endereco": "Rua Porto da Ribeira, 173 - Caxias",
-    "idade": null,
+    "endereco": "Estrada do correio imperial 1078-piteiras",
+    "idade": 10,
     "isGuia": false,
-    "parentes": [],
+    "parentes": [
+      {
+        "id": 49,
+        "nome": "Tatiane das Graças Campos Pereira Rangel",
+        "email": "taticampos.pereira@gmail.com",
+        "cpf": "11077217765",
+        "rg": null,
+        "orgaoExpeditor": "Detran",
+        "nascimento": "28/04/1986",
+        "celular": "22998271067",
+        "cidade": "Quissama",
+        "endereco": "Estrada do correio imperial 1078- piteira ",
+        "idade": null,
+        "isGuia": false,
+        "createdAt": "2026-04-26T23:10:01.844Z"
+      }
+    ],
     "parentesDe": []
   },
   {
-    "id": 108,
-    "nome": "Flavia Magaldi da Silva",
-    "email": "flaviamagaldii@gmail.com",
-    "cpf": "12506993711",
-    "rg": null,
+    "id": 143,
+    "nome": "Heitor Moreira Brito",
+    "email": "marianaconceicaomoreiradasilva@gmail.com",
+    "cpf": "22525791703",
+    "rg": "",
     "orgaoExpeditor": "DETRAN",
-    "nascimento": "21/02/1989",
-    "celular": "22998461551",
+    "nascimento": "03/04/21",
+    "celular": "22999776224",
     "cidade": "Quissamã, RJ",
-    "endereco": "Rua Porto da Ribeira, 173 - Caxias",
-    "idade": null,
+    "endereco": "Wilson Chagas 214",
+    "idade": 5,
     "isGuia": false,
     "parentes": [],
+    "parentesDe": [
+      {
+        "id": 142,
+        "nome": "Mariana Conceição Moreira Brito",
+        "email": "marianaconceicaomoreiradasilva@gmail.com",
+        "cpf": "12029639788",
+        "rg": "21.636.353-1",
+        "orgaoExpeditor": "DETRAN",
+        "nascimento": "23/02/1986",
+        "celular": "22999776224",
+        "cidade": "Quissamã, RJ",
+        "endereco": "Wilson Chagas 214",
+        "idade": 40,
+        "isGuia": false,
+        "createdAt": "2026-04-29T22:55:46.738Z"
+      }
+    ]
+  },
+  {
+    "id": 142,
+    "nome": "Mariana Conceição Moreira Brito",
+    "email": "marianaconceicaomoreiradasilva@gmail.com",
+    "cpf": "12029639788",
+    "rg": "21.636.353-1",
+    "orgaoExpeditor": "DETRAN",
+    "nascimento": "23/02/1986",
+    "celular": "22999776224",
+    "cidade": "Quissamã, RJ",
+    "endereco": "Wilson Chagas 214",
+    "idade": 40,
+    "isGuia": false,
+    "parentes": [
+      {
+        "id": 143,
+        "nome": "Heitor Moreira Brito",
+        "email": "marianaconceicaomoreiradasilva@gmail.com",
+        "cpf": "22525791703",
+        "rg": "",
+        "orgaoExpeditor": "DETRAN",
+        "nascimento": "03/04/21",
+        "celular": "22999776224",
+        "cidade": "Quissamã, RJ",
+        "endereco": "Wilson Chagas 214",
+        "idade": 5,
+        "isGuia": false,
+        "createdAt": "2026-04-29T23:00:13.113Z"
+      }
+    ],
     "parentesDe": []
   },
   {
-    "id": 102,
-    "nome": "Davi Asaf",
+    "id": 141,
+    "nome": "Ravi Silva de Deus",
+    "email": "anaravi2304@gmail.com",
+    "cpf": "23207053769",
+    "rg": "",
+    "orgaoExpeditor": "DETRAN",
+    "nascimento": "12/12/2022",
+    "celular": "22998843893",
+    "cidade": "Quissamã, RJ",
+    "endereco": "Ivan Peixoto dias",
+    "idade": 3,
+    "isGuia": false,
+    "parentes": [],
+    "parentesDe": [
+      {
+        "id": 139,
+        "nome": "Leonardo Santos de Deus",
+        "email": "anaravi2304@gmail.com",
+        "cpf": "12456757700",
+        "rg": "",
+        "orgaoExpeditor": "DETRAN",
+        "nascimento": "26/11/1997",
+        "celular": "22998843893",
+        "cidade": "Quissamã, RJ",
+        "endereco": "Ivan Peixoto dias ",
+        "idade": 28,
+        "isGuia": false,
+        "createdAt": "2026-04-29T22:47:14.443Z"
+      }
+    ]
+  },
+  {
+    "id": 140,
+    "nome": "Adriana Barcelos",
+    "email": "adriana.laylla10@gmail.com",
+    "cpf": "09621915740",
+    "rg": "11.505.285-4",
+    "orgaoExpeditor": "DETRAN",
+    "nascimento": "28/04/1982",
+    "celular": "(22) 992336374",
+    "cidade": "Quissamã, RJ",
+    "endereco": "Rua Conde De Araruama",
+    "idade": 44,
+    "isGuia": false,
+    "parentes": [],
+    "parentesDe": [
+      {
+        "id": 153,
+        "nome": "Edna Barcelos Espírito Santo",
+        "email": "ednabesantos@gmail.com",
+        "cpf": "50161784704",
+        "rg": "",
+        "orgaoExpeditor": "DETRAN",
+        "nascimento": "04/04/1952",
+        "celular": "22996030411",
+        "cidade": "Quissamã, RJ",
+        "endereco": "Conde de Araruama ",
+        "idade": 74,
+        "isGuia": false,
+        "createdAt": "2026-04-30T00:23:42.930Z"
+      }
+    ]
+  },
+  {
+    "id": 139,
+    "nome": "Leonardo Santos de Deus",
+    "email": "anaravi2304@gmail.com",
+    "cpf": "12456757700",
+    "rg": "",
+    "orgaoExpeditor": "DETRAN",
+    "nascimento": "26/11/1997",
+    "celular": "22998843893",
+    "cidade": "Quissamã, RJ",
+    "endereco": "Ivan Peixoto dias ",
+    "idade": 28,
+    "isGuia": false,
+    "parentes": [
+      {
+        "id": 141,
+        "nome": "Ravi Silva de Deus",
+        "email": "anaravi2304@gmail.com",
+        "cpf": "23207053769",
+        "rg": "",
+        "orgaoExpeditor": "DETRAN",
+        "nascimento": "12/12/2022",
+        "celular": "22998843893",
+        "cidade": "Quissamã, RJ",
+        "endereco": "Ivan Peixoto dias",
+        "idade": 3,
+        "isGuia": false,
+        "createdAt": "2026-04-29T22:49:16.362Z"
+      }
+    ],
+    "parentesDe": [
+      {
+        "id": 137,
+        "nome": "Ana Beatriz da Silva Carvalho",
+        "email": "anaravi2304@gmail.com",
+        "cpf": "17117041722",
+        "rg": "",
+        "orgaoExpeditor": "DETRAN",
+        "nascimento": "12/10/2001",
+        "celular": "22998843893",
+        "cidade": "Quissamã, RJ",
+        "endereco": "Ivan Peixoto dias ",
+        "idade": 24,
+        "isGuia": false,
+        "createdAt": "2026-04-29T22:44:49.044Z"
+      }
+    ]
+  },
+  {
+    "id": 138,
+    "nome": "Davi Asaf dos Santos Souza",
     "email": "daviasaf16@gmail.com",
     "cpf": "15853875760",
-    "rg": null,
+    "rg": "",
     "orgaoExpeditor": "DETRAN",
     "nascimento": "06/09/2007",
     "celular": "22992890200",
     "cidade": "Quissamã, RJ",
-    "endereco": "Estrada da Penha, S/N, Penha",
-    "idade": null,
+    "endereco": "Estrada Roberto Pinto de Barcelos",
+    "idade": 18,
     "isGuia": false,
     "parentes": [
       {
@@ -158,25 +525,487 @@
     ],
     "parentesDe": [
       {
-        "id": 118,
-        "nome": "Cansado da Silva Junior",
-        "email": "cansado@gmail.com",
-        "cpf": "29026817045",
-        "rg": null,
+        "id": 62,
+        "nome": "Jader Pereira Santos Gomes",
+        "email": "jaderpeereira181@gmail.com",
+        "cpf": "22189508711",
+        "rg": "2",
         "orgaoExpeditor": "DETRAN",
-        "nascimento": "06/09/2007",
-        "celular": "412312",
-        "cidade": "Baixa Grande do Ribeiro, PI",
-        "endereco": "312321",
-        "idade": null,
-        "isGuia": false,
-        "createdAt": "2026-04-29T16:25:06.366Z"
+        "nascimento": "25/04/2007",
+        "celular": "22997755228",
+        "cidade": "Quissamã, RJ",
+        "endereco": "Rua Bento Carneiro da Silva, 44, Rua 3, Fundos",
+        "idade": 19,
+        "isGuia": true,
+        "createdAt": "2026-04-27T14:31:07.748Z"
       }
     ]
   },
   {
+    "id": 137,
+    "nome": "Ana Beatriz da Silva Carvalho",
+    "email": "anaravi2304@gmail.com",
+    "cpf": "17117041722",
+    "rg": "",
+    "orgaoExpeditor": "DETRAN",
+    "nascimento": "12/10/2001",
+    "celular": "22998843893",
+    "cidade": "Quissamã, RJ",
+    "endereco": "Ivan Peixoto dias ",
+    "idade": 24,
+    "isGuia": false,
+    "parentes": [
+      {
+        "id": 139,
+        "nome": "Leonardo Santos de Deus",
+        "email": "anaravi2304@gmail.com",
+        "cpf": "12456757700",
+        "rg": "",
+        "orgaoExpeditor": "DETRAN",
+        "nascimento": "26/11/1997",
+        "celular": "22998843893",
+        "cidade": "Quissamã, RJ",
+        "endereco": "Ivan Peixoto dias ",
+        "idade": 28,
+        "isGuia": false,
+        "createdAt": "2026-04-29T22:47:14.443Z"
+      }
+    ],
+    "parentesDe": []
+  },
+  {
+    "id": 135,
+    "nome": "Fabiano de Sales Souza",
+    "email": "elisangelagraciele@hotmail.com",
+    "cpf": "09493726762",
+    "rg": "12.440.526-7",
+    "orgaoExpeditor": "IFP",
+    "nascimento": "14/10/1982",
+    "celular": "22998678920",
+    "cidade": "Quissamã, RJ",
+    "endereco": "Rua princesa Isabel ",
+    "idade": 43,
+    "isGuia": false,
+    "parentes": [],
+    "parentesDe": [
+      {
+        "id": 134,
+        "nome": "Aylla Gonçalves Sales",
+        "email": "elisangelagraciele@hotmail.com",
+        "cpf": "21275908721",
+        "rg": "31.752.299-3",
+        "orgaoExpeditor": "DETRAN",
+        "nascimento": "08/04/2015",
+        "celular": "22998678920",
+        "cidade": "Quissamã, RJ",
+        "endereco": "Rua princesa Isabel ",
+        "idade": 11,
+        "isGuia": false,
+        "createdAt": "2026-04-29T22:19:14.539Z"
+      },
+      {
+        "id": 133,
+        "nome": "Elisangela Graciele dos Santos Gonçalves Sales",
+        "email": "elisangelagraciele@hotmail.com",
+        "cpf": "10419686711",
+        "rg": "20.136.605-1",
+        "orgaoExpeditor": "DETRAN",
+        "nascimento": "29/12/1983",
+        "celular": "22998678920",
+        "cidade": "Quissamã, RJ",
+        "endereco": "Rua princesa Isabel ",
+        "idade": 42,
+        "isGuia": false,
+        "createdAt": "2026-04-29T22:16:22.633Z"
+      }
+    ]
+  },
+  {
+    "id": 134,
+    "nome": "Aylla Gonçalves Sales",
+    "email": "elisangelagraciele@hotmail.com",
+    "cpf": "21275908721",
+    "rg": "31.752.299-3",
+    "orgaoExpeditor": "DETRAN",
+    "nascimento": "08/04/2015",
+    "celular": "22998678920",
+    "cidade": "Quissamã, RJ",
+    "endereco": "Rua princesa Isabel ",
+    "idade": 11,
+    "isGuia": false,
+    "parentes": [
+      {
+        "id": 135,
+        "nome": "Fabiano de Sales Souza",
+        "email": "elisangelagraciele@hotmail.com",
+        "cpf": "09493726762",
+        "rg": "12.440.526-7",
+        "orgaoExpeditor": "IFP",
+        "nascimento": "14/10/1982",
+        "celular": "22998678920",
+        "cidade": "Quissamã, RJ",
+        "endereco": "Rua princesa Isabel ",
+        "idade": 43,
+        "isGuia": false,
+        "createdAt": "2026-04-29T22:22:05.552Z"
+      }
+    ],
+    "parentesDe": [
+      {
+        "id": 133,
+        "nome": "Elisangela Graciele dos Santos Gonçalves Sales",
+        "email": "elisangelagraciele@hotmail.com",
+        "cpf": "10419686711",
+        "rg": "20.136.605-1",
+        "orgaoExpeditor": "DETRAN",
+        "nascimento": "29/12/1983",
+        "celular": "22998678920",
+        "cidade": "Quissamã, RJ",
+        "endereco": "Rua princesa Isabel ",
+        "idade": 42,
+        "isGuia": false,
+        "createdAt": "2026-04-29T22:16:22.633Z"
+      }
+    ]
+  },
+  {
+    "id": 133,
+    "nome": "Elisangela Graciele dos Santos Gonçalves Sales",
+    "email": "elisangelagraciele@hotmail.com",
+    "cpf": "10419686711",
+    "rg": "20.136.605-1",
+    "orgaoExpeditor": "DETRAN",
+    "nascimento": "29/12/1983",
+    "celular": "22998678920",
+    "cidade": "Quissamã, RJ",
+    "endereco": "Rua princesa Isabel ",
+    "idade": 42,
+    "isGuia": false,
+    "parentes": [
+      {
+        "id": 134,
+        "nome": "Aylla Gonçalves Sales",
+        "email": "elisangelagraciele@hotmail.com",
+        "cpf": "21275908721",
+        "rg": "31.752.299-3",
+        "orgaoExpeditor": "DETRAN",
+        "nascimento": "08/04/2015",
+        "celular": "22998678920",
+        "cidade": "Quissamã, RJ",
+        "endereco": "Rua princesa Isabel ",
+        "idade": 11,
+        "isGuia": false,
+        "createdAt": "2026-04-29T22:19:14.539Z"
+      },
+      {
+        "id": 135,
+        "nome": "Fabiano de Sales Souza",
+        "email": "elisangelagraciele@hotmail.com",
+        "cpf": "09493726762",
+        "rg": "12.440.526-7",
+        "orgaoExpeditor": "IFP",
+        "nascimento": "14/10/1982",
+        "celular": "22998678920",
+        "cidade": "Quissamã, RJ",
+        "endereco": "Rua princesa Isabel ",
+        "idade": 43,
+        "isGuia": false,
+        "createdAt": "2026-04-29T22:22:05.552Z"
+      }
+    ],
+    "parentesDe": []
+  },
+  {
+    "id": 132,
+    "nome": "Antonella Pereira Salles",
+    "email": "nayara.antonella2017@gmail.com",
+    "cpf": "19783967754",
+    "rg": "",
+    "orgaoExpeditor": "DETRAN",
+    "nascimento": "21/02/2017",
+    "celular": "22992144677",
+    "cidade": "Quissamã, RJ",
+    "endereco": "R. Euzébio de Queirós, 337",
+    "idade": 9,
+    "isGuia": false,
+    "parentes": [],
+    "parentesDe": [
+      {
+        "id": 131,
+        "nome": "Nayara Salles",
+        "email": "nayara.antonella2017@gmail.com",
+        "cpf": "13157664778",
+        "rg": "",
+        "orgaoExpeditor": "DETRAN",
+        "nascimento": "22/04/1992",
+        "celular": "22992144677",
+        "cidade": "Quissamã, RJ",
+        "endereco": "R. Euzébio de Queirós, 337",
+        "idade": 34,
+        "isGuia": false,
+        "createdAt": "2026-04-29T21:48:04.512Z"
+      }
+    ]
+  },
+  {
+    "id": 131,
+    "nome": "Nayara Salles",
+    "email": "nayara.antonella2017@gmail.com",
+    "cpf": "13157664778",
+    "rg": "",
+    "orgaoExpeditor": "DETRAN",
+    "nascimento": "22/04/1992",
+    "celular": "22992144677",
+    "cidade": "Quissamã, RJ",
+    "endereco": "R. Euzébio de Queirós, 337",
+    "idade": 34,
+    "isGuia": false,
+    "parentes": [
+      {
+        "id": 132,
+        "nome": "Antonella Pereira Salles",
+        "email": "nayara.antonella2017@gmail.com",
+        "cpf": "19783967754",
+        "rg": "",
+        "orgaoExpeditor": "DETRAN",
+        "nascimento": "21/02/2017",
+        "celular": "22992144677",
+        "cidade": "Quissamã, RJ",
+        "endereco": "R. Euzébio de Queirós, 337",
+        "idade": 9,
+        "isGuia": false,
+        "createdAt": "2026-04-29T21:50:21.817Z"
+      }
+    ],
+    "parentesDe": []
+  },
+  {
+    "id": 130,
+    "nome": "Maria Jose Marcelino da Silva",
+    "email": "elidasr8@gmail.com",
+    "cpf": "03042012786",
+    "rg": "10.114.502-7",
+    "orgaoExpeditor": "DETRAN",
+    "nascimento": "19/03/1965",
+    "celular": "22998986890",
+    "cidade": "Macaé, RJ",
+    "endereco": "Rua Macapá, N° 428 fundos, Riviera Fluminense(CEP 27935-330)",
+    "idade": 61,
+    "isGuia": false,
+    "parentes": [],
+    "parentesDe": []
+  },
+  {
+    "id": 129,
+    "nome": "Nathalia Pereira Salles",
+    "email": "nathaliapsalles99@gmail.com",
+    "cpf": "14561175725",
+    "rg": "23.670.812-9",
+    "orgaoExpeditor": "DETRAN",
+    "nascimento": "09/06/1999",
+    "celular": "22992540352",
+    "cidade": "Quissamã, RJ",
+    "endereco": "Rua Euzébio de Queiroz, 337 - Centro",
+    "idade": 26,
+    "isGuia": false,
+    "parentes": [],
+    "parentesDe": []
+  },
+  {
+    "id": 128,
+    "nome": "Silvio César da Costa Bezerra",
+    "email": "silvocersacersa@hitmail.com",
+    "cpf": "00393192709",
+    "rg": "",
+    "orgaoExpeditor": "DETRAN",
+    "nascimento": "25/03/67",
+    "celular": "23998367278",
+    "cidade": "Quissamã, RJ",
+    "endereco": "Rua Augusto de Carvalho 596- Caxias",
+    "idade": 59,
+    "isGuia": false,
+    "parentes": [],
+    "parentesDe": [
+      {
+        "id": 119,
+        "nome": "Adailza da Conceição Longhi da Costa Bezerra",
+        "email": "adailza.longhi@hotmail.com",
+        "cpf": "89168429720",
+        "rg": null,
+        "orgaoExpeditor": "DETRAN",
+        "nascimento": "06/02/1962",
+        "celular": "22998197660",
+        "cidade": "Quissamã, RJ",
+        "endereco": "Rua Augusto de Carvalho 596- Caxias ",
+        "idade": null,
+        "isGuia": false,
+        "createdAt": "2026-04-29T16:26:00.233Z"
+      }
+    ]
+  },
+  {
+    "id": 119,
+    "nome": "Adailza da Conceição Longhi da Costa Bezerra",
+    "email": "adailza.longhi@hotmail.com",
+    "cpf": "89168429720",
+    "rg": null,
+    "orgaoExpeditor": "DETRAN",
+    "nascimento": "06/02/1962",
+    "celular": "22998197660",
+    "cidade": "Quissamã, RJ",
+    "endereco": "Rua Augusto de Carvalho 596- Caxias ",
+    "idade": null,
+    "isGuia": false,
+    "parentes": [
+      {
+        "id": 128,
+        "nome": "Silvio César da Costa Bezerra",
+        "email": "silvocersacersa@hitmail.com",
+        "cpf": "00393192709",
+        "rg": "",
+        "orgaoExpeditor": "DETRAN",
+        "nascimento": "25/03/67",
+        "celular": "23998367278",
+        "cidade": "Quissamã, RJ",
+        "endereco": "Rua Augusto de Carvalho 596- Caxias",
+        "idade": 59,
+        "isGuia": false,
+        "createdAt": "2026-04-29T20:23:21.526Z"
+      }
+    ],
+    "parentesDe": []
+  },
+  {
+    "id": 111,
+    "nome": "Lorran do Rosario Andrade",
+    "email": "barbararosario70@gmail.com",
+    "cpf": "22913872786",
+    "rg": null,
+    "orgaoExpeditor": "DETRAN",
+    "nascimento": "02/03/2022",
+    "celular": "22988183978",
+    "cidade": "Quissamã, RJ",
+    "endereco": "Rua Augusto Carvalho,393,caxias",
+    "idade": null,
+    "isGuia": false,
+    "parentes": [],
+    "parentesDe": [
+      {
+        "id": 110,
+        "nome": "Bárbara de Souza do Rosario",
+        "email": "barbararosario70@gmail.com",
+        "cpf": "16132344730",
+        "rg": null,
+        "orgaoExpeditor": "DETRAN",
+        "nascimento": "30/04/2005",
+        "celular": "22988183978",
+        "cidade": "Quissamã, RJ",
+        "endereco": "Rua Augusto Carvalho,393,caxias ",
+        "idade": null,
+        "isGuia": false,
+        "createdAt": "2026-04-29T12:05:47.729Z"
+      }
+    ]
+  },
+  {
+    "id": 110,
+    "nome": "Bárbara de Souza do Rosario",
+    "email": "barbararosario70@gmail.com",
+    "cpf": "16132344730",
+    "rg": null,
+    "orgaoExpeditor": "DETRAN",
+    "nascimento": "30/04/2005",
+    "celular": "22988183978",
+    "cidade": "Quissamã, RJ",
+    "endereco": "Rua Augusto Carvalho,393,caxias ",
+    "idade": null,
+    "isGuia": false,
+    "parentes": [
+      {
+        "id": 111,
+        "nome": "Lorran do Rosario Andrade",
+        "email": "barbararosario70@gmail.com",
+        "cpf": "22913872786",
+        "rg": null,
+        "orgaoExpeditor": "DETRAN",
+        "nascimento": "02/03/2022",
+        "celular": "22988183978",
+        "cidade": "Quissamã, RJ",
+        "endereco": "Rua Augusto Carvalho,393,caxias",
+        "idade": null,
+        "isGuia": false,
+        "createdAt": "2026-04-29T12:09:19.907Z"
+      }
+    ],
+    "parentesDe": []
+  },
+  {
+    "id": 109,
+    "nome": "Alice Magaldi da Silva Freitas",
+    "email": "flaviamagaldii@gmail.com",
+    "cpf": "21416837779",
+    "rg": null,
+    "orgaoExpeditor": "DETRAN",
+    "nascimento": "14/02/2019",
+    "celular": "22998461551",
+    "cidade": "Quissamã, RJ",
+    "endereco": "Rua Porto da Ribeira, 173 - Caxias",
+    "idade": null,
+    "isGuia": false,
+    "parentes": [],
+    "parentesDe": [
+      {
+        "id": 108,
+        "nome": "Flavia Magaldi da Silva",
+        "email": "flaviamagaldii@gmail.com",
+        "cpf": "12506993711",
+        "rg": null,
+        "orgaoExpeditor": "DETRAN",
+        "nascimento": "21/02/1989",
+        "celular": "22998461551",
+        "cidade": "Quissamã, RJ",
+        "endereco": "Rua Porto da Ribeira, 173 - Caxias",
+        "idade": null,
+        "isGuia": false,
+        "createdAt": "2026-04-29T10:54:17.246Z"
+      }
+    ]
+  },
+  {
+    "id": 108,
+    "nome": "Flavia Magaldi da Silva",
+    "email": "flaviamagaldii@gmail.com",
+    "cpf": "12506993711",
+    "rg": null,
+    "orgaoExpeditor": "DETRAN",
+    "nascimento": "21/02/1989",
+    "celular": "22998461551",
+    "cidade": "Quissamã, RJ",
+    "endereco": "Rua Porto da Ribeira, 173 - Caxias",
+    "idade": null,
+    "isGuia": false,
+    "parentes": [
+      {
+        "id": 109,
+        "nome": "Alice Magaldi da Silva Freitas",
+        "email": "flaviamagaldii@gmail.com",
+        "cpf": "21416837779",
+        "rg": null,
+        "orgaoExpeditor": "DETRAN",
+        "nascimento": "14/02/2019",
+        "celular": "22998461551",
+        "cidade": "Quissamã, RJ",
+        "endereco": "Rua Porto da Ribeira, 173 - Caxias",
+        "idade": null,
+        "isGuia": false,
+        "createdAt": "2026-04-29T10:58:11.850Z"
+      }
+    ],
+    "parentesDe": []
+  },
+  {
     "id": 101,
-    "nome": "silvio ferreira",
+    "nome": "Silvio Ferreira",
     "email": "silviolf1956@gmail.com",
     "cpf": "36309915720",
     "rg": null,
@@ -208,7 +1037,7 @@
   },
   {
     "id": 98,
-    "nome": "ANA CLARA PINTO DE PAULA",
+    "nome": "Ana Clara Pinto de Paula",
     "email": "paulaannaclara325@gmail.com",
     "cpf": "18682037785",
     "rg": null,
@@ -240,7 +1069,7 @@
   },
   {
     "id": 96,
-    "nome": "Tânia Maria dos Santos Assis ferreira",
+    "nome": "Tânia Maria dos Santos Assis Ferreira",
     "email": "tm494875@gmail.com",
     "cpf": "03042202720",
     "rg": null,
@@ -256,7 +1085,7 @@
   },
   {
     "id": 95,
-    "nome": "Celina Frederico dos santos",
+    "nome": "Celina Frederico dos Santos",
     "email": "celinafredericodossantos@gmail.com",
     "cpf": "57100730759",
     "rg": null,
@@ -272,7 +1101,7 @@
   },
   {
     "id": 94,
-    "nome": "Marília Pereira Magaldi dos Santos ",
+    "nome": "Marília Pereira Magaldi dos Santos",
     "email": "magaldimarilia@gmail.com",
     "cpf": "99078651768",
     "rg": null,
@@ -288,7 +1117,7 @@
   },
   {
     "id": 93,
-    "nome": "Luiz Otávio nascimento ",
+    "nome": "Luiz Otávio Nascimento",
     "email": "luizotavionascimento15",
     "cpf": "47265442768",
     "rg": null,
@@ -303,7 +1132,7 @@
     "parentesDe": [
       {
         "id": 69,
-        "nome": "Lourdes de Fátima santos nascimento ",
+        "nome": "Lourdes de Fátima Santos Nascimento",
         "email": "lourdesdefatimasantosnascimento@yahoo.com.br",
         "cpf": "75566788734",
         "rg": null,
@@ -320,7 +1149,7 @@
   },
   {
     "id": 92,
-    "nome": "Pietro RIBEIRO ",
+    "nome": "Pietro Ribeiro",
     "email": "julianirodriguees@gmail.com",
     "cpf": "21641993758",
     "rg": null,
@@ -336,7 +1165,7 @@
         "id": 91,
         "nome": "Juliani Rodrigues Ribeiro",
         "email": "julianirodriguees@gmail.com",
-        "cpf": "381.619.648-90 ",
+        "cpf": "38161964890",
         "rg": null,
         "orgaoExpeditor": "Detran RJ ",
         "nascimento": "11/01/1990",
@@ -353,7 +1182,7 @@
         "id": 91,
         "nome": "Juliani Rodrigues Ribeiro",
         "email": "julianirodriguees@gmail.com",
-        "cpf": "381.619.648-90 ",
+        "cpf": "38161964890",
         "rg": null,
         "orgaoExpeditor": "Detran RJ ",
         "nascimento": "11/01/1990",
@@ -370,7 +1199,7 @@
     "id": 91,
     "nome": "Juliani Rodrigues Ribeiro",
     "email": "julianirodriguees@gmail.com",
-    "cpf": "381.619.648-90 ",
+    "cpf": "38161964890",
     "rg": null,
     "orgaoExpeditor": "Detran RJ ",
     "nascimento": "11/01/1990",
@@ -382,7 +1211,7 @@
     "parentes": [
       {
         "id": 92,
-        "nome": "Pietro RIBEIRO ",
+        "nome": "Pietro Ribeiro",
         "email": "julianirodriguees@gmail.com",
         "cpf": "21641993758",
         "rg": null,
@@ -399,7 +1228,7 @@
     "parentesDe": [
       {
         "id": 92,
-        "nome": "Pietro RIBEIRO ",
+        "nome": "Pietro Ribeiro",
         "email": "julianirodriguees@gmail.com",
         "cpf": "21641993758",
         "rg": null,
@@ -416,7 +1245,7 @@
   },
   {
     "id": 90,
-    "nome": "Derek de Souza Manhães Lucas ",
+    "nome": "Derek de Souza Manhães Lucas",
     "email": "pessanhaaelisa@gmail.com",
     "cpf": "22744110779",
     "rg": null,
@@ -431,7 +1260,7 @@
     "parentesDe": [
       {
         "id": 84,
-        "nome": "Laila Pessanha ",
+        "nome": "Laila Pessanha",
         "email": "pessanhaaelisa@gmail.com",
         "cpf": "15329709784",
         "rg": null,
@@ -464,7 +1293,7 @@
   },
   {
     "id": 88,
-    "nome": "Roni Ferreira barbosa",
+    "nome": "Roni Ferreira Barbosa",
     "email": "pessanhaaelisa@gmail.com",
     "cpf": "15608349784",
     "rg": null,
@@ -478,7 +1307,7 @@
     "parentes": [
       {
         "id": 87,
-        "nome": "Maria Elena Pessanha ",
+        "nome": "Maria Elena Pessanha",
         "email": "pessanhaaelisa@gmail.com",
         "cpf": "02897631775",
         "rg": null,
@@ -495,7 +1324,7 @@
     "parentesDe": [
       {
         "id": 84,
-        "nome": "Laila Pessanha ",
+        "nome": "Laila Pessanha",
         "email": "pessanhaaelisa@gmail.com",
         "cpf": "15329709784",
         "rg": null,
@@ -512,7 +1341,7 @@
   },
   {
     "id": 87,
-    "nome": "Maria Elena Pessanha ",
+    "nome": "Maria Elena Pessanha",
     "email": "pessanhaaelisa@gmail.com",
     "cpf": "02897631775",
     "rg": null,
@@ -526,7 +1355,7 @@
     "parentes": [
       {
         "id": 85,
-        "nome": "Elisa Pessanha melila ",
+        "nome": "Elisa Pessanha Melila",
         "email": "pessanhaaelisa@gmail.com",
         "cpf": "19809748701",
         "rg": null,
@@ -543,7 +1372,7 @@
     "parentesDe": [
       {
         "id": 88,
-        "nome": "Roni Ferreira barbosa",
+        "nome": "Roni Ferreira Barbosa",
         "email": "pessanhaaelisa@gmail.com",
         "cpf": "15608349784",
         "rg": null,
@@ -558,7 +1387,7 @@
       },
       {
         "id": 84,
-        "nome": "Laila Pessanha ",
+        "nome": "Laila Pessanha",
         "email": "pessanhaaelisa@gmail.com",
         "cpf": "15329709784",
         "rg": null,
@@ -575,7 +1404,7 @@
   },
   {
     "id": 86,
-    "nome": "Marciana maria chagas da Silva ",
+    "nome": "Marciana Maria Chagas da Silva",
     "email": "marcianamcsilva@gmail.com",
     "cpf": "07181524763",
     "rg": null,
@@ -589,7 +1418,7 @@
     "parentes": [
       {
         "id": 83,
-        "nome": "Anna liz chagas pereira ",
+        "nome": "Anna Liz Chagas Pereira",
         "email": "dudasillvaa2256@gmail.com",
         "cpf": "23287488724",
         "rg": null,
@@ -607,7 +1436,7 @@
   },
   {
     "id": 85,
-    "nome": "Elisa Pessanha melila ",
+    "nome": "Elisa Pessanha Melila",
     "email": "pessanhaaelisa@gmail.com",
     "cpf": "19809748701",
     "rg": null,
@@ -621,7 +1450,7 @@
     "parentes": [
       {
         "id": 84,
-        "nome": "Laila Pessanha ",
+        "nome": "Laila Pessanha",
         "email": "pessanhaaelisa@gmail.com",
         "cpf": "15329709784",
         "rg": null,
@@ -638,7 +1467,7 @@
     "parentesDe": [
       {
         "id": 87,
-        "nome": "Maria Elena Pessanha ",
+        "nome": "Maria Elena Pessanha",
         "email": "pessanhaaelisa@gmail.com",
         "cpf": "02897631775",
         "rg": null,
@@ -653,7 +1482,7 @@
       },
       {
         "id": 84,
-        "nome": "Laila Pessanha ",
+        "nome": "Laila Pessanha",
         "email": "pessanhaaelisa@gmail.com",
         "cpf": "15329709784",
         "rg": null,
@@ -670,7 +1499,7 @@
   },
   {
     "id": 84,
-    "nome": "Laila Pessanha ",
+    "nome": "Laila Pessanha",
     "email": "pessanhaaelisa@gmail.com",
     "cpf": "15329709784",
     "rg": null,
@@ -684,7 +1513,7 @@
     "parentes": [
       {
         "id": 85,
-        "nome": "Elisa Pessanha melila ",
+        "nome": "Elisa Pessanha Melila",
         "email": "pessanhaaelisa@gmail.com",
         "cpf": "19809748701",
         "rg": null,
@@ -699,7 +1528,7 @@
       },
       {
         "id": 87,
-        "nome": "Maria Elena Pessanha ",
+        "nome": "Maria Elena Pessanha",
         "email": "pessanhaaelisa@gmail.com",
         "cpf": "02897631775",
         "rg": null,
@@ -714,7 +1543,7 @@
       },
       {
         "id": 88,
-        "nome": "Roni Ferreira barbosa",
+        "nome": "Roni Ferreira Barbosa",
         "email": "pessanhaaelisa@gmail.com",
         "cpf": "15608349784",
         "rg": null,
@@ -729,7 +1558,7 @@
       },
       {
         "id": 90,
-        "nome": "Derek de Souza Manhães Lucas ",
+        "nome": "Derek de Souza Manhães Lucas",
         "email": "pessanhaaelisa@gmail.com",
         "cpf": "22744110779",
         "rg": null,
@@ -746,7 +1575,7 @@
     "parentesDe": [
       {
         "id": 85,
-        "nome": "Elisa Pessanha melila ",
+        "nome": "Elisa Pessanha Melila",
         "email": "pessanhaaelisa@gmail.com",
         "cpf": "19809748701",
         "rg": null,
@@ -763,7 +1592,7 @@
   },
   {
     "id": 83,
-    "nome": "Anna liz chagas pereira ",
+    "nome": "Anna Liz Chagas Pereira",
     "email": "dudasillvaa2256@gmail.com",
     "cpf": "23287488724",
     "rg": null,
@@ -777,7 +1606,7 @@
     "parentes": [
       {
         "id": 82,
-        "nome": "Eduarda chagas da Silva ",
+        "nome": "Eduarda Chagas da Silva",
         "email": "dudasillvaa2256@gmail.com",
         "cpf": "12923682769",
         "rg": null,
@@ -794,7 +1623,7 @@
     "parentesDe": [
       {
         "id": 86,
-        "nome": "Marciana maria chagas da Silva ",
+        "nome": "Marciana Maria Chagas da Silva",
         "email": "marcianamcsilva@gmail.com",
         "cpf": "07181524763",
         "rg": null,
@@ -811,7 +1640,7 @@
   },
   {
     "id": 82,
-    "nome": "Eduarda chagas da Silva ",
+    "nome": "Eduarda Chagas da Silva",
     "email": "dudasillvaa2256@gmail.com",
     "cpf": "12923682769",
     "rg": null,
@@ -826,7 +1655,7 @@
     "parentesDe": [
       {
         "id": 83,
-        "nome": "Anna liz chagas pereira ",
+        "nome": "Anna Liz Chagas Pereira",
         "email": "dudasillvaa2256@gmail.com",
         "cpf": "23287488724",
         "rg": null,
@@ -859,7 +1688,7 @@
   },
   {
     "id": 80,
-    "nome": "Olívia de Paula Martins ",
+    "nome": "Olívia de Paula Martins",
     "email": "rhaayanna.paula@gmail.com",
     "cpf": "03962765719",
     "rg": null,
@@ -921,7 +1750,7 @@
     "parentes": [
       {
         "id": 80,
-        "nome": "Olívia de Paula Martins ",
+        "nome": "Olívia de Paula Martins",
         "email": "rhaayanna.paula@gmail.com",
         "cpf": "03962765719",
         "rg": null,
@@ -938,7 +1767,7 @@
     "parentesDe": [
       {
         "id": 80,
-        "nome": "Olívia de Paula Martins ",
+        "nome": "Olívia de Paula Martins",
         "email": "rhaayanna.paula@gmail.com",
         "cpf": "03962765719",
         "rg": null,
@@ -1034,9 +1863,9 @@
     "parentesDe": [
       {
         "id": 75,
-        "nome": "Wellington Silva dos Santos ",
+        "nome": "Wellington Silva dos Santos",
         "email": "wellington100quissama@gmail.com",
-        "cpf": "126.554.457-32",
+        "cpf": "12655445732",
         "rg": null,
         "orgaoExpeditor": "DETRAN ",
         "nascimento": "03/05/1990",
@@ -1096,6 +1925,21 @@
     ],
     "parentesDe": [
       {
+        "id": 75,
+        "nome": "Wellington Silva dos Santos",
+        "email": "wellington100quissama@gmail.com",
+        "cpf": "12655445732",
+        "rg": null,
+        "orgaoExpeditor": "DETRAN ",
+        "nascimento": "03/05/1990",
+        "celular": "22997926997",
+        "cidade": "Quissamã ",
+        "endereco": "Adolfo carneiro da silva 146 Caxias ",
+        "idade": null,
+        "isGuia": false,
+        "createdAt": "2026-04-27T20:36:24.023Z"
+      },
+      {
         "id": 77,
         "nome": "Ícaro Andrade dos Santos",
         "email": "tavaresedna336@gmail.com",
@@ -1109,21 +1953,6 @@
         "idade": null,
         "isGuia": false,
         "createdAt": "2026-04-27T20:42:48.563Z"
-      },
-      {
-        "id": 75,
-        "nome": "Wellington Silva dos Santos ",
-        "email": "wellington100quissama@gmail.com",
-        "cpf": "126.554.457-32",
-        "rg": null,
-        "orgaoExpeditor": "DETRAN ",
-        "nascimento": "03/05/1990",
-        "celular": "22997926997",
-        "cidade": "Quissamã ",
-        "endereco": "Adolfo carneiro da silva 146 Caxias ",
-        "idade": null,
-        "isGuia": false,
-        "createdAt": "2026-04-27T20:36:24.023Z"
       },
       {
         "id": 74,
@@ -1144,9 +1973,9 @@
   },
   {
     "id": 75,
-    "nome": "Wellington Silva dos Santos ",
+    "nome": "Wellington Silva dos Santos",
     "email": "wellington100quissama@gmail.com",
-    "cpf": "126.554.457-32",
+    "cpf": "12655445732",
     "rg": null,
     "orgaoExpeditor": "DETRAN ",
     "nascimento": "03/05/1990",
@@ -1235,6 +2064,21 @@
     "isGuia": false,
     "parentes": [
       {
+        "id": 75,
+        "nome": "Wellington Silva dos Santos",
+        "email": "wellington100quissama@gmail.com",
+        "cpf": "12655445732",
+        "rg": null,
+        "orgaoExpeditor": "DETRAN ",
+        "nascimento": "03/05/1990",
+        "celular": "22997926997",
+        "cidade": "Quissamã ",
+        "endereco": "Adolfo carneiro da silva 146 Caxias ",
+        "idade": null,
+        "isGuia": false,
+        "createdAt": "2026-04-27T20:36:24.023Z"
+      },
+      {
         "id": 76,
         "nome": "Aylla Andrade dos Santos",
         "email": "tavaresedna336@gmail.com",
@@ -1248,21 +2092,6 @@
         "idade": null,
         "isGuia": false,
         "createdAt": "2026-04-27T20:40:01.777Z"
-      },
-      {
-        "id": 75,
-        "nome": "Wellington Silva dos Santos ",
-        "email": "wellington100quissama@gmail.com",
-        "cpf": "126.554.457-32",
-        "rg": null,
-        "orgaoExpeditor": "DETRAN ",
-        "nascimento": "03/05/1990",
-        "celular": "22997926997",
-        "cidade": "Quissamã ",
-        "endereco": "Adolfo carneiro da silva 146 Caxias ",
-        "idade": null,
-        "isGuia": false,
-        "createdAt": "2026-04-27T20:36:24.023Z"
       },
       {
         "id": 78,
@@ -1282,6 +2111,21 @@
     ],
     "parentesDe": [
       {
+        "id": 75,
+        "nome": "Wellington Silva dos Santos",
+        "email": "wellington100quissama@gmail.com",
+        "cpf": "12655445732",
+        "rg": null,
+        "orgaoExpeditor": "DETRAN ",
+        "nascimento": "03/05/1990",
+        "celular": "22997926997",
+        "cidade": "Quissamã ",
+        "endereco": "Adolfo carneiro da silva 146 Caxias ",
+        "idade": null,
+        "isGuia": false,
+        "createdAt": "2026-04-27T20:36:24.023Z"
+      },
+      {
         "id": 76,
         "nome": "Aylla Andrade dos Santos",
         "email": "tavaresedna336@gmail.com",
@@ -1295,27 +2139,12 @@
         "idade": null,
         "isGuia": false,
         "createdAt": "2026-04-27T20:40:01.777Z"
-      },
-      {
-        "id": 75,
-        "nome": "Wellington Silva dos Santos ",
-        "email": "wellington100quissama@gmail.com",
-        "cpf": "126.554.457-32",
-        "rg": null,
-        "orgaoExpeditor": "DETRAN ",
-        "nascimento": "03/05/1990",
-        "celular": "22997926997",
-        "cidade": "Quissamã ",
-        "endereco": "Adolfo carneiro da silva 146 Caxias ",
-        "idade": null,
-        "isGuia": false,
-        "createdAt": "2026-04-27T20:36:24.023Z"
       }
     ]
   },
   {
     "id": 71,
-    "nome": "Luis Otávio laclot de Andrade ",
+    "nome": "Luis Otávio Laclot de Andrade",
     "email": "laclotgiselle@gmail.com",
     "cpf": "22902027702",
     "rg": null,
@@ -1330,7 +2159,7 @@
     "parentesDe": [
       {
         "id": 70,
-        "nome": "Giselle laclot de Souza Andrade ",
+        "nome": "Giselle Laclot de Souza Andrade",
         "email": "laclotgiselle@gmail.com",
         "cpf": "13630963706",
         "rg": null,
@@ -1347,7 +2176,7 @@
   },
   {
     "id": 70,
-    "nome": "Giselle laclot de Souza Andrade ",
+    "nome": "Giselle Laclot de Souza Andrade",
     "email": "laclotgiselle@gmail.com",
     "cpf": "13630963706",
     "rg": null,
@@ -1361,7 +2190,7 @@
     "parentes": [
       {
         "id": 71,
-        "nome": "Luis Otávio laclot de Andrade ",
+        "nome": "Luis Otávio Laclot de Andrade",
         "email": "laclotgiselle@gmail.com",
         "cpf": "22902027702",
         "rg": null,
@@ -1379,7 +2208,7 @@
   },
   {
     "id": 69,
-    "nome": "Lourdes de Fátima santos nascimento ",
+    "nome": "Lourdes de Fátima Santos Nascimento",
     "email": "lourdesdefatimasantosnascimento@yahoo.com.br",
     "cpf": "75566788734",
     "rg": null,
@@ -1393,7 +2222,7 @@
     "parentes": [
       {
         "id": 93,
-        "nome": "Luiz Otávio nascimento ",
+        "nome": "Luiz Otávio Nascimento",
         "email": "luizotavionascimento15",
         "cpf": "47265442768",
         "rg": null,
@@ -1425,7 +2254,7 @@
     "parentes": [
       {
         "id": 67,
-        "nome": "rayla pareto cardoso",
+        "nome": "Rayla Pareto Cardoso",
         "email": "raylacardosopareto@gmail.com",
         "cpf": "18078856741",
         "rg": null,
@@ -1442,7 +2271,7 @@
     "parentesDe": [
       {
         "id": 67,
-        "nome": "rayla pareto cardoso",
+        "nome": "Rayla Pareto Cardoso",
         "email": "raylacardosopareto@gmail.com",
         "cpf": "18078856741",
         "rg": null,
@@ -1459,7 +2288,7 @@
   },
   {
     "id": 67,
-    "nome": "rayla pareto cardoso",
+    "nome": "Rayla Pareto Cardoso",
     "email": "raylacardosopareto@gmail.com",
     "cpf": "18078856741",
     "rg": null,
@@ -1523,7 +2352,7 @@
         "id": 65,
         "nome": "Claudio Fernando Motta de Araujo",
         "email": "c.fmaraujo@hotmail.com",
-        "cpf": "494 429 377-15",
+        "cpf": "49442937715",
         "rg": null,
         "orgaoExpeditor": "Detran ",
         "nascimento": "11/08/1953",
@@ -1541,7 +2370,7 @@
     "id": 65,
     "nome": "Claudio Fernando Motta de Araujo",
     "email": "c.fmaraujo@hotmail.com",
-    "cpf": "494 429 377-15",
+    "cpf": "49442937715",
     "rg": null,
     "orgaoExpeditor": "Detran ",
     "nascimento": "11/08/1953",
@@ -1573,7 +2402,7 @@
     "id": 64,
     "nome": "Herus Machado Lima",
     "email": "herusmachado2@gmail.com",
-    "cpf": "128.627.457-58",
+    "cpf": "12862745758",
     "rg": null,
     "orgaoExpeditor": "DETRAN",
     "nascimento": "26/10/1994",
@@ -1590,15 +2419,31 @@
     "nome": "Jader Pereira Santos Gomes",
     "email": "jaderpeereira181@gmail.com",
     "cpf": "22189508711",
-    "rg": null,
-    "orgaoExpeditor": "Detran",
+    "rg": "2",
+    "orgaoExpeditor": "DETRAN",
     "nascimento": "25/04/2007",
     "celular": "22997755228",
-    "cidade": "Quissamã",
+    "cidade": "Quissamã, RJ",
     "endereco": "Rua Bento Carneiro da Silva, 44, Rua 3, Fundos",
-    "idade": null,
+    "idade": 19,
     "isGuia": true,
-    "parentes": [],
+    "parentes": [
+      {
+        "id": 138,
+        "nome": "Davi Asaf dos Santos Souza",
+        "email": "daviasaf16@gmail.com",
+        "cpf": "15853875760",
+        "rg": "",
+        "orgaoExpeditor": "DETRAN",
+        "nascimento": "06/09/2007",
+        "celular": "22992890200",
+        "cidade": "Quissamã, RJ",
+        "endereco": "Estrada Roberto Pinto de Barcelos",
+        "idade": 18,
+        "isGuia": false,
+        "createdAt": "2026-04-29T22:46:49.801Z"
+      }
+    ],
     "parentesDe": []
   },
   {
@@ -1619,7 +2464,7 @@
   },
   {
     "id": 59,
-    "nome": "Márcia do Amparo do Espírito Santo Silva ",
+    "nome": "Márcia do Amparo do Espírito Santo Silva",
     "email": "marciaa.silva0909@gmail.com",
     "cpf": "04199122745",
     "rg": null,
@@ -1637,7 +2482,7 @@
     "id": 57,
     "nome": "Ayla Barcelos Carvalho",
     "email": "paullabarcelos20@gmail.com",
-    "cpf": "230.367.677-03",
+    "cpf": "23036767703",
     "rg": null,
     "orgaoExpeditor": "Detran",
     "nascimento": "19/06/2022",
@@ -1649,9 +2494,9 @@
     "parentes": [
       {
         "id": 56,
-        "nome": "Paula Barcelos de Souza ",
+        "nome": "Paula Barcelos de Souza",
         "email": "paullabarcelos20@gmail.com",
-        "cpf": "111.927.957-76",
+        "cpf": "11192795776",
         "rg": null,
         "orgaoExpeditor": "Detran",
         "nascimento": "20/10/1986",
@@ -1666,7 +2511,7 @@
     "parentesDe": [
       {
         "id": 37,
-        "nome": "CARMEN LUCIA BARCELOS DE SOUZA",
+        "nome": "Carmen Lucia Barcelos de Souza",
         "email": "kalubaso@gmail.com",
         "cpf": "83761551720",
         "rg": null,
@@ -1683,9 +2528,9 @@
   },
   {
     "id": 56,
-    "nome": "Paula Barcelos de Souza ",
+    "nome": "Paula Barcelos de Souza",
     "email": "paullabarcelos20@gmail.com",
-    "cpf": "111.927.957-76",
+    "cpf": "11192795776",
     "rg": null,
     "orgaoExpeditor": "Detran",
     "nascimento": "20/10/1986",
@@ -1697,23 +2542,8 @@
     "parentes": [],
     "parentesDe": [
       {
-        "id": 57,
-        "nome": "Ayla Barcelos Carvalho",
-        "email": "paullabarcelos20@gmail.com",
-        "cpf": "230.367.677-03",
-        "rg": null,
-        "orgaoExpeditor": "Detran",
-        "nascimento": "19/06/2022",
-        "celular": "(22)998061160",
-        "cidade": "Quissamã ",
-        "endereco": "Rua Frei João Batista 163 Centro",
-        "idade": null,
-        "isGuia": false,
-        "createdAt": "2026-04-27T00:13:21.793Z"
-      },
-      {
         "id": 37,
-        "nome": "CARMEN LUCIA BARCELOS DE SOUZA",
+        "nome": "Carmen Lucia Barcelos de Souza",
         "email": "kalubaso@gmail.com",
         "cpf": "83761551720",
         "rg": null,
@@ -1725,12 +2555,27 @@
         "idade": null,
         "isGuia": false,
         "createdAt": "2026-04-26T21:23:35.213Z"
+      },
+      {
+        "id": 57,
+        "nome": "Ayla Barcelos Carvalho",
+        "email": "paullabarcelos20@gmail.com",
+        "cpf": "23036767703",
+        "rg": null,
+        "orgaoExpeditor": "Detran",
+        "nascimento": "19/06/2022",
+        "celular": "(22)998061160",
+        "cidade": "Quissamã ",
+        "endereco": "Rua Frei João Batista 163 Centro",
+        "idade": null,
+        "isGuia": false,
+        "createdAt": "2026-04-27T00:13:21.793Z"
       }
     ]
   },
   {
     "id": 55,
-    "nome": "Zenilda Maria Fonseca de Souza Tavares ",
+    "nome": "Zenilda Maria Fonseca de Souza Tavares",
     "email": "zenildasouzatavares@hotmail.com",
     "cpf": "73538051704",
     "rg": null,
@@ -1746,7 +2591,7 @@
   },
   {
     "id": 52,
-    "nome": "Regina Helena Leite Cruz ",
+    "nome": "Regina Helena Leite Cruz",
     "email": "alessandraleitecruz@gmail.com",
     "cpf": "03051179710",
     "rg": null,
@@ -1760,7 +2605,7 @@
     "parentes": [
       {
         "id": 51,
-        "nome": "Alessandra Leite cruz ",
+        "nome": "Alessandra Leite Cruz",
         "email": "alessandraleitecruz@gmail.com",
         "cpf": "03773210795",
         "rg": null,
@@ -1777,7 +2622,7 @@
     "parentesDe": [
       {
         "id": 51,
-        "nome": "Alessandra Leite cruz ",
+        "nome": "Alessandra Leite Cruz",
         "email": "alessandraleitecruz@gmail.com",
         "cpf": "03773210795",
         "rg": null,
@@ -1794,7 +2639,7 @@
   },
   {
     "id": 51,
-    "nome": "Alessandra Leite cruz ",
+    "nome": "Alessandra Leite Cruz",
     "email": "alessandraleitecruz@gmail.com",
     "cpf": "03773210795",
     "rg": null,
@@ -1808,7 +2653,7 @@
     "parentes": [
       {
         "id": 52,
-        "nome": "Regina Helena Leite Cruz ",
+        "nome": "Regina Helena Leite Cruz",
         "email": "alessandraleitecruz@gmail.com",
         "cpf": "03051179710",
         "rg": null,
@@ -1825,7 +2670,7 @@
     "parentesDe": [
       {
         "id": 52,
-        "nome": "Regina Helena Leite Cruz ",
+        "nome": "Regina Helena Leite Cruz",
         "email": "alessandraleitecruz@gmail.com",
         "cpf": "03051179710",
         "rg": null,
@@ -1870,7 +2715,23 @@
     "idade": null,
     "isGuia": false,
     "parentes": [],
-    "parentesDe": []
+    "parentesDe": [
+      {
+        "id": 145,
+        "nome": "Arthur Pereira Rangel",
+        "email": "taticampos.pereira@gmail.com",
+        "cpf": "19701488709",
+        "rg": "31.805.716-3",
+        "orgaoExpeditor": "DETRAN",
+        "nascimento": "15/05/2015",
+        "celular": "22999150555",
+        "cidade": "Quissamã, RJ",
+        "endereco": "Estrada do correio imperial 1078-piteiras",
+        "idade": 10,
+        "isGuia": false,
+        "createdAt": "2026-04-29T23:16:51.158Z"
+      }
+    ]
   },
   {
     "id": 47,
@@ -1888,7 +2749,7 @@
     "parentes": [
       {
         "id": 46,
-        "nome": "Lila Queila Da Cruz Almeida Viana",
+        "nome": "Lila Queila da Cruz Almeida Viana",
         "email": "dacruzalmeidavianal@gmail.com",
         "cpf": "56946384768",
         "rg": null,
@@ -1906,7 +2767,7 @@
   },
   {
     "id": 46,
-    "nome": "Lila Queila Da Cruz Almeida Viana",
+    "nome": "Lila Queila da Cruz Almeida Viana",
     "email": "dacruzalmeidavianal@gmail.com",
     "cpf": "56946384768",
     "rg": null,
@@ -1938,7 +2799,7 @@
   },
   {
     "id": 45,
-    "nome": "HUGO DE PAULA",
+    "nome": "Hugo de Paula",
     "email": "vdealmeida145@gmail.com",
     "cpf": "39884724768",
     "rg": null,
@@ -1952,7 +2813,7 @@
     "parentes": [
       {
         "id": 44,
-        "nome": "Vânia Alves de Almeida ",
+        "nome": "Vânia Alves de Almeida",
         "email": "vdealmeida145@gmail.com",
         "cpf": "03046412789",
         "rg": null,
@@ -1969,7 +2830,7 @@
     "parentesDe": [
       {
         "id": 33,
-        "nome": "RAFAELA DE ALMEIDA SANTOS",
+        "nome": "Rafaela de Almeida Santos",
         "email": "faelarafinha2006@gmail.com",
         "cpf": "13102031722",
         "rg": null,
@@ -1986,7 +2847,7 @@
   },
   {
     "id": 44,
-    "nome": "Vânia Alves de Almeida ",
+    "nome": "Vânia Alves de Almeida",
     "email": "vdealmeida145@gmail.com",
     "cpf": "03046412789",
     "rg": null,
@@ -2001,7 +2862,7 @@
     "parentesDe": [
       {
         "id": 45,
-        "nome": "HUGO DE PAULA",
+        "nome": "Hugo de Paula",
         "email": "vdealmeida145@gmail.com",
         "cpf": "39884724768",
         "rg": null,
@@ -2016,7 +2877,7 @@
       },
       {
         "id": 33,
-        "nome": "RAFAELA DE ALMEIDA SANTOS",
+        "nome": "Rafaela de Almeida Santos",
         "email": "faelarafinha2006@gmail.com",
         "cpf": "13102031722",
         "rg": null,
@@ -2033,7 +2894,7 @@
   },
   {
     "id": 43,
-    "nome": "Allana Linhares Veloso ",
+    "nome": "Allana Linhares Veloso",
     "email": "linharesvelosoallana@gmail.com",
     "cpf": "19281448700",
     "rg": null,
@@ -2048,7 +2909,7 @@
     "parentesDe": [
       {
         "id": 39,
-        "nome": "Tissiana Linhares Duarte ",
+        "nome": "Tissiana Linhares Duarte",
         "email": "tissidu@gmail.com",
         "cpf": "03714426728",
         "rg": null,
@@ -2065,7 +2926,7 @@
   },
   {
     "id": 42,
-    "nome": "Vilma Alves de Almeida ",
+    "nome": "Vilma Alves de Almeida",
     "email": "faelarafinha2006@gmail.com",
     "cpf": "50156047772",
     "rg": null,
@@ -2079,7 +2940,7 @@
     "parentes": [
       {
         "id": 41,
-        "nome": "Rosane Alves de Almeida ",
+        "nome": "Rosane Alves de Almeida",
         "email": "faelarafinha2006@gmail.com",
         "cpf": "07023176756",
         "rg": null,
@@ -2096,7 +2957,7 @@
     "parentesDe": [
       {
         "id": 33,
-        "nome": "RAFAELA DE ALMEIDA SANTOS",
+        "nome": "Rafaela de Almeida Santos",
         "email": "faelarafinha2006@gmail.com",
         "cpf": "13102031722",
         "rg": null,
@@ -2113,7 +2974,7 @@
   },
   {
     "id": 41,
-    "nome": "Rosane Alves de Almeida ",
+    "nome": "Rosane Alves de Almeida",
     "email": "faelarafinha2006@gmail.com",
     "cpf": "07023176756",
     "rg": null,
@@ -2128,7 +2989,7 @@
     "parentesDe": [
       {
         "id": 42,
-        "nome": "Vilma Alves de Almeida ",
+        "nome": "Vilma Alves de Almeida",
         "email": "faelarafinha2006@gmail.com",
         "cpf": "50156047772",
         "rg": null,
@@ -2143,7 +3004,7 @@
       },
       {
         "id": 33,
-        "nome": "RAFAELA DE ALMEIDA SANTOS",
+        "nome": "Rafaela de Almeida Santos",
         "email": "faelarafinha2006@gmail.com",
         "cpf": "13102031722",
         "rg": null,
@@ -2160,7 +3021,7 @@
   },
   {
     "id": 40,
-    "nome": "Ester Cristina Pereira de Sousa ",
+    "nome": "Ester Cristina Pereira de Sousa",
     "email": "estercpsousa@gmail.com",
     "cpf": "79626483334",
     "rg": null,
@@ -2176,7 +3037,7 @@
   },
   {
     "id": 39,
-    "nome": "Tissiana Linhares Duarte ",
+    "nome": "Tissiana Linhares Duarte",
     "email": "tissidu@gmail.com",
     "cpf": "03714426728",
     "rg": null,
@@ -2190,7 +3051,7 @@
     "parentes": [
       {
         "id": 43,
-        "nome": "Allana Linhares Veloso ",
+        "nome": "Allana Linhares Veloso",
         "email": "linharesvelosoallana@gmail.com",
         "cpf": "19281448700",
         "rg": null,
@@ -2208,7 +3069,7 @@
   },
   {
     "id": 38,
-    "nome": "Sofya de Almeida Rangel ",
+    "nome": "Sofya de Almeida Rangel",
     "email": "faelarafinha2006@gmail.com",
     "cpf": "20239797736",
     "rg": null,
@@ -2222,7 +3083,7 @@
     "parentes": [
       {
         "id": 36,
-        "nome": "Júlia de Almeida Santos Rangel ",
+        "nome": "Júlia de Almeida Santos Rangel",
         "email": "faelarafinha2006@gmail.com",
         "cpf": "17449211726",
         "rg": null,
@@ -2239,7 +3100,7 @@
     "parentesDe": [
       {
         "id": 33,
-        "nome": "RAFAELA DE ALMEIDA SANTOS",
+        "nome": "Rafaela de Almeida Santos",
         "email": "faelarafinha2006@gmail.com",
         "cpf": "13102031722",
         "rg": null,
@@ -2256,7 +3117,7 @@
   },
   {
     "id": 37,
-    "nome": "CARMEN LUCIA BARCELOS DE SOUZA",
+    "nome": "Carmen Lucia Barcelos de Souza",
     "email": "kalubaso@gmail.com",
     "cpf": "83761551720",
     "rg": null,
@@ -2269,25 +3130,10 @@
     "isGuia": false,
     "parentes": [
       {
-        "id": 56,
-        "nome": "Paula Barcelos de Souza ",
-        "email": "paullabarcelos20@gmail.com",
-        "cpf": "111.927.957-76",
-        "rg": null,
-        "orgaoExpeditor": "Detran",
-        "nascimento": "20/10/1986",
-        "celular": "(22)998061160",
-        "cidade": "Quissamã",
-        "endereco": "Rua Frei João Batista 163 centro",
-        "idade": null,
-        "isGuia": false,
-        "createdAt": "2026-04-27T00:08:41.383Z"
-      },
-      {
         "id": 57,
         "nome": "Ayla Barcelos Carvalho",
         "email": "paullabarcelos20@gmail.com",
-        "cpf": "230.367.677-03",
+        "cpf": "23036767703",
         "rg": null,
         "orgaoExpeditor": "Detran",
         "nascimento": "19/06/2022",
@@ -2297,13 +3143,28 @@
         "idade": null,
         "isGuia": false,
         "createdAt": "2026-04-27T00:13:21.793Z"
+      },
+      {
+        "id": 56,
+        "nome": "Paula Barcelos de Souza",
+        "email": "paullabarcelos20@gmail.com",
+        "cpf": "11192795776",
+        "rg": null,
+        "orgaoExpeditor": "Detran",
+        "nascimento": "20/10/1986",
+        "celular": "(22)998061160",
+        "cidade": "Quissamã",
+        "endereco": "Rua Frei João Batista 163 centro",
+        "idade": null,
+        "isGuia": false,
+        "createdAt": "2026-04-27T00:08:41.383Z"
       }
     ],
     "parentesDe": []
   },
   {
     "id": 36,
-    "nome": "Júlia de Almeida Santos Rangel ",
+    "nome": "Júlia de Almeida Santos Rangel",
     "email": "faelarafinha2006@gmail.com",
     "cpf": "17449211726",
     "rg": null,
@@ -2317,7 +3178,7 @@
     "parentes": [
       {
         "id": 33,
-        "nome": "RAFAELA DE ALMEIDA SANTOS",
+        "nome": "Rafaela de Almeida Santos",
         "email": "faelarafinha2006@gmail.com",
         "cpf": "13102031722",
         "rg": null,
@@ -2334,7 +3195,7 @@
     "parentesDe": [
       {
         "id": 38,
-        "nome": "Sofya de Almeida Rangel ",
+        "nome": "Sofya de Almeida Rangel",
         "email": "faelarafinha2006@gmail.com",
         "cpf": "20239797736",
         "rg": null,
@@ -2349,7 +3210,7 @@
       },
       {
         "id": 33,
-        "nome": "RAFAELA DE ALMEIDA SANTOS",
+        "nome": "Rafaela de Almeida Santos",
         "email": "faelarafinha2006@gmail.com",
         "cpf": "13102031722",
         "rg": null,
@@ -2366,7 +3227,7 @@
   },
   {
     "id": 35,
-    "nome": "Valter Alves de Almeida ",
+    "nome": "Valter Alves de Almeida",
     "email": "valteralvesdealmeidaalmeida",
     "cpf": "74947990791",
     "rg": null,
@@ -2380,7 +3241,7 @@
     "parentes": [
       {
         "id": 34,
-        "nome": "Candida Dolores Ribeiro Gonçalves Lopes ",
+        "nome": "Candida Dolores Ribeiro Gonçalves Lopes",
         "email": "candidaboaventuralopes@gmail.com",
         "cpf": "01118732740",
         "rg": null,
@@ -2398,7 +3259,7 @@
   },
   {
     "id": 34,
-    "nome": "Candida Dolores Ribeiro Gonçalves Lopes ",
+    "nome": "Candida Dolores Ribeiro Gonçalves Lopes",
     "email": "candidaboaventuralopes@gmail.com",
     "cpf": "01118732740",
     "rg": null,
@@ -2413,7 +3274,7 @@
     "parentesDe": [
       {
         "id": 35,
-        "nome": "Valter Alves de Almeida ",
+        "nome": "Valter Alves de Almeida",
         "email": "valteralvesdealmeidaalmeida",
         "cpf": "74947990791",
         "rg": null,
@@ -2430,7 +3291,7 @@
   },
   {
     "id": 33,
-    "nome": "RAFAELA DE ALMEIDA SANTOS",
+    "nome": "Rafaela de Almeida Santos",
     "email": "faelarafinha2006@gmail.com",
     "cpf": "13102031722",
     "rg": null,
@@ -2444,7 +3305,7 @@
     "parentes": [
       {
         "id": 36,
-        "nome": "Júlia de Almeida Santos Rangel ",
+        "nome": "Júlia de Almeida Santos Rangel",
         "email": "faelarafinha2006@gmail.com",
         "cpf": "17449211726",
         "rg": null,
@@ -2459,7 +3320,7 @@
       },
       {
         "id": 38,
-        "nome": "Sofya de Almeida Rangel ",
+        "nome": "Sofya de Almeida Rangel",
         "email": "faelarafinha2006@gmail.com",
         "cpf": "20239797736",
         "rg": null,
@@ -2474,7 +3335,7 @@
       },
       {
         "id": 41,
-        "nome": "Rosane Alves de Almeida ",
+        "nome": "Rosane Alves de Almeida",
         "email": "faelarafinha2006@gmail.com",
         "cpf": "07023176756",
         "rg": null,
@@ -2489,7 +3350,7 @@
       },
       {
         "id": 42,
-        "nome": "Vilma Alves de Almeida ",
+        "nome": "Vilma Alves de Almeida",
         "email": "faelarafinha2006@gmail.com",
         "cpf": "50156047772",
         "rg": null,
@@ -2504,7 +3365,7 @@
       },
       {
         "id": 44,
-        "nome": "Vânia Alves de Almeida ",
+        "nome": "Vânia Alves de Almeida",
         "email": "vdealmeida145@gmail.com",
         "cpf": "03046412789",
         "rg": null,
@@ -2519,7 +3380,7 @@
       },
       {
         "id": 45,
-        "nome": "HUGO DE PAULA",
+        "nome": "Hugo de Paula",
         "email": "vdealmeida145@gmail.com",
         "cpf": "39884724768",
         "rg": null,
@@ -2536,7 +3397,7 @@
     "parentesDe": [
       {
         "id": 36,
-        "nome": "Júlia de Almeida Santos Rangel ",
+        "nome": "Júlia de Almeida Santos Rangel",
         "email": "faelarafinha2006@gmail.com",
         "cpf": "17449211726",
         "rg": null,
@@ -2553,9 +3414,9 @@
   },
   {
     "id": 32,
-    "nome": "Roberto Dos Santos Pereira ",
+    "nome": "Roberto dos Santos Pereira",
     "email": "kakito@gmail.com",
-    "cpf": "465.069.937-15 ",
+    "cpf": "46506993715",
     "rg": null,
     "orgaoExpeditor": "Detran rj",
     "nascimento": "09/01/1958",
@@ -2567,7 +3428,7 @@
     "parentes": [
       {
         "id": 30,
-        "nome": "Maria Do Desterro Peixoto ",
+        "nome": "Maria do Desterro Peixoto",
         "email": "maryshair53@gmail.com",
         "cpf": "59959428753",
         "rg": null,
@@ -2584,7 +3445,7 @@
     "parentesDe": [
       {
         "id": 30,
-        "nome": "Maria Do Desterro Peixoto ",
+        "nome": "Maria do Desterro Peixoto",
         "email": "maryshair53@gmail.com",
         "cpf": "59959428753",
         "rg": null,
@@ -2601,7 +3462,7 @@
   },
   {
     "id": 31,
-    "nome": "Elaine Possidonio Pinto ",
+    "nome": "Elaine Possidonio Pinto",
     "email": "epossidonio08@gmail.com",
     "cpf": "03061315799",
     "rg": null,
@@ -2617,7 +3478,7 @@
   },
   {
     "id": 30,
-    "nome": "Maria Do Desterro Peixoto ",
+    "nome": "Maria do Desterro Peixoto",
     "email": "maryshair53@gmail.com",
     "cpf": "59959428753",
     "rg": null,
@@ -2631,9 +3492,9 @@
     "parentes": [
       {
         "id": 32,
-        "nome": "Roberto Dos Santos Pereira ",
+        "nome": "Roberto dos Santos Pereira",
         "email": "kakito@gmail.com",
-        "cpf": "465.069.937-15 ",
+        "cpf": "46506993715",
         "rg": null,
         "orgaoExpeditor": "Detran rj",
         "nascimento": "09/01/1958",
@@ -2648,9 +3509,9 @@
     "parentesDe": [
       {
         "id": 32,
-        "nome": "Roberto Dos Santos Pereira ",
+        "nome": "Roberto dos Santos Pereira",
         "email": "kakito@gmail.com",
-        "cpf": "465.069.937-15 ",
+        "cpf": "46506993715",
         "rg": null,
         "orgaoExpeditor": "Detran rj",
         "nascimento": "09/01/1958",
@@ -2775,34 +3636,34 @@
     "parentes": [],
     "parentesDe": [
       {
-        "id": 102,
-        "nome": "Davi Asaf",
+        "id": 138,
+        "nome": "Davi Asaf dos Santos Souza",
         "email": "daviasaf16@gmail.com",
         "cpf": "15853875760",
-        "rg": null,
+        "rg": "",
         "orgaoExpeditor": "DETRAN",
         "nascimento": "06/09/2007",
         "celular": "22992890200",
         "cidade": "Quissamã, RJ",
-        "endereco": "Estrada da Penha, S/N, Penha",
-        "idade": null,
+        "endereco": "Estrada Roberto Pinto de Barcelos",
+        "idade": 18,
         "isGuia": false,
-        "createdAt": "2026-04-29T01:45:03.024Z"
+        "createdAt": "2026-04-29T22:46:49.801Z"
       },
       {
-        "id": 118,
-        "nome": "Cansado da Silva Junior",
-        "email": "cansado@gmail.com",
-        "cpf": "29026817045",
-        "rg": null,
-        "orgaoExpeditor": "DETRAN",
-        "nascimento": "06/09/2007",
-        "celular": "412312",
-        "cidade": "Baixa Grande do Ribeiro, PI",
-        "endereco": "312321",
+        "id": 24,
+        "nome": "Lívia Graziela dos Santos",
+        "email": "liviagrazielaz@gmail.com",
+        "cpf": "09459178723",
+        "rg": "117882886",
+        "orgaoExpeditor": "Detran ",
+        "nascimento": "1981-04-10",
+        "celular": "22999454860",
+        "cidade": "Quissamã, RJ",
+        "endereco": "Estrada Roberto Pinto de Barcelos, 01 Penha ",
         "idade": null,
-        "isGuia": false,
-        "createdAt": "2026-04-29T16:25:06.366Z"
+        "isGuia": true,
+        "createdAt": "2026-04-26T17:39:07.425Z"
       }
     ]
   },
@@ -2824,18 +3685,34 @@
   },
   {
     "id": 24,
-    "nome": "Lívia Graziela dos Santos ",
+    "nome": "Lívia Graziela dos Santos",
     "email": "liviagrazielaz@gmail.com",
     "cpf": "09459178723",
     "rg": "117882886",
     "orgaoExpeditor": "Detran ",
     "nascimento": "1981-04-10",
     "celular": "22999454860",
-    "cidade": "Quissamã ",
+    "cidade": "Quissamã, RJ",
     "endereco": "Estrada Roberto Pinto de Barcelos, 01 Penha ",
     "idade": null,
     "isGuia": true,
-    "parentes": [],
+    "parentes": [
+      {
+        "id": 27,
+        "nome": "Sara dos Santos Souza",
+        "email": "sarassantos011@gmail.com",
+        "cpf": "15853834738",
+        "rg": null,
+        "orgaoExpeditor": "Detran",
+        "nascimento": "06/09/2005",
+        "celular": "22999697132",
+        "cidade": "Quissamã",
+        "endereco": "Estrada Roberto Pinto de Barcelos S/N",
+        "idade": null,
+        "isGuia": false,
+        "createdAt": "2026-04-26T18:42:15.477Z"
+      }
+    ],
     "parentesDe": []
   }
 ]

@@ -4,7 +4,7 @@
         <AuthAdminLogin v-if="!logado" @sucesso="aoLogar" />
 
         <div v-else class="min-vh-100 bg-surface pb-5">
-           <LayoutAdminHeader @logout="fazerLogout" @exportarSeed="acaoGerarSeed" />
+            <LayoutAdminHeader @logout="fazerLogout" @exportarSeed="acaoGerarSeed" />
 
             <div class="main-container px-3 px-md-4 mt-4 mt-md-5">
 
@@ -13,7 +13,7 @@
                         class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center mb-4 gap-3">
                         <h4 class="text-dark fw-bold mb-0 fs-4 tracking-tight">Excursões Ativas</h4>
                         <button
-                            class="btn btn-brand btn-sm shadow-soft px-4 py-2 fw-bold rounded-pill d-flex align-items-center gap-2"
+                            class="btn btn-brand btn-sm shadow-soft px-4 py-2 fw-bold rounded-pill d-flex align-items-center gap-2 justify-content-center"
                             @click="abrirNovaExcursao">Nova Excursão</button>
                     </div>
 
@@ -27,14 +27,16 @@
                 </div>
 
                 <div class="bg-white p-4 p-md-5 rounded-5 shadow-sm border-0 mb-5">
+                    <!-- CORREÇÃO: flex-column no mobile para não esmagar o input de busca -->
                     <div
-                        class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center mb-4 gap-3">
+                        class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
                         <h4 class="text-dark fw-bold mb-0 fs-4 tracking-tight">Base de Passageiros</h4>
-                        <div class="d-flex gap-2 w-100 w-sm-auto">
+                        <div class="d-flex flex-column flex-sm-row gap-2 w-100 w-md-auto">
                             <input v-model="buscaUser" type="text"
-                                class="form-control bg-light rounded-pill px-4 fw-semibold"
+                                class="form-control bg-light rounded-pill px-4 fw-semibold w-100"
                                 placeholder="Buscar passageiro...">
-                            <button class="btn btn-brand fw-bold px-4 rounded-pill d-flex align-items-center gap-2"
+                            <button
+                                class="btn btn-brand fw-bold px-4 py-2 rounded-pill d-flex align-items-center justify-content-center gap-2"
                                 @click="abrirNovoUser">Cadastro</button>
                         </div>
                     </div>
@@ -44,7 +46,7 @@
                 </div>
             </div>
 
-          <ModaisModalUser v-if="modalUser" :usuarioEditando="userSelecionado" :todosUsuarios="usuarios"
+            <ModaisModalUser v-if="modalUser" :usuarioEditando="userSelecionado" :todosUsuarios="usuarios"
                 @close="modalUser = false" @salvo="carregar" />
             <ModaisModalNovaExcursao v-if="modalCriarExcursao" :excursaoEditando="exSelecionada"
                 :guiasDisponiveis="guiasDisponiveis" @close="modalCriarExcursao = false" @salvo="carregar"
@@ -66,7 +68,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import PassageirosTabela from '~/components/passageiros/Tabela.vue'
-import UiModalConfirm from '~/components/ui/ModalConfirm.vue' // Criação sugerida no passo 1 caso queira isolar esse tb!
+import UiModalConfirm from '~/components/ui/ModalConfirm.vue'
 import { exportarSeedUsuarios } from '~/utils/exportacoes'
 
 const { showToast } = useToasts()
@@ -75,7 +77,6 @@ const logado = ref(false)
 const aoLogar = () => { logado.value = true; carregar(); }
 const fazerLogout = () => { logado.value = false; if (import.meta.client) localStorage.removeItem('graziTurAdmin'); usuarios.value = []; excursoes.value = [] }
 
-// Estados Modais e Seleções
 const modalUser = ref(false); const modalCriarExcursao = ref(false); const modalGerenciarEx = ref(false); const modalVincular = ref(false); const modalPagamento = ref(false); const modalConfirm = ref(false);
 const userSelecionado = ref(null); const exSelecionada = ref(null);
 const confirmType = ref(''); const confirmId = ref(null); const confirmTitle = ref(''); const confirmText = ref('');
@@ -112,7 +113,6 @@ const carregar = async () => {
     const timestamp = new Date().getTime()
     usuarios.value = await $fetch(`/api/users?t=${timestamp}`)
     const resExcursoes = await $fetch(`/api/excursoes?includeUsers=true&t=${timestamp}`)
-    // ... dentro de carregar()
     excursoes.value = resExcursoes.map(ex => {
         let val = []; let pags = {}; let det = {}; let grp = {}; let assinaturasObj = {};
         if (ex.valores) { try { val = typeof ex.valores === 'string' ? JSON.parse(ex.valores) : ex.valores } catch (e) { } }
@@ -123,7 +123,6 @@ const carregar = async () => {
 
         return { ...ex, valores: Array.isArray(val) ? val : [], pagamentos: pags, detalhes: det, grupos: grp, assinaturas: assinaturasObj }
     })
-    // ...
     if (exSelecionada.value) { const atualizada = excursoes.value.find(e => e.id === exSelecionada.value.id); if (atualizada) exSelecionada.value = atualizada }
 }
 

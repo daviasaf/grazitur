@@ -127,13 +127,11 @@ const formUser = ref({ id: null, nome: '', email: '', cpf: '', rg: '', idade: ''
 const erroForm = ref('')
 const carregando = ref(false)
 
-// Lógica de Órgão Expeditor
 const opcoesOrgao = ref(['DETRAN', 'DIC', 'IFP', 'SSP', 'Outros'])
 const selecaoOrgao = ref('')
 const modalOutroOrgao = ref(false)
 const outroOrgaoTexto = ref('')
 
-// Estados e Cidades (IBGE)
 const estados = ref([])
 const cidades = ref([])
 const estadoSelecionado = ref('')
