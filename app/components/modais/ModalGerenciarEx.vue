@@ -172,20 +172,27 @@
                             </div>
 
                             <div v-for="(dependentes, liderId) in (excursao.grupos || {})" :key="liderId"
-                                class="p-4 bg-brand-light border border-light rounded-4 position-relative shadow-sm mt-3">
+                                class="p-4 bg-brand-light border border-light rounded-4 shadow-sm mt-3">
 
-                                <div class="position-absolute top-0 end-0 m-3 d-flex gap-2" style="z-index: 10;">
-                                    <button class="btn btn-sm btn-primary shadow-sm fw-bold px-3 rounded-pill"
-                                        @click="editarGrupo(liderId)" title="Editar Grupo">✎ Editar</button>
-                                    <button class="btn btn-sm btn-danger shadow-sm fw-bold px-3 rounded-pill"
-                                        @click="removerGrupo(liderId)" title="Desfazer Grupo">✕ Apagar</button>
+                                <!-- LAYOUT CORRIGIDO PARA MOBILE E DESKTOP -->
+                                <div
+                                    class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-3 mb-3 border-bottom border-light pb-3">
+                                    <div class="fw-bold text-brand fs-6 lh-sm mb-0">
+                                        Líder: <span class="text-dark">{{ getNomeUser(liderId) }}</span>
+                                    </div>
+                                    <div class="d-flex gap-2 w-100 w-sm-auto justify-content-end">
+                                        <button
+                                            class="btn btn-sm btn-primary shadow-sm fw-bold px-4 py-2 rounded-pill flex-fill flex-sm-grow-0"
+                                            @click="editarGrupo(liderId)" title="Editar Grupo">✎ Editar</button>
+                                        <button
+                                            class="btn btn-sm btn-danger shadow-sm fw-bold px-4 py-2 rounded-pill flex-fill flex-sm-grow-0"
+                                            @click="removerGrupo(liderId)" title="Desfazer Grupo">✕ Apagar</button>
+                                    </div>
                                 </div>
 
-                                <div class="fw-bold text-brand mb-2 fs-6 mt-2">Líder: {{ getNomeUser(liderId) }}</div>
-                                <div class="small text-dark fw-bold mb-2 ps-4">Acompanhantes (Dependentes):</div>
-                                <ul class="mb-0 ps-5 small text-muted fw-semibold">
-                                    <li v-for="depId in dependentes" :key="depId" class="mb-1">{{ getNomeUser(depId) }}
-                                    </li>
+                                <div class="small text-dark fw-bold mb-2 ps-2">Acompanhantes (Dependentes):</div>
+                                <ul class="mb-0 ps-4 small text-muted fw-semibold lh-lg">
+                                    <li v-for="depId in dependentes" :key="depId">{{ getNomeUser(depId) }}</li>
                                 </ul>
                             </div>
                         </div>

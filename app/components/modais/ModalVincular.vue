@@ -5,7 +5,7 @@
                 <div
                     class="modal-header bg-white p-4 border-bottom border-light rounded-top-5 d-flex justify-content-between align-items-center">
                     <h5 class="modal-title fw-bold fs-5 text-dark m-0">Matricular <span class="text-brand">{{
-                            userParaVincular.nome }}</span></h5>
+                        userParaVincular.nome }}</span></h5>
                     <button class="btn-close m-0" @click="$emit('close')"></button>
                 </div>
                 <div class="modal-body p-4 bg-white">
@@ -19,7 +19,7 @@
                                 <small class="text-brand fw-semibold">{{ e.lugar }}</small>
                                 <span class="badge mt-3 d-block rounded-pill px-4 py-2 fs-6"
                                     :class="e._count.usuarios >= e.vagas ? 'bg-danger' : 'bg-success bg-opacity-10 text-success border border-success border-opacity-25'">{{
-                                    e._count.usuarios }}/{{ e.vagas }} vagas ocupadas</span>
+                                        e._count.usuarios }}/{{ e.vagas }} vagas ocupadas</span>
                             </button>
                         </div>
                     </div>
@@ -61,7 +61,7 @@
                                         <div>
                                             <span class="fw-bold fs-6 d-block mb-1"
                                                 :class="parentesAdicionadosNaSessao.includes(parente.id) ? 'text-success' : 'text-dark'">{{
-                                                parente.nome }}</span>
+                                                    parente.nome }}</span>
                                             <small class="text-muted fw-semibold">CPF: {{ parente.cpf || '-' }}</small>
                                         </div>
                                         <button class="btn fw-bold rounded-pill px-4 py-2 shadow-sm"
@@ -69,7 +69,7 @@
                                             :disabled="parentesAdicionadosNaSessao.includes(parente.id)"
                                             @click="iniciarVinculoParente(parente)">
                                             {{ parentesAdicionadosNaSessao.includes(parente.id) ? '✔ Inserido' :
-                                            'Adicionar' }}
+                                                'Adicionar' }}
                                         </button>
                                     </div>
                                 </div>
@@ -126,7 +126,17 @@ const parentesDoUsuarioSelecionado = computed(() => {
     return listaUnica.map(p => ({ ...p, adicionado: false }))
 })
 
-const selecionarExcursaoParaVincular = (e) => { excursaoSendoVinculada.value = e; opcaoPagamentoMain.value = ''; if (!e.aplicarParcelas) vincularMainUser(props.userParaVincular.id, e) }
+const selecionarExcursaoParaVincular = (e) => {
+    // Verifica se a pessoa logada já está matriculada nesta excursão antes mesmo de abrir
+    if (e.usuarios && e.usuarios.some(u => String(u.id) === String(props.userParaVincular.id))) {
+        showToast(`${props.userParaVincular.nome} já está matriculado(a) nesta viagem!`, 'warning');
+        return;
+    }
+
+    excursaoSendoVinculada.value = e;
+    opcaoPagamentoMain.value = '';
+    if (!e.aplicarParcelas) vincularMainUser(props.userParaVincular.id, e)
+}
 
 const vincularMainUser = async (userId, excursao) => {
     const op = excursao.aplicarParcelas ? opcaoPagamentoMain.value : null;
@@ -137,13 +147,24 @@ const vincularMainUser = async (userId, excursao) => {
         excursaoVinculada.value = excursao;
         showToast('Adicionado com sucesso!', 'success');
         emit('atualizado');
-    } catch (e) { showToast('Erro ao matricular!', 'danger') }
+    } catch (e) {
+        showToast(e.data?.message || 'Erro ao matricular!', 'danger')
+    }
 }
 
 const iniciarVinculoParente = (parente) => {
+    // Verifica se o dependente já está na excursão antes de abrir o modal de pagamento
+    if (excursaoVinculada.value.usuarios && excursaoVinculada.value.usuarios.some(u => String(u.id) === String(parente.id))) {
+        showToast(`${parente.nome} já está matriculado(a) nesta viagem!`, 'warning');
+        parentesAdicionadosNaSessao.value.push(parente.id); // Marca visualmente que já está inserido
+        return;
+    }
+
     if (excursaoVinculada.value.aplicarParcelas && parente.id !== excursaoVinculada.value.guiaId) {
         parenteSendoVinculado.value = parente; opcaoPagamentoParente.value = '';
-    } else { vincularParente(parente, excursaoVinculada.value.id, null); }
+    } else {
+        vincularParente(parente, excursaoVinculada.value.id, null);
+    }
 }
 
 const confirmarVinculoParente = () => {
@@ -161,6 +182,8 @@ const vincularParente = async (parente, excursaoId, opcaoPag) => {
         parenteSendoVinculado.value = null; opcaoPagamentoParente.value = '';
         showToast('Dependente adicionado!', 'success');
         emit('atualizado');
-    } catch (e) { showToast('Erro ao matricular dependente!', 'danger') }
+    } catch (e) {
+        showToast(e.data?.message || 'Erro ao matricular dependente!', 'danger')
+    }
 }
 </script>
