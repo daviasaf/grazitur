@@ -26,3 +26,5 @@ logs
 /app/generated/prisma
 
 pnpm-lock.yaml
+
+seed
