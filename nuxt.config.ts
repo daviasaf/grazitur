@@ -6,12 +6,12 @@ export default defineNuxtConfig({
   app: {
     head: {
       title: "GraziTur",
-      link: [{ rel: "icon", type: "image/svg+xml", href: "/favicon.svg" }],
+      link: [{ rel: "icon", type: "image/svg+xml", href: "/favicon.ico" }],
     },
   },
   devtools: { enabled: true },
 
   runtimeConfig: {
-    adminPassword: process.env.ADMIN_PASSWORD || "123456",
+    adminPassword: process.env.ADMIN_PASSWORD,
   },
 });

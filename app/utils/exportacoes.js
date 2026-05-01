@@ -15,7 +15,6 @@ const formatarCPFLista = (v) => {
   return cpf;
 };
 
-// Função principal para gerar o contrato assinado (PDF)
 export const gerarContratoAssinadoPDF = async (
   exSelecionada,
   userId,
@@ -49,7 +48,6 @@ export const gerarContratoAssinadoPDF = async (
     const grupoFamiliar = [lider, ...dependentesObjs];
     const det = ex.detalhes || {};
 
-    // Data/hora da assinatura do passageiro
     let dataAssinaturaPassageiro = "_______________";
     let isAssinado = false;
     if (ex.assinaturas && ex.assinaturas[String(lider.id)]) {
@@ -66,7 +64,6 @@ export const gerarContratoAssinadoPDF = async (
       timeZone: "America/Sao_Paulo",
     });
 
-    // 1. TABELA COM A COLUNA DE PAGAMENTO INDIVIDUAL
     let tabelaHTML = `<table style="width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 25px; font-size: 9.5pt; page-break-inside: auto;">
       <thead>
         <tr>
@@ -85,9 +82,13 @@ export const gerarContratoAssinadoPDF = async (
           ? "background-color: #f9f9f9;"
           : "background-color: #ffffff;";
       const pag = processarPagamento(ex, m.id);
+      let nomeFormatado = m.nome;
+      if (pag === "Criança de 0 a 1,9 meses - Isento") {
+        nomeFormatado += " (Criança de colo)";
+      }
       tabelaHTML += `<tr style="${bgStyle} page-break-inside: avoid; page-break-after: auto;">
         <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">${i + 1}</td>
-        <td style="border: 1px solid #ddd; padding: 8px;">${m.nome}</td>
+        <td style="border: 1px solid #ddd; padding: 8px;">${nomeFormatado}</td>
         <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">${m.nascimento || "-"}</td>
         <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">${m.cpf || m.rg || "-"}</td>
         <td style="border: 1px solid #ddd; padding: 8px; text-align: center; font-weight: bold; color: #2C3E50;">${pag}</td>
@@ -101,7 +102,6 @@ export const gerarContratoAssinadoPDF = async (
         ? `<br><br><b>ACOMPANHANTES (DEPENDENTES):</b> ${dependentesObjs.map((d) => d.nome).join(", ")}.`
         : "";
 
-    // CORREÇÃO 3: Lógica para puxar e formatar os valores definidos diretamente do array `ex.valores` do sistema
     let valoresHtml = "Valores não especificados no sistema.";
     if (ex.valores && Array.isArray(ex.valores) && ex.valores.length > 0) {
       valoresHtml = ex.valores
@@ -109,11 +109,9 @@ export const gerarContratoAssinadoPDF = async (
         .join("<br>");
     }
 
-    // 2. HTML DO CONTRATO
     const contratoHTML = `
       <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 10.5pt; line-height: 1.6; color: #333; padding: 20px;">
         <style>
-          /* Regras para evitar cortes */
           p, ul, li, div.box-destaque, table, tr, td, th { page-break-inside: avoid !important; }
           h1, h2, h3, h4, h5, .clausula-titulo { page-break-after: avoid !important; page-break-inside: avoid !important; }
           .page-break { page-break-before: always !important; }
@@ -278,7 +276,6 @@ export const gerarContratoAssinadoPDF = async (
       </div>
     `;
 
-    // 3. USO DO HTML2PDF PASSANDO A STRING DIRETO
     if (!window.html2pdf) {
       await new Promise((resolve) => {
         const script = document.createElement("script");
@@ -315,7 +312,6 @@ export const gerarContratoAssinadoPDF = async (
   }
 };
 
-// Exportar lista de passageiros em PDF (Apenas Lista)
 export const exportarListaPDF = async (excursao, showToast) => {
   try {
     const { jsPDF } = await import("jspdf");
@@ -325,15 +321,36 @@ export const exportarListaPDF = async (excursao, showToast) => {
     doc.setFontSize(18);
     doc.text(`Lista de Passageiros - ${excursao.nome}`, 14, 20);
     const head = [["Nº", "Nome Completo", "CPF", "Órgão"]];
-    const listaCompleta = excursao.guia
-      ? [excursao.guia, ...(excursao.usuarios || [])]
-      : excursao.usuarios || [];
-    const dados = listaCompleta.map((u, i) => [
-      i + 1,
-      u.nome + (u.id === excursao.guiaId ? " (GUIA)" : ""),
-      formatarCPFLista(u.cpf),
-      u.orgaoExpeditor || "-",
-    ]);
+
+    let todosUsuarios = [...(excursao.usuarios || [])];
+    if (
+      excursao.guia &&
+      !todosUsuarios.some((u) => u.id === excursao.guia.id)
+    ) {
+      todosUsuarios.push(excursao.guia);
+    }
+    const listaCompleta = todosUsuarios.sort((a, b) =>
+      a.nome.localeCompare(b.nome),
+    );
+
+    const dados = listaCompleta.map((u, i) => {
+      let nomeFormatado = u.nome;
+      if (u.id === excursao.guiaId) {
+        nomeFormatado += " (GUIA)";
+      } else if (
+        processarPagamento(excursao, u.id) ===
+        "Criança de 0 a 1,9 meses - Isento"
+      ) {
+        nomeFormatado += " (Criança de colo)";
+      }
+      return [
+        i + 1,
+        nomeFormatado,
+        formatarCPFLista(u.cpf),
+        u.orgaoExpeditor || "-",
+      ];
+    });
+
     autoTable(doc, { startY: 30, head: head, body: dados });
     doc.save(`Lista_${excursao.nome.replace(/\s+/g, "_")}.pdf`);
     showToast("Lista PDF gerada!", "success");
@@ -343,15 +360,29 @@ export const exportarListaPDF = async (excursao, showToast) => {
   }
 };
 
-// Exportar lista de passageiros em Excel (CSV)
 export const exportarListaExcel = (excursao, showToast) => {
   let csv = "\uFEFFNº;Nome;CPF;Orgao\n";
-  const listaCompleta = excursao.guia
-    ? [excursao.guia, ...(excursao.usuarios || [])]
-    : excursao.usuarios || [];
+
+  let todosUsuarios = [...(excursao.usuarios || [])];
+  if (excursao.guia && !todosUsuarios.some((u) => u.id === excursao.guia.id)) {
+    todosUsuarios.push(excursao.guia);
+  }
+  const listaCompleta = todosUsuarios.sort((a, b) =>
+    a.nome.localeCompare(b.nome),
+  );
+
   listaCompleta.forEach((u, i) => {
-    csv += `${i + 1};${u.nome + (u.id === excursao.guiaId ? " (GUIA)" : "")};${formatarCPFLista(u.cpf)};${u.orgaoExpeditor || "-"}\n`;
+    let nomeFormatado = u.nome;
+    if (u.id === excursao.guiaId) {
+      nomeFormatado += " (GUIA)";
+    } else if (
+      processarPagamento(excursao, u.id) === "Criança de 0 a 1,9 meses - Isento"
+    ) {
+      nomeFormatado += " (Criança de colo)";
+    }
+    csv += `${i + 1};${nomeFormatado};${formatarCPFLista(u.cpf)};${u.orgaoExpeditor || "-"}\n`;
   });
+
   const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
   const link = document.createElement("a");
   link.href = URL.createObjectURL(blob);
@@ -360,7 +391,6 @@ export const exportarListaExcel = (excursao, showToast) => {
   showToast("Lista Excel exportada!", "success");
 };
 
-// Exportar seed de usuários (backup)
 export const exportarSeedUsuarios = (usuarios, showToast) => {
   try {
     if (!usuarios || usuarios.length === 0) {

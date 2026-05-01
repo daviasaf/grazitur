@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="modal fade show d-block" style="background: rgba(0,0,0,0.6); overflow-y: auto; z-index: 1040;">
-            <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable px-2">
+            <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable px-2 desktop-compact">
                 <div class="modal-content border-0 shadow-lg rounded-5 bg-light">
                     <div
                         class="modal-header bg-white p-4 p-md-5 border-bottom border-light rounded-top-5 d-flex justify-content-between align-items-center">
@@ -15,7 +15,7 @@
                         <div class="row g-4 mb-4">
                             <div class="col-lg-12">
                                 <div
-                                    class="bg-white p-4 rounded-4 shadow-sm border border-light h-100 d-flex flex-column justify-content-center">
+                                    class="bg-white p-4 rounded-4 shadow-sm border border-light h-100 d-flex flex-column justify-content-center card-ocupacao-wrapper">
                                     <h6 class="small fw-bold text-muted text-uppercase mb-3">Ocupação: {{
                                         excursao.usuarios.length }} / {{ excursao.vagas }}</h6>
                                     <div class="d-flex flex-wrap gap-2">
@@ -42,30 +42,31 @@
                             Vincule um Guia para liberar os downloads de Lista de Chamada.
                         </div>
 
-                        <!-- TABELA COM DEPENDENTES AGRUPADOS ABAIXO DO LÍDER E SEM COLUNA VÍNCULO -->
                         <div class="border border-light rounded-4 overflow-hidden bg-white shadow-sm">
                             <div class="scrollable-table-container">
                                 <table class="table table-hover align-middle mb-0 table-fixed-header">
                                     <thead class="text-muted small text-uppercase bg-light">
                                         <tr>
-                                            <th class="ps-4 py-3 border-0 text-start fw-bold">Passageiro & Contato</th>
+                                            <th class="ps-4 py-3 border-0 text-start fw-bold align-middle">Passageiro &
+                                                Contato</th>
                                             <th v-if="excursao.aplicarParcelas"
-                                                class="py-3 border-0 text-center fw-bold text-brand">Pagamento</th>
+                                                class="py-3 border-0 text-center fw-bold text-brand align-middle">
+                                                Pagamento</th>
                                             <th v-if="excursao.liberarContratos"
-                                                class="py-3 border-0 text-center fw-bold text-success">Contrato</th>
-                                            <th class="pe-4 py-3 border-0 text-center fw-bold">Ações</th>
+                                                class="py-3 border-0 text-center fw-bold text-success align-middle">
+                                                Contrato</th>
+                                            <th class="pe-4 py-3 border-0 text-center fw-bold align-middle">Ações</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr v-for="p in usuariosOrdenados" :key="p.id"
                                             :class="getVinculo(p.id).isDependente ? 'bg-light' : ''">
-                                            <!-- NOME E CONTATOS COM RECUO PARA DEPENDENTES -->
-                                            <td class="ps-4 py-3 text-start">
-                                                <div class="d-flex align-items-start gap-2">
+                                            <td class="ps-4 py-3 text-start align-middle">
+                                                <div class="d-flex align-items-center gap-2">
                                                     <span v-if="getVinculo(p.id).isDependente"
-                                                        class="text-muted fw-bold mt-1">↳</span>
-                                                    <div>
-                                                        <div class="fw-bold d-flex align-items-center gap-2"
+                                                        class="text-muted fw-bold mb-1">↳</span>
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <div class="fw-bold d-flex align-items-center gap-2 passageiro-nome"
                                                             :class="getVinculo(p.id).isDependente ? 'text-secondary' : 'text-dark'"
                                                             style="font-size: 0.95rem;">
                                                             {{ p.nome }}
@@ -77,10 +78,10 @@
                                                             class="text-muted small fw-semibold d-flex align-items-center gap-2 mt-1">
                                                             <span title="CPF">{{ mascaraCPF(p.cpf) || '-' }}</span>
                                                             <span class="text-light opacity-50">|</span>
-                                                            <a v-if="p.celular" :href="formatarWhatsApp(p.celular)"
-                                                                target="_blank"
-                                                                class="text-success text-decoration-none d-flex align-items-center gap-1 hover-whatsapp"
-                                                                title="Chamar no WhatsApp">
+                                                            <a v-if="p.celular" href="#"
+                                                                @click.prevent="abrirModalWhatsApp(p)"
+                                                                class="text-success text-decoration-none d-flex align-items-center gap-1 hover-whatsapp cursor-pointer"
+                                                                title="Opções do WhatsApp">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="12"
                                                                     height="12" fill="currentColor" viewBox="0 0 16 16">
                                                                     <path
@@ -93,8 +94,7 @@
                                                 </div>
                                             </td>
 
-                                            <!-- PAGAMENTO -->
-                                            <td v-if="excursao.aplicarParcelas" class="py-3 text-center">
+                                            <td v-if="excursao.aplicarParcelas" class="py-3 text-center align-middle">
                                                 <div class="cursor-pointer d-inline-block px-3 py-1 rounded-pill fw-bold border transition-hover"
                                                     :class="obterPagamento(p.id) === 'Pendente' ? 'bg-danger bg-opacity-10 text-danger border-danger border-opacity-25' : 'bg-primary bg-opacity-10 text-brand border-primary border-opacity-25'"
                                                     style="font-size: 0.75rem;"
@@ -104,8 +104,7 @@
                                                 </div>
                                             </td>
 
-                                            <!-- CONTRATO -->
-                                            <td v-if="excursao.liberarContratos" class="text-center">
+                                            <td v-if="excursao.liberarContratos" class="text-center align-middle">
                                                 <template v-if="p.id === excursao.guiaId">
                                                     <span
                                                         class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 rounded-pill px-3 py-1">✔
@@ -126,12 +125,16 @@
                                                 </template>
                                             </td>
 
-                                            <!-- AÇÕES -->
-                                            <td class="pe-4 py-3 text-center">
-                                                <button
-                                                    class="btn btn-sm bg-danger bg-opacity-10 text-danger border-0 rounded-circle action-btn"
-                                                    style="width: 32px; height: 32px;" title="Remover Passageiro"
-                                                    @click="removerUserDaEx(p.id)">✕</button>
+                                            <td class="pe-4 py-3 align-middle text-center">
+                                                <div
+                                                    class="d-flex justify-content-center align-items-center w-100 h-100">
+                                                    <button
+                                                        class="btn btn-sm bg-danger bg-opacity-10 text-danger border-0 rounded-circle action-btn d-flex align-items-center justify-content-center p-0 m-0"
+                                                        style="width: 32px; height: 32px; line-height: 1;"
+                                                        title="Remover Passageiro" @click="removerUserDaEx(p.id)">
+                                                        ✕
+                                                    </button>
+                                                </div>
                                             </td>
                                         </tr>
                                         <tr v-if="excursao.usuarios.length === 0">
@@ -174,7 +177,6 @@
                             <div v-for="(dependentes, liderId) in (excursao.grupos || {})" :key="liderId"
                                 class="p-4 bg-brand-light border border-light rounded-4 shadow-sm mt-3">
 
-                                <!-- LAYOUT CORRIGIDO PARA MOBILE E DESKTOP -->
                                 <div
                                     class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-3 mb-3 border-bottom border-light pb-3">
                                     <div class="fw-bold text-brand fs-6 lh-sm mb-0">
@@ -247,6 +249,38 @@
                 </div>
             </div>
         </div>
+
+        <UiModalConfirm v-if="modalConfirmRemover" title="Remover Passageiro"
+            text="Tem certeza que deseja remover este passageiro da excursão?" @confirm="confirmarRemocao"
+            @cancel="modalConfirmRemover = false" />
+
+        <div v-if="modalWhatsAppAberto" class="modal fade show d-block"
+            style="background: rgba(0,0,0,0.6); z-index: 1080;">
+            <div class="modal-dialog modal-dialog-centered px-3" style="max-width: 400px;">
+                <div class="modal-content shadow-lg border-0 rounded-5 bg-white">
+                    <div
+                        class="modal-header bg-light p-4 border-bottom border-light rounded-top-5 d-flex justify-content-between align-items-center">
+                        <h5 class="modal-title fw-bold fs-5 text-dark m-0">Contato WhatsApp</h5>
+                        <button class="btn-close m-0" @click="modalWhatsAppAberto = false"></button>
+                    </div>
+                    <div class="modal-body p-4 text-center">
+                        <p class="text-muted small fw-semibold mb-4">Como deseja falar com <strong class="text-dark">{{
+                                passageiroWhatsApp?.nome }}</strong>?</p>
+
+                        <div class="d-flex flex-column gap-3">
+                            <button class="btn btn-outline-success fw-bold py-3 rounded-pill shadow-sm"
+                                @click="enviarMensagemNormal">
+                                Mandar Mensagem
+                            </button>
+                            <button class="btn btn-success fw-bold py-3 rounded-pill shadow-soft"
+                                @click="enviarMensagemAssinatura">
+                                Pedir para Assinar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -261,6 +295,10 @@ const { showToast } = useToasts()
 
 const modalGrupos = ref(false)
 const modalAgrupar = ref(false)
+const modalConfirmRemover = ref(false)
+const modalWhatsAppAberto = ref(false)
+const passageiroWhatsApp = ref(null)
+const passageiroParaRemover = ref(null)
 const formGrupo = ref({ liderId: null, dependentes: [], originalLiderId: null })
 const buscaDependente = ref('')
 
@@ -302,6 +340,48 @@ const formatarWhatsApp = (celular) => {
     return `https://wa.me/55${num}`;
 }
 
+const abrirModalWhatsApp = (p) => {
+    passageiroWhatsApp.value = p;
+    modalWhatsAppAberto.value = true;
+}
+
+const enviarMensagemNormal = () => {
+    if (!passageiroWhatsApp.value) return;
+    const link = formatarWhatsApp(passageiroWhatsApp.value.celular);
+    window.open(link, '_blank');
+    modalWhatsAppAberto.value = false;
+}
+
+const enviarMensagemAssinatura = () => {
+    if (!passageiroWhatsApp.value) return;
+    const p = passageiroWhatsApp.value;
+    const primeiroNome = p.nome.split(' ')[0];
+
+    let msg = `Olá, ${primeiroNome}! Tudo bem?\n\n`;
+    msg += `Para você garantir sua vaga na viagem *${props.excursao.nome}*, preciso que você assine o contrato no link abaixo.\n\n`;
+    msg += `O seu plano está com o valor de *${obterPagamento(p.id)}*.\n`;
+
+    const dependentesIds = props.excursao.grupos?.[String(p.id)] || [];
+    if (dependentesIds.length > 0) {
+        msg += `\nComo você tem dependentes, você também deve assinar por eles. Os dependentes são:\n`;
+        dependentesIds.forEach((depId, i) => {
+            const depNome = getNomeUser(depId);
+            const depPag = obterPagamento(depId);
+            msg += `${i + 1}. ${depNome} no valor de *${depPag}*\n`;
+        });
+    }
+
+    const linkSite = "https://painel-grazi-tur.onrender.com/";
+    msg += `\n*Para assinar:*\n`;
+    msg += `Entre no link abaixo, digite o seu CPF e leia o contrato atentamente antes de assinar!\n\n`;
+    msg += `${linkSite}`;
+
+    const num = p.celular.replace(/\D/g, '');
+    const url = `https://wa.me/55${num}?text=${encodeURIComponent(msg)}`;
+    window.open(url, '_blank');
+    modalWhatsAppAberto.value = false;
+}
+
 const getVinculo = (userId) => {
     if (props.excursao.grupos) {
         for (const dependentes of Object.values(props.excursao.grupos)) {
@@ -330,9 +410,15 @@ const obterPagamento = (pId) => { return props.excursao.pagamentos?.[pId] || 'Pe
 
 const getNomeUser = (id) => { const u = props.excursao.usuarios.find(x => String(x.id) === String(id)); return u ? u.nome : 'Desconhecido'; }
 
-const removerUserDaEx = async (userId) => {
+const removerUserDaEx = (userId) => {
+    passageiroParaRemover.value = userId;
+    modalConfirmRemover.value = true;
+}
+
+const confirmarRemocao = async () => {
+    modalConfirmRemover.value = false;
     try {
-        await $fetch('/api/desvincular', { method: 'POST', body: { userId, excursaoId: props.excursao.id } });
+        await $fetch('/api/desvincular', { method: 'POST', body: { userId: passageiroParaRemover.value, excursaoId: props.excursao.id } });
         emit('atualizado');
         showToast('Passageiro Removido!', 'success')
     } catch (e) { showToast('Erro ao remover passageiro!', 'danger') }
@@ -524,5 +610,79 @@ const acaoBaixarListaExcel = () => { exportarListaExcel(props.excursao, showToas
 button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+}
+
+@media (min-width: 992px) {
+    .desktop-compact {
+        max-width: 92vw !important;
+    }
+
+    .desktop-compact .modal-header,
+    .desktop-compact .modal-body,
+    .desktop-compact .modal-footer {
+        padding: 1.25rem 1.5rem !important;
+    }
+
+    .desktop-compact .modal-title {
+        font-size: 1.2rem !important;
+    }
+
+    .desktop-compact .card-ocupacao-wrapper {
+        padding: 1rem 1.25rem !important;
+    }
+
+    .desktop-compact .card-ocupacao-wrapper h6 {
+        margin-bottom: 0.5rem !important;
+        font-size: 0.75rem !important;
+    }
+
+    .desktop-compact .row.g-4.mb-4 {
+        margin-bottom: 1rem !important;
+    }
+
+    .desktop-compact .scrollable-table-container {
+        max-height: 68vh !important;
+    }
+
+    .desktop-compact .table th,
+    .desktop-compact .table td {
+        padding: 0.4rem 1rem !important;
+    }
+
+    .desktop-compact .table th {
+        font-size: 0.75rem !important;
+    }
+
+    .desktop-compact .passageiro-nome {
+        font-size: 0.85rem !important;
+    }
+
+    .desktop-compact .text-muted.small {
+        font-size: 0.75rem !important;
+    }
+
+    .desktop-compact .btn {
+        font-size: 0.8rem !important;
+        padding: 0.4rem 1rem !important;
+    }
+
+    .desktop-compact .btn-sm {
+        padding: 0.25rem 0.5rem !important;
+    }
+
+    .desktop-compact .action-btn {
+        width: 28px !important;
+        height: 28px !important;
+        font-size: 0.8rem !important;
+        padding: 0 !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .desktop-compact .alert {
+        padding: 0.75rem 1rem !important;
+        margin-bottom: 1rem !important;
+    }
 }
 </style>
