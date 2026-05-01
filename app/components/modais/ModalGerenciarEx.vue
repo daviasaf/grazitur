@@ -373,7 +373,7 @@ const enviarMensagemAssinatura = () => {
 
     const linkSite = "https://painel-grazi-tur.onrender.com/";
     msg += `\n*Para assinar:*\n`;
-    msg += `Entre no link abaixo, digite o seu CPF e leia o contrato atentamente antes de assinar!\n\n`;
+    msg += `Entre no link abaixo, clique em *Acessar Minha Viagem*, digite o seu CPF e leia o contrato atentamente antes de assinar!\n\n`;
     msg += `${linkSite}`;
 
     const num = p.celular.replace(/\D/g, '');
